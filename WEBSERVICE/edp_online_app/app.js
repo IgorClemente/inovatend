@@ -49,6 +49,10 @@ var connectionPool = mysql.createPool({
     connectionLimit: 5
 });
 
+app.get('/teste/raiz', function(req,res,next) {
+    console.log("Console Log ENDPOINT OK!")
+})
+
 app.get('/users/:cpf',function(req,res,next) {
     connectionPool.getConnection(function (err, connection) {
         connection.query('SELECT * FROM users WHERE ? ;' +
@@ -162,5 +166,5 @@ app.use(function(req, res, next) {
 var appEnv = cfenv.getAppEnv();
 
 app.listen(appEnv.port, appEnv.bind, function() {
-    console.log("server starting on " + appEnv.url);
+    console.log("server starting on" + appEnv.url);
 });
