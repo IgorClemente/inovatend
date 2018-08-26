@@ -11,9 +11,25 @@ var pool = mysql.createPool({
 
 router.get('/', function(req, res, next) {
     pool.getConnection(function(error, connection) {
+        if (error) {
+            next(error);
+            return;
+        }
+
         connection.query('SELECT * FROM PSA_TESTE;', function(error, results, fields) {
-            console.log(results)
+            if (error) {
+                next(error);
+                return;
+            }
+
+            var jsonResponse = {
+                resultado : results[0]
+            };
+
+            res.writeHead(200,{'Content-Type' : 'text/json'});
+            res.json(jsonResponse);
         });
+        connection.release();
     });
 });
 
