@@ -3,16 +3,15 @@ var router = express.Router();
 var mysql = require('mysql');
 
 var pool = mysql.createPool({
-    host: 'ec2-34-236-153-149.compute-1.amazonaws.com',
-    username: 'PSA',
+    host: 'ec2-54-226-252-214.compute-1.amazonaws.com',
+    user: 'EXTERNO',
     password: 'Challenge129@',
-    database: 'mysql',
-    port: 3306
+    database: 'PSA'
 });
 
 router.get('/', function(req, res, next) {
     pool.getConnection(function(error, connection) {
-        connection.query('SELECT * FROM BASE_TESTE;', function(error, results, fields) {
+        connection.query('SELECT * FROM PSA_TESTE;', function(error, results, fields) {
             console.log(results)
         });
     });
