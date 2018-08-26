@@ -165,6 +165,6 @@ app.use(function(req, res, next) {
 
 var appEnv = cfenv.getAppEnv();
 
-app.listen(appEnv.port, appEnv.bind, function() {
-    console.log("server starting on" + appEnv.url);
+app.listen(8080, function() {
+    console.log("server starting on" + 8080);
 });
