@@ -30,4 +30,36 @@ router.get('/', function(req, res, next) {
     });
 });
 
+router.get('/create', function(req, res, next) {
+    pool.getConnection(function(error, connection) {
+       if (error) {
+           res.json({
+               'success' : false,
+               'errorMessage' : error
+           });
+           return;
+       }
+
+       const questionText = req.body.questionText | " ";
+       const questionResponseIdentifier = req.body.questionResponseID | " ";
+
+       connection.query('INSERT INTO QUESTIONS(QUESTION_TEXT,QUESTION_RESPONSE_ID) VALUES (?,?);',
+                       [questionText, questionResponseIdentifier], function(error, results, fields) {
+            if (error) {
+                res.json({
+                    'success' : false,
+                    'errorMessage' : error
+                });
+                return;
+            }
+
+            var jsonRespose = {
+                'success' : true,
+                'successMessage' : 'Pergunta cadastrada com sucesso!'
+            };
+            res.json();
+       });
+    });
+});
+
 module.exports = router;
