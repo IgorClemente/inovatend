@@ -15,18 +15,15 @@ router.get('/', function(req, res, next) {
             next(error);
             return;
         }
-
-        connection.query('SELECT * FROM PSA_TESTE;', function(error, results, fields) {
+        connection.query('SELECT * FROM QUESTIONS;', function(error, results, fields) {
             if (error) {
                 next(error);
                 return;
             }
 
             var jsonResponse = {
-                resultado : results[0]
+                'resultado' : results[0]
             };
-
-            res.writeHead(200,{'Content-Type' : 'text/json'});
             res.json(jsonResponse);
         });
         connection.release();
