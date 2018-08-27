@@ -30,7 +30,7 @@ router.get('/', function(req, res, next) {
     });
 });
 
-router.get('/create', function(req, res, next) {
+router.post('/create', function(req, res, next) {
     pool.getConnection(function(error, connection) {
        if (error) {
            res.json({
