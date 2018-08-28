@@ -6,23 +6,32 @@ var pool = mysql.createPool({
     host: 'localhost',
     user: 'EXTERNO',
     password: 'Challenge129@',
-    database: 'PSA'
+    database: 'PSA',
+    connectTimeout: 10000
 });
 
 router.get('/', function(req, res, next) {
     pool.getConnection(function(error, connection) {
         if (error) {
-            next(error);
+            res.json({
+                'success' : false,
+                'errorMessage' : error
+            });
+            connection.destroy();
             return;
         }
-        connection.query('SELECT * FROM QUESTIONS;', function(error, results, fields) {
+        connection.query({sql: 'SELECT * FROM QUESTIONS;', timeout: 60000}, function(error, results, fields) {
             if (error) {
-                next(error);
+                res.json({
+                    'success' : false,
+                    'errorMessage' : error
+                });
+                connection.destroy();
                 return;
             }
-		
             var jsonResponse = {
-                'resultado' : results[0]
+                'success' : true,
+                'questions' : results[0]
             };
             res.json(jsonResponse);
         });
@@ -37,6 +46,7 @@ router.post('/create', function(req, res, next) {
                'success' : false,
                'errorMessage' : error
            });
+           connection.destroy();
            return;
        }
 
@@ -50,15 +60,16 @@ router.post('/create', function(req, res, next) {
                     'success' : false,
                     'errorMessage' : error
                 });
+                connection.destroy();
                 return;
             }
-
             var jsonResponse = {
                 'success' : true,
                 'successMessage' : 'Pergunta cadastrada com sucesso!'
             };
             res.json(jsonResponse);
        });
+       connection.release();
     });
 });
 
