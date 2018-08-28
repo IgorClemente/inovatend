@@ -51,10 +51,10 @@ router.post('/create', function(req, res, next) {
        }
 
        const questionText = req.body.questionText;
-       const questionResponseIdentifier = req.body.questionResponseID;
-        	
-       connection.query('INSERT INTO QUESTIONS SET ?;',
-                       {'QUESTION_TEXT' : questionText,'QUESTION_RESPONSE_ID' : questionResponseIdentifier }, function(error, results, fields) {
+       const questionResponseText = req.body.questionResponseID;
+
+       connection.query('INSERT INTO QUESTIONS_RESPONSE SET ?;',
+                        {'RESPONSE_TEXT' : questionResponseText}, function(error,results,fields) {
             if (error) {
                 res.json({
                     'success' : false,
@@ -63,11 +63,27 @@ router.post('/create', function(req, res, next) {
                 connection.destroy();
                 return;
             }
-            var jsonResponse = {
-                'success' : true,
-                'successMessage' : 'Pergunta cadastrada com sucesso!'
+
+            const questionResponseID = results.insertId;
+            var questionParameters = {
+                'QUESTION_TEXT' : questionText,
+                'QUESTION_RESPONSE_ID' : questionResponseID
             };
-            res.json(jsonResponse);
+
+            connection.query('INSERT INTO QUESTIONS SET ?;', questionParameters, function(error,results,fields) {
+                if (error) {
+                    res.json({
+                        'success' : false,
+                        'errorMessage' : error
+                    });
+                }
+
+                var jsonResponse = {
+                    'success' : true,
+                    'successMessage' : 'Pergunta cadastrada com sucesso!'
+                };
+                res.json(jsonResponse);
+            });
        });
        connection.release();
     });
