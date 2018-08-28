@@ -3,7 +3,7 @@ var router = express.Router();
 var mysql = require('mysql');
 
 var pool = mysql.createPool({
-    host: 'ec2-54-226-252-214.compute-1.amazonaws.com',
+    host: 'localhost',
     user: 'EXTERNO',
     password: 'Challenge129@',
     database: 'PSA'
@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
                 next(error);
                 return;
             }
-
+		
             var jsonResponse = {
                 'resultado' : results[0]
             };
@@ -40,11 +40,11 @@ router.post('/create', function(req, res, next) {
            return;
        }
 
-       const questionText = req.body.questionText | " ";
-       const questionResponseIdentifier = req.body.questionResponseID | " ";
-
-       connection.query('INSERT INTO QUESTIONS(QUESTION_TEXT,QUESTION_RESPONSE_ID) VALUES (?,?);',
-                       [questionText, questionResponseIdentifier], function(error, results, fields) {
+       const questionText = req.body.questionText;
+       const questionResponseIdentifier = req.body.questionResponseID;
+        	
+       connection.query('INSERT INTO QUESTIONS SET ?;',
+                       {'QUESTION_TEXT' : questionText,'QUESTION_RESPONSE_ID' : questionResponseIdentifier }, function(error, results, fields) {
             if (error) {
                 res.json({
                     'success' : false,
@@ -53,11 +53,11 @@ router.post('/create', function(req, res, next) {
                 return;
             }
 
-            var jsonRespose = {
+            var jsonResponse = {
                 'success' : true,
                 'successMessage' : 'Pergunta cadastrada com sucesso!'
             };
-            res.json();
+            res.json(jsonResponse);
        });
     });
 });
