@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
             connection.destroy();
             return;
         }
-        connection.query({sql: 'SELECT * FROM QUESTIONS;', timeout: 60000}, function(error, results, fields) {
+        connection.query({sql: 'SELECT * FROM QUESTIONS_TABLE;', timeout: 60000}, function(error, results, fields) {
             if (error) {
                 res.json({
                     'success' : false,
@@ -53,7 +53,15 @@ router.post('/create', function(req, res, next) {
        const questionText = req.body.questionText;
        const questionResponseText = req.body.questionResponseID;
 
-       connection.query('INSERT INTO QUESTIONS_RESPONSE SET ?;',
+       const alternativeQuestion01 = req.body.alternativeQuestion01;
+       const alternativeQuestion02 = req.body.alternativeQuestion02;
+       const alternativeQuestion03 = req.body.alternativeQuestion03;
+       const alternativeQuestion04 = req.body.alternativeQuestion04;
+
+       var alternativesQuestions = [alternativeQuestion01,alternativeQuestion02,
+                                    alternativeQuestion03,alternativeQuestion04];
+
+       connection.query('INSERT INTO QUESTIONS_RESPONSE_TABLE SET ?;',
                         {'RESPONSE_TEXT' : questionResponseText}, function(error,results,fields) {
             if (error) {
                 res.json({
@@ -70,13 +78,26 @@ router.post('/create', function(req, res, next) {
                 'QUESTION_RESPONSE_ID' : questionResponseID
             };
 
-            connection.query('INSERT INTO QUESTIONS SET ?;', questionParameters, function(error,results,fields) {
+            connection.query('INSERT INTO QUESTIONS_TABLE SET ?;',questionParameters, function(error,results,fields) {
                 if (error) {
                     res.json({
                         'success' : false,
                         'errorMessage' : error
                     });
                 }
+
+                alternativesQuestions.forEach(function(value,_) {
+                    connection.query('INSERT INTO ALTERNATIVES_QUESTIONS_TABLE SET ?;',
+                                    {'ALTERNATIVE_QUESTION_NAME' : value, 'QUESTION_ID' : results.insertId},
+                                    function(error,_,_) {
+                        if (error) {
+                            res.json({
+                                'success' : false,
+                                'errorMessage' : error
+                            });
+                        }
+                    });
+                });
 
                 var jsonResponse = {
                     'success' : true,
