@@ -56,10 +56,10 @@ router.post('/create', function(req, res, next) {
        const questionText = req.body.questionText;
        const questionResponseText = req.body.questionResponseID;
 
-       const alternativeQuestion01 = req.body.alternativeQuestion01;
-       const alternativeQuestion02 = req.body.alternativeQuestion02;
-       const alternativeQuestion03 = req.body.alternativeQuestion03;
-       const alternativeQuestion04 = req.body.alternativeQuestion04;
+       const alternativeQuestion01 = req.body.alternativeQuestion01 | "";
+       const alternativeQuestion02 = req.body.alternativeQuestion02 | "";
+       const alternativeQuestion03 = req.body.alternativeQuestion03 | "";
+       const alternativeQuestion04 = req.body.alternativeQuestion04 | "";
 
        var alternativesQuestions = [alternativeQuestion01,alternativeQuestion02,alternativeQuestion03,alternativeQuestion04];
        console.log(alternativesQuestions);
