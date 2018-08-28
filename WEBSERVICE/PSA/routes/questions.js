@@ -62,7 +62,7 @@ router.post('/create', function(req, res, next) {
        const alternativeQuestion04 = req.body.alternativeQuestion04;
 
        var alternativesQuestions = [alternativeQuestion01,alternativeQuestion02,alternativeQuestion03,alternativeQuestion04];
-
+       console.log(alternativesQuestions);
        connection.query('INSERT INTO QUESTIONS_RESPONSE_TABLE SET ?;', {'RESPONSE_TEXT':questionResponseText}, function(error,results,fields) {
             if (error) {
                 res.json({
