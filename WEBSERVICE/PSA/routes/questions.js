@@ -87,11 +87,9 @@ router.post('/create', function(req, res, next) {
                         'errorMessage' : error
                     });
                 }
-
                 alternativesQuestions.forEach(function(value,_) {
                     connection.query('INSERT INTO ALTERNATIVES_QUESTIONS_TABLE SET ?;',
-                                    {'ALTERNATIVE_QUESTION_NAME' : value, 'QUESTION_ID' : results.insertId},
-                                    function(error,_,_) {
+                                    {'ALTERNATIVE_QUESTION_NAME':value, 'QUESTION_ID':results.insertId}, function(error,_,_) {
                         if (error) {
                             res.json({
                                 'success' : false,
