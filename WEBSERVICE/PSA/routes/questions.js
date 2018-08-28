@@ -31,7 +31,7 @@ router.get('/', function(req, res, next) {
             }
             var jsonResponse = {
                 'success' : true,
-                'questions' : results[0]
+                'questions' : results
             };
             res.json(jsonResponse);
         });
