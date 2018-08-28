@@ -20,6 +20,7 @@ router.get('/', function(req, res, next) {
             connection.destroy();
             return;
         }
+
         connection.query({sql: 'SELECT * FROM QUESTIONS_TABLE;', timeout: 60000}, function(error, results, fields) {
             if (error) {
                 res.json({
@@ -29,10 +30,12 @@ router.get('/', function(req, res, next) {
                 connection.destroy();
                 return;
             }
+
             var jsonResponse = {
                 'success' : true,
                 'questions' : results
             };
+
             res.json(jsonResponse);
         });
         connection.release();
@@ -60,8 +63,7 @@ router.post('/create', function(req, res, next) {
 
        var alternativesQuestions = [alternativeQuestion01,alternativeQuestion02,alternativeQuestion03,alternativeQuestion04];
 
-       connection.query('INSERT INTO QUESTIONS_RESPONSE_TABLE SET ?;',
-                        {'RESPONSE_TEXT' : questionResponseText}, function(error,results,fields) {
+       connection.query('INSERT INTO QUESTIONS_RESPONSE_TABLE SET ?;', {'RESPONSE_TEXT':questionResponseText}, function(error,results,fields) {
             if (error) {
                 res.json({
                     'success' : false,
@@ -72,6 +74,7 @@ router.post('/create', function(req, res, next) {
             }
 
             const questionResponseID = results.insertId;
+
             var questionParameters = {
                 'QUESTION_TEXT' : questionText,
                 'QUESTION_RESPONSE_ID' : questionResponseID
@@ -84,6 +87,7 @@ router.post('/create', function(req, res, next) {
                         'errorMessage' : error
                     });
                 }
+
                 alternativesQuestions.forEach(function(value,_) {
                     connection.query('INSERT INTO ALTERNATIVES_QUESTIONS_TABLE SET ?;',
                                     {'ALTERNATIVE_QUESTION_NAME' : value, 'QUESTION_ID' : results.insertId},
@@ -101,6 +105,7 @@ router.post('/create', function(req, res, next) {
                     'success' : true,
                     'successMessage' : 'Pergunta cadastrada com sucesso!'
                 };
+
                 res.json(jsonResponse);
             });
        });
