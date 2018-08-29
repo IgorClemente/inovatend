@@ -42,7 +42,7 @@ router.get('/', function(req, res, next) {
 
             var jsonResponse = {
                 'success' : true,
-                'questions' : results
+                'questions' : results[0]
             };
 
             res.json(jsonResponse);
@@ -93,7 +93,7 @@ router.post('/create', function(req, res, next) {
                 if (error) {
                     res.json({
                         'success' : false,
-                        'errorMessage' : errotr
+                        'errorMessage' : error
                     });
                 }
 
