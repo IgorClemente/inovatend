@@ -21,7 +21,11 @@ router.get('/', function(req, res, next) {
             return;
         }
 
-        connection.query({sql: 'SELECT * FROM QUESTIONS_TABLE;', timeout: 60000}, function(error, results, fields) {
+        var queryStatement = "SELECT QUESTION_TEXT \"PERGUNTA\" , QUESTIONS_RESPONSE_TABLE.RESPONSE_TEXT \"RESPOSTA\"\n" +
+            "FROM QUESTIONS_TABLE  JOIN QUESTIONS_RESPONSE_TABLE \n" +
+            "ON QUESTIONS_TABLE.QUESTION_RESPONSE_ID = QUESTIONS_RESPONSE_TABLE.RESPONSE_ID;" ;
+
+        connection.query({sql: queryStatement, timeout: 60000}, function(error, results, fields) {
             if (error) {
                 res.json({
                     'success' : false,
@@ -63,7 +67,7 @@ router.post('/create', function(req, res, next) {
 
        var alternativesQuestions = [alternativeQuestion01,alternativeQuestion02,alternativeQuestion03,alternativeQuestion04];
        console.log(alternativesQuestions);
-       connection.query('INSERT INTO QUESTIONS_RESPONSE_TABLE SET ?;', {'RESPONSE_TEXT':questionResponseText}, function(error,results,fields) {
+       connection.query('INSERT INTO QUESTIONS_RESPONSE_TABLE SET ?;',{'RESPONSE_TEXT':questionResponseText}, function(error,results,fields) {
             if (error) {
                 res.json({
                     'success' : false,
@@ -84,9 +88,10 @@ router.post('/create', function(req, res, next) {
                 if (error) {
                     res.json({
                         'success' : false,
-                        'errorMessage' : error
+                        'errorMessage' : errotr
                     });
                 }
+
                 alternativesQuestions.forEach(function(value,_) {
                     connection.query('INSERT INTO ALTERNATIVES_QUESTIONS_TABLE SET ?;',
                                     {'ALTERNATIVE_QUESTION_NAME':value, 'QUESTION_ID':results.insertId}, function(error,_,_) {
