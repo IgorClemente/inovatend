@@ -30,7 +30,7 @@ router.get('/', function(req, res, next) {
             "FROM ALTERNATIVES_QUESTIONS_TABLE JOIN QUESTIONS_TABLE\n" +
             "ON ALTERNATIVES_QUESTIONS_TABLE.QUESTION_ID = QUESTIONS_TABLE.QUESTION_ID;";
 
-        connection.query({sql: queryStatement + ";" + alternativesQuestionsQueryStatement, timeout: 60000}, function(error, results, fields) {
+        connection.query({sql: queryStatement + alternativesQuestionsQueryStatement, timeout: 60000}, function(error, results, fields) {
             if (error) {
                 res.json({
                     'success' : false,
