@@ -7,7 +7,8 @@ var pool = mysql.createPool({
     user: 'EXTERNO',
     password: 'Challenge129@',
     database: 'PSA',
-    connectTimeout: 10000
+    connectTimeout: 10000,
+    multipleStatements: true
 });
 
 router.get('/', function(req, res, next) {
@@ -21,11 +22,15 @@ router.get('/', function(req, res, next) {
             return;
         }
 
-        var queryStatement = "SELECT QUESTION_TEXT \"PERGUNTA\" , QUESTIONS_RESPONSE_TABLE.RESPONSE_TEXT \"RESPOSTA\"\n" +
+        const queryStatement = "SELECT QUESTION_TEXT \"pergunta\" , QUESTIONS_RESPONSE_TABLE.RESPONSE_TEXT \"resposta\"\n" +
             "FROM QUESTIONS_TABLE  JOIN QUESTIONS_RESPONSE_TABLE \n" +
             "ON QUESTIONS_TABLE.QUESTION_RESPONSE_ID = QUESTIONS_RESPONSE_TABLE.RESPONSE_ID;" ;
 
-        connection.query({sql: queryStatement, timeout: 60000}, function(error, results, fields) {
+        const alternativesQuestionsQueryStatement = "SELECT QUESTIONS_TABLE.QUESTION_ID, ALTERNATIVE_QUESTION_NAME\n" +
+            "FROM ALTERNATIVES_QUESTIONS_TABLE JOIN QUESTIONS_TABLE\n" +
+            "ON ALTERNATIVES_QUESTIONS_TABLE.QUESTION_ID = QUESTIONS_TABLE.QUESTION_ID;";
+
+        connection.query({sql: queryStatement + ";" + alternativesQuestionsQueryStatement, timeout: 60000}, function(error, results, fields) {
             if (error) {
                 res.json({
                     'success' : false,
