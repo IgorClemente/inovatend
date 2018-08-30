@@ -22,7 +22,7 @@ router.get('/', function(req, res, next) {
             return;
         }
 
-        const queryStatement = "SELECT QUESTION_TEXT \"pergunta\" , QUESTIONS_RESPONSE_TABLE.RESPONSE_TEXT \"resposta\"\n" +
+        const queryStatement = "SELECT QUESTION_ID \"identifier\",QUESTION_TEXT \"pergunta\", QUESTIONS_RESPONSE_TABLE.RESPONSE_TEXT \"resposta\"\n" +
             "FROM QUESTIONS_TABLE  JOIN QUESTIONS_RESPONSE_TABLE \n" +
             "ON QUESTIONS_TABLE.QUESTION_RESPONSE_ID = QUESTIONS_RESPONSE_TABLE.RESPONSE_ID;" ;
 
@@ -30,7 +30,8 @@ router.get('/', function(req, res, next) {
             "FROM ALTERNATIVES_QUESTIONS_TABLE JOIN QUESTIONS_TABLE\n" +
             "ON ALTERNATIVES_QUESTIONS_TABLE.QUESTION_ID = QUESTIONS_TABLE.QUESTION_ID;";
 
-        connection.query({sql: queryStatement + alternativesQuestionsQueryStatement, timeout: 60000}, function(error, results, fields) {
+        connection.query({sql: (queryStatement + alternativesQuestionsQueryStatement),
+                          timeout: 60000}, function(error, results, fields) {
             if (error) {
                 res.json({
                     'success' : false,
@@ -39,6 +40,15 @@ router.get('/', function(req, res, next) {
                 connection.destroy();
                 return;
             }
+
+            var alternativesQuestionResponse = {};
+            var alternativesQuestionControl = 0;
+            results[0].forEach(function(question,index) {
+                if (question["identifier"] == alternativesQuestionControl) {
+                    alternativesQuestionControl = question["identifier"];
+                }
+                alternativesQuestionResponse.append()
+            });
 
             var jsonResponse = {
                 'success' : true,
@@ -71,7 +81,7 @@ router.post('/create', function(req, res, next) {
        const alternativeQuestion04 = req.body.alternativeQuestion04 || "";
 
        var alternativesQuestions = [alternativeQuestion01,alternativeQuestion02,alternativeQuestion03,alternativeQuestion04];
-       console.log(alternativesQuestions);
+
        connection.query('INSERT INTO QUESTIONS_RESPONSE_TABLE SET ?;',{'RESPONSE_TEXT':questionResponseText}, function(error,results,fields) {
             if (error) {
                 res.json({
@@ -84,12 +94,12 @@ router.post('/create', function(req, res, next) {
 
             const questionResponseID = results.insertId;
 
-            var questionParameters = {
+            var questionParametersStatement = {
                 'QUESTION_TEXT' : questionText,
                 'QUESTION_RESPONSE_ID' : questionResponseID
             };
 
-            connection.query('INSERT INTO QUESTIONS_TABLE SET ?;',questionParameters, function(error,results,fields) {
+            connection.query('INSERT INTO QUESTIONS_TABLE SET ?;',questionParametersStatement, function(error,results,fields) {
                 if (error) {
                     res.json({
                         'success' : false,
