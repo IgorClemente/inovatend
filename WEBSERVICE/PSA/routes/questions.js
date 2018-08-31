@@ -48,8 +48,10 @@ router.get('/', function(req, res, next) {
                 if (!(question["identifier"] == alternativesQuestionControl)) {
                     alternativesQuestionControl = question["identifier"];
                 }
-                const alternativeQuestionResponseObject = {'identifier':question["identifier"],
-                                                           'alternative_question':question["alternative_question"]};
+
+                const alternativeQuestionResponse = results[1];
+                const alternativeQuestionResponseObject = {'identifier':alternativeQuestionResponse["identifier"],
+                                                           'alternative_question':alternativeQuestionResponse["alternative_question"]};
                 console.log(alternativeQuestionResponseObject);
                 //alternativesQuestionResponseArray.append(alternativeQuestionResponseObject);
             });
