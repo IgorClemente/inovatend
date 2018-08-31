@@ -45,7 +45,7 @@ router.get('/', function(req, res, next) {
             var alternativesQuestionControl = 0;
 
             results[0].forEach(function(question,index) {
-                if (question["identifier"] == alternativesQuestionControl) {
+                if (!(question["identifier"] == alternativesQuestionControl)) {
                     alternativesQuestionControl = question["identifier"];
                 }
                 alternativesQuestionResponse.append()
@@ -53,7 +53,7 @@ router.get('/', function(req, res, next) {
 
             var jsonResponse = {
                 'success' : true,
-                'questions' : results[0]
+                'questions' : results
             };
 
             res.json(jsonResponse);
@@ -107,7 +107,6 @@ router.post('/create', function(req, res, next) {
                         'errorMessage' : error
                     });
                 }
-
                 alternativesQuestions.forEach(function(value,_) {
                     connection.query('INSERT INTO ALTERNATIVES_QUESTIONS_TABLE SET ?;',
                                     {'ALTERNATIVE_QUESTION_NAME':value, 'QUESTION_ID':results.insertId}, function(error,_,_) {
@@ -124,7 +123,6 @@ router.post('/create', function(req, res, next) {
                     'success' : true,
                     'successMessage' : 'Pergunta cadastrada com sucesso!'
                 };
-
                 res.json(jsonResponse);
             });
        });
