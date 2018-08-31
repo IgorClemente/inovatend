@@ -41,17 +41,19 @@ router.get('/', function(req, res, next) {
                 return;
             }
 
-            var alternativesQuestionResponse = {};
+            var alternativesQuestionResponseArray = [];
             var alternativesQuestionControl = 0;
 
             results[0].forEach(function(question,index) {
                 if (!(question["identifier"] == alternativesQuestionControl)) {
                     alternativesQuestionControl = question["identifier"];
                 }
-                alternativesQuestionResponse["identifier"] = "";
+                const alternativeQuestionResponseObject = {'identifier' : question["identifier"],
+                                                           'alternative_question' : question["alternative_question"]};
+                alternativesQuestionResponseArray.append(alternativeQuestionResponseObject);
             });
 
-            console.log(alternativesQuestionResponse);
+            console.log(alternativesQuestionResponseArray);
 
             var jsonResponse = {
                 'success' : true,
