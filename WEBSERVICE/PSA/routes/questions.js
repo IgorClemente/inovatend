@@ -22,7 +22,7 @@ router.get('/', function(req, res, next) {
             return;
         }
 
-        const queryStatement = "SELECT QUESTION_ID \"identifier\",QUESTION_TEXT \"pergunta\", QUESTIONS_RESPONSE_TABLE.RESPONSE_TEXT \"resposta\"\n" +
+        const queryStatement = "SELECT QUESTION_ID \"identifier\",QUESTION_TEXT \"question\", QUESTIONS_RESPONSE_TABLE.RESPONSE_TEXT \"question_response\"\n" +
             "FROM QUESTIONS_TABLE  JOIN QUESTIONS_RESPONSE_TABLE \n" +
             "ON QUESTIONS_TABLE.QUESTION_RESPONSE_ID = QUESTIONS_RESPONSE_TABLE.RESPONSE_ID;" ;
 
@@ -48,6 +48,7 @@ router.get('/', function(req, res, next) {
             results[0].forEach(function(question,index) {
                 if (!(question['identifier'] == alternativesQuestionControl)) {
                     alternativesQuestionControl = question['identifier'];
+                    return;
                 }
 
                 results[1].forEach(function(response,index) {
