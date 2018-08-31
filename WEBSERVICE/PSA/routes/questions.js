@@ -43,11 +43,11 @@ router.get('/', function(req, res, next) {
 
             var alternativesQuestionResponseArray = [];
             var alternativesQuestionControl = 0;
-            var alternativeQuestionResponse = results[1];
 
             results[0].forEach(function(question,index) {
-                if (question['identifier'] == alternativesQuestionControl) {
+                if (question['identifier'] != alternativesQuestionControl) {
                     alternativesQuestionControl = question['identifier'];
+                    console.log("LOG", alternativesQuestionControl);
                     return;
                 }
 
