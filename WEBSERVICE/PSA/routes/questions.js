@@ -26,7 +26,7 @@ router.get('/', function(req, res, next) {
             "FROM QUESTIONS_TABLE  JOIN QUESTIONS_RESPONSE_TABLE \n" +
             "ON QUESTIONS_TABLE.QUESTION_RESPONSE_ID = QUESTIONS_RESPONSE_TABLE.RESPONSE_ID;" ;
 
-        const alternativesQuestionsQueryStatement = "SELECT QUESTIONS_TABLE.QUESTION_ID, ALTERNATIVE_QUESTION_NAME\n" +
+        const alternativesQuestionsQueryStatement = "SELECT QUESTIONS_TABLE.QUESTION_ID \"identifier\", ALTERNATIVE_QUESTION_NAME \"alternative_question\"\n"+
             "FROM ALTERNATIVES_QUESTIONS_TABLE JOIN QUESTIONS_TABLE\n" +
             "ON ALTERNATIVES_QUESTIONS_TABLE.QUESTION_ID = QUESTIONS_TABLE.QUESTION_ID;";
 
@@ -48,8 +48,8 @@ router.get('/', function(req, res, next) {
                 if (!(question["identifier"] == alternativesQuestionControl)) {
                     alternativesQuestionControl = question["identifier"];
                 }
-                const alternativeQuestionResponseObject = {'identifier' : question["identifier"],
-                                                           'alternative_question' : question["alternative_question"]};
+                const alternativeQuestionResponseObject = {'identifier':question["identifier"],
+                                                           'alternative_question':question["alternative_question"]};
                 alternativesQuestionResponseArray.append(alternativeQuestionResponseObject);
             });
 
