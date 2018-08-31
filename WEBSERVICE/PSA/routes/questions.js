@@ -46,7 +46,7 @@ router.get('/', function(req, res, next) {
             var alternativeQuestionResponse = results[1];
 
             results[0].forEach(function(question,index) {
-                if (!(question['identifier'] == alternativesQuestionControl)) {
+                if (question['identifier'] == alternativesQuestionControl) {
                     alternativesQuestionControl = question['identifier'];
                     return;
                 }
@@ -64,7 +64,7 @@ router.get('/', function(req, res, next) {
 
             var jsonResponse = {
                 'success' : true,
-                'questions' : results
+                'questions' : results[0]
             };
 
             res.json(jsonResponse);
