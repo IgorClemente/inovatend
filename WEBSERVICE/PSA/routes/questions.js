@@ -46,16 +46,16 @@ router.get('/', function(req, res, next) {
             var alternativeQuestionResponse = results[1];
 
             results[0].forEach(function(question,index) {
-                if (!(question["identifier"] == alternativesQuestionControl)) {
-                    alternativesQuestionControl = question["identifier"];
+                if (!(question['identifier'] == alternativesQuestionControl)) {
+                    alternativesQuestionControl = question['identifier'];
                 }
 
                 results[1].forEach(function(response,index) {
                     const alternativeQuestionResponseObject = {'identifier' : response['identifier'],
                                                                'alternative_question' : response['alternative_question']};
-                    console.log(alternativeQuestionResponseObject);
+                    alternativesQuestionResponseArray.push(alternativeQuestionResponseObject);
                 });
-
+                console.log(alternativesQuestionResponseArray);
                 //alternativesQuestionResponseArray.append(alternativeQuestionResponseObject);
             });
 
