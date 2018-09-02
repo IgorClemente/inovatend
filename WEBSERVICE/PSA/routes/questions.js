@@ -46,6 +46,8 @@ router.get('/', function(req, res, next) {
 
             results[0].forEach(function(question,index) {
                 results[1].forEach(function(response,index) {
+                    alternativesQuestionControl = response['identifier'];
+
                     if (response['identifier'] == alternativesQuestionControl) {
                         const alternativeQuestionResponseObject = {'identifier' : response['identifier'],
                                                                    'alternative_question' : response['alternative_question']};
