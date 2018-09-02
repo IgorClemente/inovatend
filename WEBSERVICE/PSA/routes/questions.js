@@ -100,7 +100,7 @@ router.post('/create', function(req, res, next) {
        const questionText = req.body.questionText;
        const questionResponseText = req.body.questionResponseText;
 
-       if (req.body.alternativeQuestion01 === "") {
+       if (req.body.alternativeQuestion01 == " ") {
            res.json({
                'success':false,
                'errorMessage':'Informar o parametro referente ao texto da resposta 01, parametro: \'alternativeQuestion01\''
@@ -108,7 +108,7 @@ router.post('/create', function(req, res, next) {
            return;
        }
 
-       if (req.body.alternativeQuestion02 === "") {
+       if (req.body.alternativeQuestion02 == " ") {
            res.json({
                'success':false,
                'errorMessage':'Informar o parametro referente ao texto da resposta 02, parametro: \'alternativeQuestion02\''
@@ -116,7 +116,7 @@ router.post('/create', function(req, res, next) {
            return;
        }
 
-       if (req.body.alternativeQuestion03 === "") {
+       if (req.body.alternativeQuestion03 == " ") {
            res.json({
                'success':false,
                'errorMessage':'Informar o parametro referente ao texto da resposta 03, parametro: \'alternativeQuestion03\''
@@ -124,7 +124,7 @@ router.post('/create', function(req, res, next) {
            return;
        }
 
-       if (req.body.alternativeQuestion04 === "") {
+       if (req.body.alternativeQuestion04 == " ") {
            res.json({
                'success':false,
                'errorMessage':'Informar o parametro referente ao texto da resposta 04, parametro: \'alternativeQuestion04\''
