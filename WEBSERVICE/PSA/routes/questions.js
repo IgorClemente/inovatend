@@ -42,20 +42,22 @@ router.get('/', function(req, res, next) {
             }
 
             var alternativesQuestionResponseArray = [];
-            var alternativesQuestionControl = 0;
 
             results[0].forEach(function(question,index) {
-                results[1].forEach(function(response,index) {
-                    if (response['identifier'] == alternativesQuestionControl) {
-                        const alternativeQuestionResponseObject = {'identifier' : response['identifier'],
-                                                                   'alternative_question' : response['alternative_question']};
-                        alternativesQuestionResponseArray.push(alternativeQuestionResponseObject);
-                    } else {
-                        alternativesQuestionControl = response['identifier'];
-                        question['alternatives'] = alternativesQuestionResponseArray;
-                        alternativesQuestionResponseArray = [];
-                    }
+                var alternativeQuestions = results[1].filter(function(element, index, array) {
+                    return element['identifier'] === question['identifier'];
                 });
+
+                alternativeQuestions.forEach(function(response,index) {
+                    const alternativeQuestionResponseObject = {
+                        'identifier' : response['identifier'],
+                        'alternative_question' : response['alternative_question']
+                    };
+                    alternativesQuestionResponseArray.push(alternativeQuestionResponseObject);
+
+                });
+                question['alternatives'] = alternativesQuestionResponseArray;
+                alternativesQuestionResponseArray = [];
             });
 
             console.log(alternativesQuestionResponseArray);
