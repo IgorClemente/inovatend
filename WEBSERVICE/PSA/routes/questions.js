@@ -100,47 +100,76 @@ router.post('/create', function(req, res, next) {
        const questionText = req.body.questionText;
        const questionResponseText = req.body.questionResponseText;
 
-       console.log(req.body);
-
-       console.log(req.body.alternativeQuestion02 == "");
-       console.log(req.body.alternativeQuestion02 === "");
-       console.log(req.body.alternativeQuestion02 == '');
-
-        console.log(req.body.alternativeQuestion02 === null);
-        console.log(req.body.alternativeQuestion02 === '');
-        console.log(req.body.alternativeQuestion02 === " ");
-        console.log(req.body.alternativeQuestion02 === ' ');
-
        if (req.body.alternativeQuestion01 === undefined) {
-           res.json({
-               'success':false,
-               'errorMessage':'Informar o parametro referente ao texto da resposta 01, parametro: \'alternativeQuestion01\''
-           });
-           return;
+           if (req.body.alternativeQuestion01 == "") {
+               res.json({
+                   'success': false,
+                   'errorMessage': 'Informar o parametro referente ao texto da resposta 01, parametro: \'alternativeQuestion01\''
+               });
+               return;
+           }
+       } else {
+           if (req.body.alternativeQuestion01 == "") {
+               res.json({
+                   'success': false,
+                   'errorMessage': 'Informar o parametro referente ao texto da resposta 01, parametro: \'alternativeQuestion01\''
+               });
+               return;
+           }
        }
 
        if (req.body.alternativeQuestion02 === undefined) {
-           res.json({
-               'success':false,
-               'errorMessage':'Informar o parametro referente ao texto da resposta 02, parametro: \'alternativeQuestion02\''
-           });
-           return;
+           if (req.body.alternativeQuestion02 == "") {
+               res.json({
+                   'success': false,
+                   'errorMessage': 'Informar o parametro referente ao texto da resposta 02, parametro: \'alternativeQuestion02\''
+               });
+               return;
+           }
+       } else {
+           if (req.body.alternativeQuestion02 == "") {
+               res.json({
+                   'success': false,
+                   'errorMessage': 'Informar o parametro referente ao texto da resposta 02, parametro: \'alternativeQuestion02\''
+               });
+               return;
+           }
        }
 
        if (req.body.alternativeQuestion03 === undefined) {
-           res.json({
-               'success':false,
-               'errorMessage':'Informar o parametro referente ao texto da resposta 03, parametro: \'alternativeQuestion03\''
-           });
-           return;
+           if (req.body.alternativeQuestion03 == "") {
+               res.json({
+                   'success': false,
+                   'errorMessage': 'Informar o parametro referente ao texto da resposta 03, parametro: \'alternativeQuestion03\''
+               });
+               return;
+           }
+       } else {
+           if (req.body.alternativeQuestion03 == "") {
+               res.json({
+                   'success': false,
+                   'errorMessage': 'Informar o parametro referente ao texto da resposta 03, parametro: \'alternativeQuestion03\''
+               });
+               return;
+           }
        }
 
        if (req.body.alternativeQuestion04 === undefined) {
-           res.json({
-               'success':false,
-               'errorMessage':'Informar o parametro referente ao texto da resposta 04, parametro: \'alternativeQuestion04\''
-           });
-           return;
+           if (req.body.alternativeQuestion04 == "") {
+               res.json({
+                   'success': false,
+                   'errorMessage': 'Informar o parametro referente ao texto da resposta 04, parametro: \'alternativeQuestion04\''
+               });
+               return;
+           }
+       } else {
+           if (req.body.alternativeQuestion04 == "") {
+               res.json({
+                   'success': false,
+                   'errorMessage': 'Informar o parametro referente ao texto da resposta 04, parametro: \'alternativeQuestion04\''
+               });
+               return;
+           }
        }
 
        var alternativesQuestions = [req.body.alternativeQuestion01, req.body.alternativeQuestion02,
