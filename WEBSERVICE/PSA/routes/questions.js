@@ -57,6 +57,7 @@ router.get('/', function(req, res, next) {
                     } else {
                         //alternativesQuestionControl = response['identifier'];
                         question['alternatives'] = alternativesQuestionResponseArray;
+                        alternativesQuestionResponseArray = [];
                     }
                 });
             });
