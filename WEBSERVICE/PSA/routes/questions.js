@@ -101,6 +101,16 @@ router.post('/create', function(req, res, next) {
        const questionResponseText = req.body.questionResponseText;
 
        console.log(req.body);
+
+       console.log(req.body.alternativeQuestion02 == "");
+       console.log(req.body.alternativeQuestion02 === "");
+       console.log(req.body.alternativeQuestion02 == '');
+
+        console.log(req.body.alternativeQuestion02 === null);
+        console.log(req.body.alternativeQuestion02 === '');
+        console.log(req.body.alternativeQuestion02 === " ");
+        console.log(req.body.alternativeQuestion02 === ' ');
+
        if (req.body.alternativeQuestion01 === undefined) {
            res.json({
                'success':false,
