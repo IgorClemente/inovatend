@@ -86,6 +86,7 @@ router.post('/create', function(req, res, next) {
                'success':false,
                'errorMessage':'Informar o parametro referente ao texto da questão, parametro: \'questionText\''
            });
+           return;
        }
 
        if (req.body.questionResponseText === "") {
@@ -93,6 +94,7 @@ router.post('/create', function(req, res, next) {
                'sucess':false,
                'errorMessage':'Informar o parametro referente ao texto de resposta da questão, parametro: \'questionResponseText\''
            });
+           return;
        }
 
        const questionText = req.body.questionText;
@@ -103,6 +105,7 @@ router.post('/create', function(req, res, next) {
                'success':false,
                'errorMessage':'Informar o parametro referente ao texto da resposta 01, parametro: \'alternativeQuestion01\''
            });
+           return;
        }
 
        if (req.body.alternativeQuestion02 === "") {
@@ -110,6 +113,7 @@ router.post('/create', function(req, res, next) {
                'success':false,
                'errorMessage':'Informar o parametro referente ao texto da resposta 02, parametro: \'alternativeQuestion02\''
            });
+           return;
        }
 
        if (req.body.alternativeQuestion03 === "") {
@@ -117,6 +121,7 @@ router.post('/create', function(req, res, next) {
                'success':false,
                'errorMessage':'Informar o parametro referente ao texto da resposta 03, parametro: \'alternativeQuestion03\''
            });
+           return;
        }
 
        if (req.body.alternativeQuestion04 === "") {
@@ -124,6 +129,7 @@ router.post('/create', function(req, res, next) {
                'success':false,
                'errorMessage':'Informar o parametro referente ao texto da resposta 04, parametro: \'alternativeQuestion04\''
            });
+           return;
        }
 
        var alternativesQuestions = [req.body.alternativeQuestion01, req.body.alternativeQuestion02,
