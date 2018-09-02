@@ -41,6 +41,13 @@ router.get('/', function(req, res, next) {
                 return;
             }
 
+            if (results[0].count() == 0) {
+                res.json({
+                    'success' : false,
+                    'errorMessage' : 'Nenhuma questão cadastrada!'
+                });
+            }
+
             var alternativesQuestionResponseArray = [];
 
             results[0].forEach(function(question, index) {
