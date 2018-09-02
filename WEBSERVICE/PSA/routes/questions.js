@@ -100,6 +100,7 @@ router.post('/create', function(req, res, next) {
        const questionText = req.body.questionText;
        const questionResponseText = req.body.questionResponseText;
 
+       console.log(req.body);
        if (req.body.alternativeQuestion01 === undefined) {
            res.json({
                'success':false,
