@@ -50,8 +50,10 @@ router.get('/', function(req, res, next) {
                         const alternativeQuestionResponseObject = {'identifier' : response['identifier'],
                                                                    'alternative_question' : response['alternative_question']};
                         alternativesQuestionResponseArray.push(alternativeQuestionResponseObject);
+                    } else {
+                        alternativesQuestionControl = question['identifier'];
+                        return;
                     }
-                    alternativesQuestionControl = question['identifier'];
                 });
                 question['alternatives'] = alternativesQuestionResponseArray;
             });
