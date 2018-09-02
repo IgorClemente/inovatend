@@ -41,7 +41,7 @@ router.get('/', function(req, res, next) {
                 return;
             }
 
-            if (results[0].length() == 0) {
+            if (results[0].length == 0) {
                 res.json({
                     'success' : false,
                     'errorMessage' : 'Nenhuma questão cadastrada!'
