@@ -49,15 +49,17 @@ router.get('/', function(req, res, next) {
                     if (response['identifier'] != alternativesQuestionControl) {
                         alternativesQuestionControl = question['identifier'];
                         console.log("LOG", alternativesQuestionControl);
-                        return;
+                    } else {
+                        const alternativeQuestionResponseObject = {'identifier' : response['identifier'],
+                                                                   'alternative_question' : response['alternative_question']};
+                        alternativesQuestionResponseArray.push(alternativeQuestionResponseObject);
                     }
-                    const alternativeQuestionResponseObject = {'identifier' : response['identifier'],
-                                                               'alternative_question' : response['alternative_question']};
-                    alternativesQuestionResponseArray.push(alternativeQuestionResponseObject);
                 });
+                question['alternatives'] = alternativesQuestionResponseArray;
             });
 
             console.log(alternativesQuestionResponseArray);
+            console.log(results[0]);
 
             var jsonResponse = {
                 'success' : true,
