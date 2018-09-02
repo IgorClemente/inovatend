@@ -43,7 +43,7 @@ router.get('/', function(req, res, next) {
 
             var alternativesQuestionResponseArray = [];
 
-            results[0].forEach(function(question,index) {
+            results[0].forEach(function(question, index) {
                 var alternativeQuestions = results[1].filter(function(element, index, array) {
                     return element['identifier'] === question['identifier'];
                 });
@@ -56,19 +56,15 @@ router.get('/', function(req, res, next) {
                     alternativesQuestionResponseArray.push(alternativeQuestionResponseObject);
 
                 });
+
                 question['alternatives'] = alternativesQuestionResponseArray;
                 alternativesQuestionResponseArray = [];
             });
 
-            console.log(alternativesQuestionResponseArray);
-            console.log(results[0]);
-
-            var jsonResponse = {
+            res.json({
                 'success' : true,
                 'questions' : results[0]
-            };
-
-            res.json(jsonResponse);
+            });
         });
         connection.release();
     });
@@ -85,15 +81,53 @@ router.post('/create', function(req, res, next) {
            return;
        }
 
+       if (req.body.questionText === "") {
+           res.json({
+               'success':false,
+               'errorMessage':'Informar o parametro referente ao texto da questão, parametro: \'questionText\''
+           });
+       }
+
+       if (req.body.questionResponseText === "") {
+           res.json({
+               'sucess':false,
+               'errorMessage':'Informar o parametro referente ao texto de resposta da questão, parametro: \'questionResponseText\''
+           });
+       }
+
        const questionText = req.body.questionText;
-       const questionResponseText = req.body.questionResponseID;
+       const questionResponseText = req.body.questionResponseText;
 
-       const alternativeQuestion01 = req.body.alternativeQuestion01 || "";
-       const alternativeQuestion02 = req.body.alternativeQuestion02 || "";
-       const alternativeQuestion03 = req.body.alternativeQuestion03 || "";
-       const alternativeQuestion04 = req.body.alternativeQuestion04 || "";
+       if (req.body.alternativeQuestion01 === "") {
+           res.json({
+               'success':false,
+               'errorMessage':'Informar o parametro referente ao texto da resposta 01, parametro: \'alternativeQuestion01\''
+           });
+       }
 
-       var alternativesQuestions = [alternativeQuestion01,alternativeQuestion02,alternativeQuestion03,alternativeQuestion04];
+       if (req.body.alternativeQuestion02 === "") {
+           res.json({
+               'success':false,
+               'errorMessage':'Informar o parametro referente ao texto da resposta 02, parametro: \'alternativeQuestion02\''
+           });
+       }
+
+       if (req.body.alternativeQuestion03 === "") {
+           res.json({
+               'success':false,
+               'errorMessage':'Informar o parametro referente ao texto da resposta 03, parametro: \'alternativeQuestion03\''
+           });
+       }
+
+       if (req.body.alternativeQuestion04 === "") {
+           res.json({
+               'success':false,
+               'errorMessage':'Informar o parametro referente ao texto da resposta 04, parametro: \'alternativeQuestion04\''
+           });
+       }
+
+       var alternativesQuestions = [req.body.alternativeQuestion01, req.body.alternativeQuestion02,
+                                    req.body.alternativeQuestion03, req.body.alternativeQuestion04];
 
        connection.query('INSERT INTO QUESTIONS_RESPONSE_TABLE SET ?;',{'RESPONSE_TEXT':questionResponseText}, function(error,results,fields) {
             if (error) {
@@ -119,6 +153,7 @@ router.post('/create', function(req, res, next) {
                         'errorMessage' : error
                     });
                 }
+
                 alternativesQuestions.forEach(function(value,_) {
                     connection.query('INSERT INTO ALTERNATIVES_QUESTIONS_TABLE SET ?;',
                                     {'ALTERNATIVE_QUESTION_NAME':value, 'QUESTION_ID':results.insertId}, function(error,_,_) {
@@ -135,6 +170,7 @@ router.post('/create', function(req, res, next) {
                     'success' : true,
                     'successMessage' : 'Pergunta cadastrada com sucesso!'
                 };
+
                 res.json(jsonResponse);
             });
        });
