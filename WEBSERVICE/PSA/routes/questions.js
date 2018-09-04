@@ -105,7 +105,7 @@ router.post('/create', function(req, res, next) {
        }
 
        const questionText = req.body.questionText;
-       const questionResponseText = req.body.questionResponseText;
+       const questionResponseIdentifier = req.body.questionResponseIdentifier;
 
        if (req.body.alternativeQuestion01 === undefined) {
            if (req.body.alternativeQuestion01 == "") {
@@ -179,10 +179,26 @@ router.post('/create', function(req, res, next) {
            }
        }
 
+       var questionResponseParameterText = " ";
        var alternativesQuestions = [req.body.alternativeQuestion01, req.body.alternativeQuestion02,
                                     req.body.alternativeQuestion03, req.body.alternativeQuestion04];
 
-       connection.query('INSERT INTO QUESTIONS_RESPONSE_TABLE SET ?;',{'RESPONSE_TEXT':questionResponseText}, function(error,results,fields) {
+       switch (questionResponseIdentifier) {
+           case 1:
+               questionResponseParameterText = req.body.alternativeQuestion01;
+           case 2:
+               questionResponseParameterText = req.body.alternativeQuestion02;
+           case 3:
+               questionResponseParameterText = req.body.alternativeQuestion03;
+           case 4:
+               questionResponseParameterText = req.body.alternativeQuestion04;
+           default:
+               break;
+       }
+
+       console.log("DEBUG LOG -> ", questionResponseParameterText);
+
+       connection.query('INSERT INTO QUESTIONS_RESPONSE_TABLE SET ?;',{'RESPONSE_TEXT' : questionResponseParameterText}, function(error,results,fields) {
             if (error) {
                 res.json({
                     'success' : false,
