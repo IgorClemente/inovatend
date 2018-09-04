@@ -184,16 +184,15 @@ router.post('/create', function(req, res, next) {
                                     req.body.alternativeQuestion03, req.body.alternativeQuestion04];
 
        switch (questionResponseIdentifier) {
-           case 1:
+           case '1':
                questionResponseParameterText = req.body.alternativeQuestion01;
-           case 2:
+           case '2':
                questionResponseParameterText = req.body.alternativeQuestion02;
-           case 3:
+           case '3':
                questionResponseParameterText = req.body.alternativeQuestion03;
-           case 4:
+           case '4':
                questionResponseParameterText = req.body.alternativeQuestion04;
-           default:
-               break;
+           default: return;
        }
 
        console.log("DEBUG LOG -> ", questionResponseParameterText);
