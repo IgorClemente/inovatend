@@ -192,7 +192,12 @@ router.post('/create', function(req, res, next) {
                questionResponseParameterText = req.body.alternativeQuestion03;
            case '4':
                questionResponseParameterText = req.body.alternativeQuestion04;
-           default: return;
+           default:
+               res.json({
+                   'success':false,
+                   'errorMessage':'Informar o parametro referente ao identificador da resposta, parametro: \'questionResponseIdentifier\''
+               });
+               return;
        }
 
        console.log("DEBUG LOG -> ", questionResponseParameterText);
