@@ -196,12 +196,16 @@ router.post('/create', function(req, res, next) {
        switch (questionResponseIdentifier) {
            case '1':
                questionResponseParameterText = req.body.alternativeQuestion01;
+               break;
            case '2':
                questionResponseParameterText = req.body.alternativeQuestion02;
+               break;
            case '3':
                questionResponseParameterText = req.body.alternativeQuestion03;
+               break;
            case '4':
                questionResponseParameterText = req.body.alternativeQuestion04;
+               break;
            default:
                res.json({
                    'success':false,
