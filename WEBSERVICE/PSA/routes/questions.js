@@ -182,7 +182,17 @@ router.post('/create', function(req, res, next) {
        var questionResponseParameterText = " ";
        var alternativesQuestions = [req.body.alternativeQuestion01, req.body.alternativeQuestion02,
                                     req.body.alternativeQuestion03, req.body.alternativeQuestion04];
-       console.log("DEBUG LOG -> QUESTION IDENTIFIER", questionResponseIdentifier);
+
+       console.log("DEBUG LOG -> QUESTION IDENTIFIER", questionResponseIdentifier == '1');
+       console.log("DEBUG LOG -> QUESTION IDENTIFIER", questionResponseIdentifier == '2');
+       console.log("DEBUG LOG -> QUESTION IDENTIFIER", questionResponseIdentifier == '3');
+       console.log("DEBUG LOG -> QUESTION IDENTIFIER", questionResponseIdentifier == '4');
+
+       console.log("DEBUG LOG -> QUESTION IDENTIFIER", questionResponseIdentifier == 1);
+       console.log("DEBUG LOG -> QUESTION IDENTIFIER", questionResponseIdentifier == 2);
+       console.log("DEBUG LOG -> QUESTION IDENTIFIER", questionResponseIdentifier == 3);
+       console.log("DEBUG LOG -> QUESTION IDENTIFIER", questionResponseIdentifier == 4);
+
        switch (questionResponseIdentifier) {
            case '1':
                questionResponseParameterText = req.body.alternativeQuestion01;
