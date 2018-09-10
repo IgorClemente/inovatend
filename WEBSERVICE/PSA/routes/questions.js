@@ -23,8 +23,8 @@ router.get('/', function(req, res, next) {
         }
 
         const queryStatement = "SELECT QUESTION_ID \"identifier\",QUESTION_TEXT \"question\", QUESTIONS_RESPONSE_TABLE.RESPONSE_TEXT \"question_response\"\n" +
-            "FROM QUESTIONS_TABLE  JOIN QUESTIONS_RESPONSE_TABLE \n" +
-            "ON QUESTIONS_TABLE.QUESTION_RESPONSE_ID = QUESTIONS_RESPONSE_TABLE.RESPONSE_ID;" ;
+                               "FROM QUESTIONS_TABLE  JOIN QUESTIONS_RESPONSE_TABLE \n" +
+                               "ON QUESTIONS_TABLE.QUESTION_RESPONSE_ID = QUESTIONS_RESPONSE_TABLE.RESPONSE_ID;" ;
 
         const alternativesQuestionsQueryStatement = "SELECT ALTERNATIVES_QUESTIONS_TABLE.ALTERNATIVE_QUESTION_ID \"identifier\", ALTERNATIVE_QUESTION_NAME \"alternative_question\",\n" +
                                                     "QUESTIONS_TABLE.QUESTION_ID \"question_id\"\n" +
@@ -251,6 +251,11 @@ router.post('/create', function(req, res, next) {
        });
        connection.release();
     });
+});
+
+router.put('/question/update/:questionID', function(req, res, next) {
+    console.log('QUESTION_ID', req.questionID);
+    console.log('QUESTION REQ UPDATE', req);
 });
 
 module.exports = router;
