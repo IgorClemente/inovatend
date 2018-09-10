@@ -26,7 +26,7 @@ router.get('/', function(req, res, next) {
             "FROM QUESTIONS_TABLE  JOIN QUESTIONS_RESPONSE_TABLE \n" +
             "ON QUESTIONS_TABLE.QUESTION_RESPONSE_ID = QUESTIONS_RESPONSE_TABLE.RESPONSE_ID;" ;
 
-        const alternativesQuestionsQueryStatement = "SELECT QUESTIONS_TABLE.QUESTION_ID \"identifier\", ALTERNATIVE_QUESTION_NAME \"alternative_question\"\n"+
+        const alternativesQuestionsQueryStatement = "SELECT ALTERNATIVES_QUESTIONS_TABLE.ALTERNATIVE_QUESTION_ID \"identifier\", ALTERNATIVE_QUESTION_NAME \"alternative_question\"\n"+
             "FROM ALTERNATIVES_QUESTIONS_TABLE JOIN QUESTIONS_TABLE\n" +
             "ON ALTERNATIVES_QUESTIONS_TABLE.QUESTION_ID = QUESTIONS_TABLE.QUESTION_ID;";
 
@@ -183,16 +183,6 @@ router.post('/create', function(req, res, next) {
        var alternativesQuestions = [req.body.alternativeQuestion01, req.body.alternativeQuestion02,
                                     req.body.alternativeQuestion03, req.body.alternativeQuestion04];
 
-       console.log("DEBUG LOG -> QUESTION IDENTIFIER", questionResponseIdentifier == '1');
-       console.log("DEBUG LOG -> QUESTION IDENTIFIER", questionResponseIdentifier == '2');
-       console.log("DEBUG LOG -> QUESTION IDENTIFIER", questionResponseIdentifier == '3');
-       console.log("DEBUG LOG -> QUESTION IDENTIFIER", questionResponseIdentifier == '4');
-
-       console.log("DEBUG LOG -> QUESTION IDENTIFIER", questionResponseIdentifier == 1);
-       console.log("DEBUG LOG -> QUESTION IDENTIFIER", questionResponseIdentifier == 2);
-       console.log("DEBUG LOG -> QUESTION IDENTIFIER", questionResponseIdentifier == 3);
-       console.log("DEBUG LOG -> QUESTION IDENTIFIER", questionResponseIdentifier == 4);
-
        switch (questionResponseIdentifier) {
            case '1':
                questionResponseParameterText = req.body.alternativeQuestion01;
@@ -213,9 +203,6 @@ router.post('/create', function(req, res, next) {
                });
                return;
        }
-
-       console.log("DEBUG LOG -> ", questionResponseParameterText);
-
        connection.query('INSERT INTO QUESTIONS_RESPONSE_TABLE SET ?;',{'RESPONSE_TEXT' : questionResponseParameterText}, function(error,results,fields) {
             if (error) {
                 res.json({
