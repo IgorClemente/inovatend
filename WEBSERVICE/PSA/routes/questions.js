@@ -26,9 +26,10 @@ router.get('/', function(req, res, next) {
             "FROM QUESTIONS_TABLE  JOIN QUESTIONS_RESPONSE_TABLE \n" +
             "ON QUESTIONS_TABLE.QUESTION_RESPONSE_ID = QUESTIONS_RESPONSE_TABLE.RESPONSE_ID;" ;
 
-        const alternativesQuestionsQueryStatement = "SELECT ALTERNATIVES_QUESTIONS_TABLE.ALTERNATIVE_QUESTION_ID \"identifier\", ALTERNATIVE_QUESTION_NAME \"alternative_question\"\n"+
-            "FROM ALTERNATIVES_QUESTIONS_TABLE JOIN QUESTIONS_TABLE\n" +
-            "ON ALTERNATIVES_QUESTIONS_TABLE.QUESTION_ID = QUESTIONS_TABLE.QUESTION_ID;";
+        const alternativesQuestionsQueryStatement = "SELECT ALTERNATIVES_QUESTIONS_TABLE.ALTERNATIVE_QUESTION_ID \"identifier\", ALTERNATIVE_QUESTION_NAME \"alternative_question\",\n" +
+                                                    "QUESTIONS_TABLE.QUESTION_ID \"question_id\"\n" +
+                                                    "FROM ALTERNATIVES_QUESTIONS_TABLE JOIN QUESTIONS_TABLE\n" +
+                                                    "ON ALTERNATIVES_QUESTIONS_TABLE.QUESTION_ID = QUESTIONS_TABLE.QUESTION_ID;";
 
         connection.query({sql: (queryStatement + alternativesQuestionsQueryStatement),
                           timeout: 60000}, function(error, results, fields) {
@@ -52,7 +53,7 @@ router.get('/', function(req, res, next) {
 
             results[0].forEach(function(question, index) {
                 var alternativeQuestions = results[1].filter(function(element, index, array) {
-                    return element['identifier'] === question['identifier'];
+                    return element['question_id'] === question['identifier'];
                 });
 
                 alternativeQuestions.forEach(function(response,index) {
