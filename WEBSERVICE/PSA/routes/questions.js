@@ -254,7 +254,7 @@ router.post('/create', function(req, res, next) {
 });
 
 router.put('/question/update/:questionID', function(req, res, next) {
-    console.log('QUESTION_ID', req.questionID);
+    console.log('QUESTION_ID', req.params.questionID);
     console.log('QUESTION REQ UPDATE', req);
 });
 
