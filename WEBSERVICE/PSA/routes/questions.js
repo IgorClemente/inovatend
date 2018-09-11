@@ -3,7 +3,7 @@ var router = express.Router();
 var mysql = require('mysql');
 
 var pool = mysql.createPool({
-    host: 'localhost',
+    host: 'ec2-34-201-112-184.compute-1.amazonaws.com',
     user: 'EXTERNO',
     password: 'Challenge129@',
     database: 'PSA',
@@ -289,16 +289,16 @@ router.put('/question/update/:questionID',function(req,res,next) {
         }
 
         const questionAlternativesQuery = "SELECT ALTERNATIVE_QUESTION_ID \"alternative_question_identifier\",\n" +
-                                                  "ALTERNATIVE_QUESTION_NAME \"alternative_question_text\",\n" +
-                                                  "QUESTION_ID \"question_id\"\n" +
+                                          "ALTERNATIVE_QUESTION_NAME \"alternative_question_text\",\n" +
+                                          "QUESTION_ID \"question_id\"\n" +
                                           "FROM ALTERNATIVES_QUESTIONS_TABLE;";
 
         const responseIdentifier = results[0].responseIdentifier;
-        var questionAlternativesArray = [];
+        //var questionAlternativesArray = [];
 
         pool.query(questionAlternativesQuery,function(error,results,fields) {
-            questionAlternativesArray = results[0].filter(function(alternativeQuestion) {
-                return alternativeQuestion['question_id'] === questionIdentifier;
+            var questionAlternativesArray = results.filter(function(alternativeQuestion) {
+                return alternativeQuestion['question_id'] == questionIdentifier;
             });
 
             if (questionAlternativesArray.length == 0) {
@@ -310,9 +310,10 @@ router.put('/question/update/:questionID',function(req,res,next) {
             }
 
             questionAlternativesArray = questionAlternativesArray.sort(function(a,b) {
-                return a['alternative_question_identifier'] < b['alternative_question_identifier'];
+                return a['alternative_question_identifier'] > b['alternative_question_identifier'];
             });
-            console.log(questionAlternativesArray);
+
+            res.json({'kl':questionAlternativesArray});
         });
     });
 });
