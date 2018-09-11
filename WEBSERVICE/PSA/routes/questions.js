@@ -274,12 +274,13 @@ router.post('/create', function(req, res, next) {
 });
 
 router.put('/question/update/:questionID', function(req, res, next) {
-    const questionIdentifier = req.params.questionID;
 
-    pool.query('SELECT * FROM QUESTIONS_TABLE WHERE QUESTION_ID = ?',[questionIdentifier],function(error,results,fields) {
-        console.log('QUESTION ->',results);
+    const questionIdentifier = req.params.questionID;
+    const questionsTableQuery = "SELECT QUESTION_RESPONSE_ID \"responseIdentifier\" FROM QUESTIONS_TABLE WHERE QUESTION_ID = ?";
+
+    pool.query(questionsTableQuery,[questionIdentifier],function(error,results,fields) {
+        console.log('QUESTION ->',results[0].responseIdentifier);
     });
-    console.log(questionIdentifier);
 });
 
 module.exports = router;
