@@ -276,7 +276,10 @@ router.post('/create', function(req, res, next) {
 router.put('/question/update/:questionID', function(req, res, next) {
     const questionIdentifier = req.params.questionID;
 
-
+    pool.query('SELECT * FROM QUESTIONS_TABLE WHERE QUESTION_ID = ?',[questionIdentifier],function(error,results,fields) {
+        console.log('QUESTION ->',results);
+    });
+    console.log(questionIdentifier);
 });
 
 module.exports = router;
