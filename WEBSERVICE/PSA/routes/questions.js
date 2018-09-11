@@ -47,6 +47,7 @@ router.get('/', function(req, res, next) {
                     'success' : false,
                     'errorMessage' : 'Nenhuma questão cadastrada!'
                 });
+                return;
             }
 
             var alternativesQuestionResponseArray = [];
@@ -273,13 +274,46 @@ router.post('/create', function(req, res, next) {
     });
 });
 
-router.put('/question/update/:questionID', function(req, res, next) {
+router.put('/question/update/:questionID',function(req,res,next) {
 
     const questionIdentifier = req.params.questionID;
-    const questionsTableQuery = "SELECT QUESTION_RESPONSE_ID \"responseIdentifier\" FROM QUESTIONS_TABLE WHERE QUESTION_ID = ?";
+    const questionsTableQuery = "SELECT QUESTION_RESPONSE_ID \"responseIdentifier\" FROM QUESTIONS_TABLE WHERE QUESTION_ID = ?;";
 
     pool.query(questionsTableQuery,[questionIdentifier],function(error,results,fields) {
-        console.log('QUESTION ->',results[0].responseIdentifier);
+        if (error) {
+            res.json({
+                'success': false,
+                'errorMessage': error
+            });
+            return;
+        }
+
+        const questionAlternativesQuery = "SELECT ALTERNATIVE_QUESTION_ID \"alternative_question_identifier\",\n" +
+                                                  "ALTERNATIVE_QUESTION_NAME \"alternative_question_text\",\n" +
+                                                  "QUESTION_ID \"question_id\"\n" +
+                                          "FROM ALTERNATIVES_QUESTIONS_TABLE;";
+
+        const responseIdentifier = results[0].responseIdentifier;
+        var questionAlternativesArray = [];
+
+        pool.query(questionAlternativesQuery,function(error,results,fields) {
+            questionAlternativesArray = results[0].filter(function(alternativeQuestion) {
+                return alternativeQuestion['question_id'] === questionIdentifier;
+            });
+
+            if (questionAlternativesArray.length == 0) {
+                res.json({
+                    'success': false,
+                    'errorMessage': 'Erro ao atualizar a questão.'
+                });
+                return;
+            }
+
+            questionAlternativesArray = questionAlternativesArray.sort(function(a,b) {
+                return a['alternative_question_identifier'] < b['alternative_question_identifier'];
+            });
+            console.log(questionAlternativesArray);
+        });
     });
 });
 
