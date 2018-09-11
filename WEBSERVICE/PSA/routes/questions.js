@@ -89,20 +89,40 @@ router.post('/create', function(req, res, next) {
            return;
        }
 
-       if (req.body.questionText === "") {
-           res.json({
-               'success':false,
-               'errorMessage':'Informar o parametro referente ao texto da questão, parametro: \'questionText\''
-           });
-           return;
+       if (req.body.questionText === undefined) {
+           if (req.body.questionText === "") {
+               res.json({
+                   'success': false,
+                   'errorMessage': 'Informar o parametro referente ao texto da questão, parametro: \'questionText\''
+               });
+               return;
+           }
+       } else {
+           if (req.body.questionText === "") {
+               res.json({
+                   'success': false,
+                   'errorMessage': 'Informar o parametro referente ao texto da questão, parametro: \'questionText\''
+               });
+               return
+           }
        }
 
-       if (req.body.questionResponseText === "") {
-           res.json({
-               'sucess':false,
-               'errorMessage':'Informar o parametro referente ao texto de resposta da questão, parametro: \'questionResponseText\''
-           });
-           return;
+       if (req.body.questionResponseText === undefined) {
+           if (req.body.questionResponseText === "") {
+               res.json({
+                   'sucess': false,
+                   'errorMessage': 'Informar o parametro referente ao texto de resposta da questão, parametro: \'questionResponseText\''
+               });
+               return;
+           }
+       } else {
+           if (req.body.questionResponseText === "") {
+               res.json({
+                   'success': false,
+                   'errorMessage': 'Informar o parametro referente ao texto da questão, parametro: \'questionResponseText\''
+               });
+               return;
+           }
        }
 
        const questionText = req.body.questionText;
@@ -254,8 +274,9 @@ router.post('/create', function(req, res, next) {
 });
 
 router.put('/question/update/:questionID', function(req, res, next) {
-    console.log('QUESTION_ID', req.params.questionID);
-    console.log('QUESTION REQ UPDATE', req);
+    const questionIdentifier = req.params.questionID;
+
+
 });
 
 module.exports = router;
