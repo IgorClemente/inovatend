@@ -330,6 +330,17 @@ router.put('/question/update/:questionID',function(req,res,next) {
                 req.body.alternativeQuestion04
             ];
 
+            pool.query('UPDATE QUESTIONS_TABLE SET ? WHERE ?',
+                       [{'QUESTION_TEXT' : questionText},{'QUESTION_ID' : questionsResults['question_identifier']}] ,function(error,results,fields) {
+                if (error) {
+                    res.json({
+                        'success' : false,
+                        'errorMessage' : 'Erro ao atualizar as alternativas referente a questão.'
+                    });
+                    return;
+                }
+            });
+
             questionAlternativesArray.forEach(function(alternativeQuestion, index) {
                 var alternativeQuestionText = alternativesQuestions[index];
 
