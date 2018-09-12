@@ -225,6 +225,7 @@ router.post('/create', function(req, res, next) {
                });
                return;
        }
+
        connection.query('INSERT INTO QUESTIONS_RESPONSE_TABLE SET ?;',{'RESPONSE_TEXT' : questionResponseParameterText}, function(error,results,fields) {
             if (error) {
                 res.json({
@@ -277,14 +278,19 @@ router.post('/create', function(req, res, next) {
 router.put('/question/update/:questionID',function(req,res,next) {
 
     const questionIdentifier = req.params.questionID;
-    const questionsTableQuery = "SELECT QUESTION_RESPONSE_ID \"responseIdentifier\" FROM QUESTIONS_TABLE WHERE QUESTION_ID = ?;";
+    const questionsTableQuery = "SELECT QUESTION_ID \"question_identifier\",\n" +
+                                "QUESTION_TEXT \"question_text\",\n" +
+                                "QUESTION_RESPONSE_ID \"responseIdentifier\" \n" +
+                                "FROM QUESTIONS_TABLE \n" +
+                                "WHERE QUESTION_ID = ?;";
 
-    pool.query(questionsTableQuery,[questionIdentifier],function(error,results,fields) {
+    pool.query(questionsTableQuery,[questionIdentifier], function(error,questionsResults,fields) {
         if (error) {
             res.json({
                 'success': false,
                 'errorMessage': error
             });
+            connection.destroy();
             return;
         }
 
@@ -293,11 +299,10 @@ router.put('/question/update/:questionID',function(req,res,next) {
                                           "QUESTION_ID \"question_id\"\n" +
                                           "FROM ALTERNATIVES_QUESTIONS_TABLE;";
 
-        const responseIdentifier = results[0].responseIdentifier;
-        //var questionAlternativesArray = [];
+        const responseIdentifier = questionsResults[0].responseIdentifier;
 
-        pool.query(questionAlternativesQuery,function(error,results,fields) {
-            var questionAlternativesArray = results.filter(function(alternativeQuestion) {
+        pool.query(questionAlternativesQuery,function(error,alternativeResults,fields) {
+            var questionAlternativesArray = alternativeResults.filter(function(alternativeQuestion) {
                 return alternativeQuestion['question_id'] == questionIdentifier;
             });
 
@@ -306,6 +311,7 @@ router.put('/question/update/:questionID',function(req,res,next) {
                     'success': false,
                     'errorMessage': 'Erro ao atualizar a questão.'
                 });
+                connection.destroy();
                 return;
             }
 
@@ -313,6 +319,58 @@ router.put('/question/update/:questionID',function(req,res,next) {
                 return a['alternative_question_identifier'] > b['alternative_question_identifier'];
             });
 
+            const questionText = req.body.questionText || alternativeResults['question_text'];
+            const questionResponseIdentifier = req.body.questionResponseIdentifier;
+
+            var questionResponseParameterText = " ";
+            var alternativesQuestions = [
+                req.body.alternativeQuestion01,
+                req.body.alternativeQuestion02,
+                req.body.alternativeQuestion03,
+                req.body.alternativeQuestion04
+            ];
+
+            questionAlternativesArray.forEach(function(index, alternativeQuestion) {
+                var alternativeQuestionText = alternativesQuestions[index];
+
+                if (alternativeQuestionText === undefined) {
+                    alternativeQuestionText = alternativeQuestion['alternative_question_text'];
+                }
+
+                pool.query('UPDATE ALTERNATIVES_QUESTIONS_TABLE SET ? WHERE ?',
+                           [{ALTERNATIVE_QUESTION_NAME : alternativeQuestionText}, {ALTERNATIVE_QUESTION_ID : alternativeQuestion['alternative_question_identifier']}],
+                           function(error,results,fields) {
+                    if (error) {
+                        res.json({
+                            'success' : false,
+                            'errorMessage' : 'Erro ao atualizar.'
+                        });
+                        return;
+                    }
+                    console.log('CONSOLE DEBUG -> UPDATE ALTERNATIVES');
+                });
+            });
+
+            switch (questionResponseIdentifier) {
+                case '1':
+                    questionResponseParameterText = req.body.alternativeQuestion01;
+                    break;
+                case '2':
+                    questionResponseParameterText = req.body.alternativeQuestion02;
+                    break;
+                case '3':
+                    questionResponseParameterText = req.body.alternativeQuestion03;
+                    break;
+                case '4':
+                    questionResponseParameterText = req.body.alternativeQuestion04;
+                    break;
+                default:
+                    res.json({
+                        'success':false,
+                        'errorMessage':'Informar o parametro referente ao identificador da resposta, parametro: \'questionResponseIdentifier\''
+                    });
+                    return;
+            }
             res.json({'kl':questionAlternativesArray});
         });
     });
