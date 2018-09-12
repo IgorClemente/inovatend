@@ -330,7 +330,7 @@ router.put('/question/update/:questionID',function(req,res,next) {
                 req.body.alternativeQuestion04
             ];
 
-            questionAlternativesArray.forEach(function(index, alternativeQuestion) {
+            questionAlternativesArray.forEach(function(alternativeQuestion, index) {
                 var alternativeQuestionText = alternativesQuestions[index];
 
                 if (alternativeQuestionText === undefined) {
@@ -338,16 +338,15 @@ router.put('/question/update/:questionID',function(req,res,next) {
                 }
 
                 pool.query('UPDATE ALTERNATIVES_QUESTIONS_TABLE SET ? WHERE ?',
-                           [{ALTERNATIVE_QUESTION_NAME : alternativeQuestionText}, {ALTERNATIVE_QUESTION_ID : alternativeQuestion['alternative_question_identifier']}],
+                           [{'ALTERNATIVE_QUESTION_NAME' : alternativeQuestionText}, {'ALTERNATIVE_QUESTION_ID': alternativeQuestion['alternative_question_identifier']}],
                            function(error,results,fields) {
                     if (error) {
                         res.json({
                             'success' : false,
-                            'errorMessage' : 'Erro ao atualizar.'
+                            'errorMessage' : 'Erro ao atualizar as alternativas referente a questão.'
                         });
                         return;
                     }
-                    console.log('CONSOLE DEBUG -> UPDATE ALTERNATIVES');
                 });
             });
 
@@ -367,7 +366,7 @@ router.put('/question/update/:questionID',function(req,res,next) {
                 default:
                     res.json({
                         'success':false,
-                        'errorMessage':'Informar o parametro referente ao identificador da resposta, parametro: \'questionResponseIdentifier\''
+                        'errorMessage':'Informar o parametro referente ao identificador para selecionar a resposta para a questão, parametro: \'questionResponseIdentifier\''
                     });
                     return;
             }
