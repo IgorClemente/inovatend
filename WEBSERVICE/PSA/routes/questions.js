@@ -275,32 +275,46 @@ router.post('/create', function(req, res, next) {
     });
 });
 
-router.put('/question/update/:questionID',function(req,res,next) {
+router.put('/update/:questionID',function(req,res,next) {
 
     const questionIdentifier = req.params.questionID;
-    const questionsTableQuery = "SELECT QUESTION_ID \"question_identifier\",\n" +
-                                "QUESTION_TEXT \"question_text\",\n" +
-                                "QUESTION_RESPONSE_ID \"responseIdentifier\" \n" +
-                                "FROM QUESTIONS_TABLE \n" +
-                                "WHERE QUESTION_ID = ?;";
+    const questionsTableConsultQuery = "SELECT QUESTION_ID \"question_identifier\",\n" +
+                                       "QUESTION_TEXT \"question_text\",\n" +
+                                       "QUESTION_RESPONSE_ID \"responseIdentifier\" \n" +
+                                       "FROM QUESTIONS_TABLE \n" +
+                                       "WHERE QUESTION_ID = ?;";
 
     pool.getConnection(function(error, connection) {
-        connection.query(questionsTableQuery,[questionIdentifier], function(error,questionsResults,fields) {
+        if (error) {
+            next(error);
+            return;
+        }
+
+        connection.query(questionsTableConsultQuery,[questionIdentifier], function(error,questionsResults,fields) {
+            if (questionsResults.lenght == 0) {
+                res.json({
+                    'success' : false,
+                    'errorMessage' : 'Erro ao atualizar a questão, Por favor verifique o parametro de identificação: questionID'
+                });
+                connection.release();
+                return;
+            }
+
             if (error) {
                 res.json({
                     'success': false,
                     'errorMessage': error
                 });
-                connection.destroy();
+                connection.release();
                 return;
             }
 
             const questionAlternativesQuery = "SELECT ALTERNATIVE_QUESTION_ID \"alternative_question_identifier\",\n" +
-                "ALTERNATIVE_QUESTION_NAME \"alternative_question_text\",\n" +
-                "QUESTION_ID \"question_id\"\n" +
-                "FROM ALTERNATIVES_QUESTIONS_TABLE;";
+                                              "ALTERNATIVE_QUESTION_NAME \"alternative_question_text\",\n" +
+                                              "QUESTION_ID \"question_id\"\n" +
+                                              "FROM ALTERNATIVES_QUESTIONS_TABLE;";
 
-            connection.query(questionAlternativesQuery,function(error,alternativeResults,fields) {
+            connection.query(questionAlternativesQuery, function(error,alternativeResults,fields) {
                 var questionAlternativesArray = alternativeResults.filter(function(alternativeQuestion) {
                     return alternativeQuestion['question_id'] == questionIdentifier;
                 });
@@ -310,7 +324,7 @@ router.put('/question/update/:questionID',function(req,res,next) {
                         'success': false,
                         'errorMessage': 'Erro ao atualizar a questão.'
                     });
-                    connection.destroy();
+                    connection.release();
                     return;
                 }
 
@@ -347,6 +361,7 @@ router.put('/question/update/:questionID',function(req,res,next) {
                             'success':false,
                             'errorMessage':'Informar o parametro referente ao identificador para selecionar a resposta para a questão, parametro: \'questionResponseIdentifier\''
                         });
+                        connection.release();
                         return;
                 }
 
@@ -357,6 +372,7 @@ router.put('/question/update/:questionID',function(req,res,next) {
                                 'success' : false,
                                 'errorMessage' : 'Erro ao atualizar as alternativas referente a questão.'
                             });
+                            connection.release();
                             return;
                         }
 
@@ -368,7 +384,7 @@ router.put('/question/update/:questionID',function(req,res,next) {
                             }
 
                             var alternativesQuestionsParametersObject = [{'ALTERNATIVE_QUESTION_NAME' : alternativeQuestionText},
-                                {'ALTERNATIVE_QUESTION_ID': alternativeQuestion['alternative_question_identifier']}]
+                                                                         {'ALTERNATIVE_QUESTION_ID': alternativeQuestion['alternative_question_identifier']}]
 
                             pool.query('UPDATE ALTERNATIVES_QUESTIONS_TABLE SET ? WHERE ?', alternativesQuestionsParametersObject,
                                 function(error,results,fields) {
