@@ -343,28 +343,6 @@ router.put('/update/:questionID',function(req,res,next) {
                     req.body.alternativeQuestion04
                 ];
 
-                switch (questionResponseIdentifier) {
-                    case '1':
-                        questionResponseParameterText = req.body.alternativeQuestion01;
-                        break;
-                    case '2':
-                        questionResponseParameterText = req.body.alternativeQuestion02;
-                        break;
-                    case '3':
-                        questionResponseParameterText = req.body.alternativeQuestion03;
-                        break;
-                    case '4':
-                        questionResponseParameterText = req.body.alternativeQuestion04;
-                        break;
-                    default:
-                        res.json({
-                            'success':false,
-                            'errorMessage':'Informar o parametro referente ao identificador para selecionar a resposta para a questão, parametro: \'questionResponseIdentifier\''
-                        });
-                        connection.release();
-                        return;
-                }
-
                 connection.query('UPDATE QUESTIONS_TABLE SET ? WHERE ?',
                     [{'QUESTION_TEXT' : questionText}, {'QUESTION_ID' : questionsResults[0]['question_identifier']}] ,function(error,results,fields) {
                         if (error) {
@@ -397,9 +375,35 @@ router.put('/update/:questionID',function(req,res,next) {
                                     }
                                 });
                         });
+                        res.end();
+                });
+
+                switch (questionResponseIdentifier) {
+                    case '1':
+                        questionResponseParameterText = req.body.alternativeQuestion01;
+                        break;
+                    case '2':
+                        questionResponseParameterText = req.body.alternativeQuestion02;
+                        break;
+                    case '3':
+                        questionResponseParameterText = req.body.alternativeQuestion03;
+                        break;
+                    case '4':
+                        questionResponseParameterText = req.body.alternativeQuestion04;
+                        break;
+                    default:
+                        res.json({
+                            'success':false,
+                            'errorMessage':'Informar o parametro referente ao identificador para selecionar a resposta para a questão, parametro: \'questionResponseIdentifier\''
+                        });
+                        connection.release();
+                        return;
+                }
+
+                connection.query('',{}, function(error,results,fields) {
+
                 });
                 connection.release();
-                res.json({'kl':questionAlternativesArray});
             });
         });
     });
