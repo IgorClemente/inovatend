@@ -401,8 +401,20 @@ router.put('/update/:questionID',function(req,res,next) {
                 }
 
                 connection.query('',{}, function(error,results,fields) {
-
+                    if (error) {
+                        res.json({
+                            'success' : false,
+                            'errorMessage' : 'Erro ao atualizar a resposta da questão. Verifique os parametros de entrada'
+                        });
+                        return;
+                    }
                 });
+
+                res.json({
+                    'success' : true,
+                    'successMessage' : 'Questão atualizada com sucesso.'
+                });
+
                 connection.release();
             });
         });
