@@ -288,8 +288,8 @@ router.put('/update/:questionID',function(req,res,next) {
         if (error) {
             next(error);
             return;
-        }
 
+        }
         connection.query(questionsTableConsultQuery,[questionIdentifier], function(error,questionsResults,fields) {
             if (questionsResults.lenght == 0) {
                 res.json({
@@ -400,7 +400,8 @@ router.put('/update/:questionID',function(req,res,next) {
                         return;
                 }
 
-                connection.query('',{}, function(error,results,fields) {
+                connection.query('UPDATE QUESTIONS_RESPONSE_TABLE SET ? WHERE ?;',
+                                 { RESPONSE_TEXT : questionResponseParameterText, RESPONSE_ID : questionsResults['responseIdentifier']}, function(error,results,fields) {
                     if (error) {
                         res.json({
                             'success' : false,
@@ -408,6 +409,8 @@ router.put('/update/:questionID',function(req,res,next) {
                         });
                         return;
                     }
+
+                    console.log('RESPOSTA ATUALIZADA COM SUCESSO!');
                 });
 
                 res.json({
