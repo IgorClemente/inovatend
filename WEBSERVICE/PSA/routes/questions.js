@@ -285,11 +285,9 @@ router.put('/update/:questionID',function(req,res,next) {
                                        "WHERE QUESTION_ID = ?;";
 
     pool.getConnection(function(error, connection) {
-        if (error) {
-            next(error);
-            return;
 
-        }
+        if (error) { next(error); return; }
+
         connection.query(questionsTableConsultQuery,[questionIdentifier], function(error,questionsResults,fields) {
             if (questionsResults.lenght == 0) {
                 res.json({
@@ -335,7 +333,6 @@ router.put('/update/:questionID',function(req,res,next) {
                 const questionText = req.body.questionText || alternativeResults['question_text'];
                 const questionResponseIdentifier = req.body.questionResponseIdentifier;
 
-                var questionResponseParameterText = "";
                 var alternativesQuestions = [
                     req.body.alternativeQuestion01,
                     req.body.alternativeQuestion02,
@@ -378,6 +375,19 @@ router.put('/update/:questionID',function(req,res,next) {
                         res.end();
                 });
 
+                var questionResponseParameterText = "";
+
+                if (req.body.questionResponseIdentifier === undefined) {
+                    if (req.body.questionResponseIdentifier == "") {
+                        res.json({
+                            'success':false,
+                            'errorMessage':'Informar o parametro referente ao identificador para selecionar a resposta para a questão, parametro: \'questionResponseIdentifier\''
+                        });
+                        connection.release();
+                        return;
+                    }
+                }
+
                 switch (questionResponseIdentifier) {
                     case '1':
                         questionResponseParameterText = req.body.alternativeQuestion01;
@@ -394,14 +404,14 @@ router.put('/update/:questionID',function(req,res,next) {
                     default:
                         res.json({
                             'success':false,
-                            'errorMessage':'Informar o parametro referente ao identificador para selecionar a resposta para a questão, parametro: \'questionResponseIdentifier\''
+                            'errorMessage':'Informar o parametro válido referente ao identificador para selecionar a resposta para a questão, parametro: \'questionResponseIdentifier\''
                         });
                         connection.release();
                         return;
                 }
 
                 connection.query('UPDATE QUESTIONS_RESPONSE_TABLE SET ? WHERE ?;',
-                                 [{RESPONSE_TEXT : questionResponseParameterText},{RESPONSE_ID : questionsResults[0]['responseIdentifier']}], function(error,results,fields) {
+                                 [{RESPONSE_TEXT : questionResponseParameterText}, {RESPONSE_ID : questionsResults[0]['responseIdentifier']}], function(error,results,fields) {
                     if (error) {
                         res.json({
                             'success' : false,
@@ -409,15 +419,12 @@ router.put('/update/:questionID',function(req,res,next) {
                         });
                         return;
                     }
-
-                    console.log('RESPOSTA ATUALIZADA COM SUCESSO!');
                 });
 
                 res.json({
                     'success' : true,
                     'successMessage' : 'Questão atualizada com sucesso.'
                 });
-
                 connection.release();
             });
         });
