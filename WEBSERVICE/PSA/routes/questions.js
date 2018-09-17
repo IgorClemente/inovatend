@@ -340,6 +340,8 @@ router.put('/update/:questionID',function(req,res,next) {
                     req.body.alternativeQuestion04
                 ];
 
+                console.log('DEBUG DEBUG', req.body.alternativeQuestion04);
+
                 connection.query('UPDATE QUESTIONS_TABLE SET ? WHERE ?',
                     [{'QUESTION_TEXT' : questionText}, {'QUESTION_ID' : questionsResults[0]['question_identifier']}] ,function(error,results,fields) {
                         if (error) {
