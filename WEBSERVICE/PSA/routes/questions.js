@@ -435,12 +435,9 @@ router.put('/update/:questionID',function(req,res,next) {
 
 
 router.delete('/delete/:questionID', function(req,res,next) {
+
     let questionIdentifierParameter = req.params.questionID;
-    let questionQuery = "SELECT QUESTION_ID \"question_identifier\",\n" +
-        "QUESTION_TEXT \"question_text\",\n" +
-        "QUESTION_RESPONSE_ID \"responseIdentifier\"\n" +
-        "FROM QUESTIONS_TABLE\n" +
-        "WHERE ?;";
+    let alternativesQuestionDeleteQuery = "DELETE FROM ALTERNATIVES_QUESTIONS_TABLE WHERE ?;";
 
     pool.getConnection(function(error,connection) {
        if (error) {
@@ -451,27 +448,39 @@ router.delete('/delete/:questionID', function(req,res,next) {
            return;
        }
 
-       connection.query(questionQuery, function(error,questionsResult,fields) {
+       connection.query(alternativesQuestionDeleteQuery,[{QUESTION_ID : questionIdentifierParameter}], function(error,deleteAlternativesQuestionResult,fields) {
             if (error) {
                 res.json({
                     'success' : false,
-                    'errorMessage' : 'Erro ao deletar questão, A consulta ao banco retornou erro.'
+                    'errorMessage' : 'Erro ao deletar questão, A execução da Statement retornou uma falha.'
                 });
                 return;
             }
 
-            let questionIdentifier = questionsResult['question_identifier']
-            let questionResponseIdentifier =
-       });
-    });
+            let questionsDeleteQuery = "DELETE FROM QUESTIONS_TABLE WHERE ?;";
+            connection.query(questionsDeleteQuery,[{QUESTION_ID : questionIdentifierParameter}], function(error,deleteResponseQuestionResult,fields) {
+                if (error) {
+                    res.json({
+                        'success' : false,
+                        'errorMessage' : 'Erro ao deletar alternatives question, A execução da Statement retornou uma falha.'
+                    });
+                    return;
+                }
 
-    pool.query('DELETE', function(error,resultForDelete,fields) {
-        if (error) {
-            res.json({
-                'success' : false,
-                'errorMessage' : 'Erro ao deletar questão.'
+                let questionsResponseDeleteQuery = "DELETE FROM QUESTIONS_RESPONSE_TABLE WHERE ?;";
+                connection.query(questionsResponseDeleteQuery,[{QUESTION_ID : questionIdentifierParameter}], function(error,deleteQuestionsResult,fields) {
+                    if (error) {
+                        res.json({
+                            'success' : false,
+                            'errorMessage' : 'Error ao deletar questions, A execução da Statement retornou uma falha.'
+                        });
+                        return;
+                    }
+
+                    console.log('DELETE SUCESSO');
+                });
             });
-        }
+       });
     });
 });
 
