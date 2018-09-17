@@ -462,7 +462,8 @@ router.delete('/delete/:questionID', function(req,res,next) {
                });
                return;
            }
-           console.log(questionsRequestResult);
+
+           if (questionsRequestResult.lenght == 0) { return; }
        });
 
        connection.beginTransaction(function(error) {
