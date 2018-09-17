@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4a37463-4050-4d45-8512-8c02a0d33955" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../IOS/PSAChallenge.xcodeproj/project.xcworkspace/xcuserdata/macbookair.xcuserdatad/UserInterfaceState.xcuserstate" beforeDir="false" afterPath="$PROJECT_DIR$/../../IOS/PSAChallenge.xcodeproj/project.xcworkspace/xcuserdata/macbookair.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/questions.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/questions.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -90,14 +88,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="14667" />
+          <entry key="js" value="14676" />
           <entry key="sql" value="1084" />
           <entry key="txt" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JavaScript" value="14666" />
+          <entry key="JavaScript" value="14675" />
           <entry key="PLAIN_TEXT" value="6" />
           <entry key="SQL" value="1" />
           <entry key="Scratch" value="1084" />
@@ -128,8 +126,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/questions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="633">
-              <caret line="412" column="68" lean-forward="true" selection-start-line="412" selection-start-column="68" selection-end-line="412" selection-end-column="68" />
+            <state relative-caret-position="197">
+              <caret line="404" column="32" lean-forward="true" selection-start-line="404" selection-start-column="32" selection-end-line="404" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -276,12 +274,12 @@
       <workItem from="1536809532438" duration="364000" />
       <workItem from="1536866151469" duration="4620000" />
       <workItem from="1537057720808" duration="1639000" />
-      <workItem from="1537131382816" duration="937000" />
+      <workItem from="1537131382816" duration="1425000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="124046000" />
+    <option name="totallyTimeSpent" value="124534000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
@@ -302,7 +300,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5007153" side_tool="true" weight="0.37197453" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.31592357" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.31592357" />
       <window_info anchor="bottom" id="Database Console" order="12" sideWeight="0.49928468" weight="0.32356688" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -377,8 +375,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/questions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="633">
-          <caret line="412" column="68" lean-forward="true" selection-start-line="412" selection-start-column="68" selection-end-line="412" selection-end-column="68" />
+        <state relative-caret-position="197">
+          <caret line="404" column="32" lean-forward="true" selection-start-line="404" selection-start-column="32" selection-end-line="404" selection-end-column="32" />
         </state>
       </provider>
     </entry>

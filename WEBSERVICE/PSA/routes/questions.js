@@ -401,7 +401,7 @@ router.put('/update/:questionID',function(req,res,next) {
                 }
 
                 connection.query('UPDATE QUESTIONS_RESPONSE_TABLE SET ? WHERE ?;',
-                                 { RESPONSE_TEXT : questionResponseParameterText, RESPONSE_ID : questionsResults['responseIdentifier']}, function(error,results,fields) {
+                                 [{RESPONSE_TEXT : questionResponseParameterText},{RESPONSE_ID : questionsResults['responseIdentifier']}], function(error,results,fields) {
                     if (error) {
                         res.json({
                             'success' : false,
