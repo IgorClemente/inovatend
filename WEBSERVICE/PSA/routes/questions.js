@@ -448,6 +448,23 @@ router.delete('/delete/:questionID', function(req,res,next) {
            return;
        }
 
+       let questionsRequestQuery = 'SELECT QUESTION_ID "question_identifier",\n' +
+                                   'QUESTION_TEXT "question_text",\n' +
+                                   'QUESTION_RESPONSE_ID "responseIdentifier"\n' +
+                                   'FROM QUESTIONS_TABLE\n' +
+                                   'WHERE ?;';
+
+       connection.query(questionsRequestQuery,[{QUESTION_ID : questionIdentifierParameter}], function(error,questionsRequestResult,fields) {
+           if (error) {
+               res.json({
+                   'success' : false,
+                   'errorMessage' : 'Erro ao buscar questões cadastradas.'
+               });
+               return;
+           }
+           console.log(questionsRequestResult);
+       });
+
        connection.beginTransaction(function(error) {
            if (error) { throw error; }
 
