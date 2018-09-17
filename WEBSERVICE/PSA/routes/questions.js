@@ -468,7 +468,7 @@ router.delete('/delete/:questionID', function(req,res,next) {
                 }
 
                 let questionsResponseDeleteQuery = "DELETE FROM QUESTIONS_RESPONSE_TABLE WHERE ?;";
-                connection.query(questionsResponseDeleteQuery,[{QUESTION_ID : questionIdentifierParameter}], function(error,deleteQuestionsResult,fields) {
+                connection.query(questionsResponseDeleteQuery,[{RESPONSE_ID : questionIdentifierParameter}], function(error,deleteQuestionsResult,fields) {
                     if (error) {
                         res.json({
                             'success' : false,
