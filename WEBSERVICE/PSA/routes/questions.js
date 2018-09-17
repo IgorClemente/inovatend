@@ -464,6 +464,15 @@ router.delete('/delete/:questionID', function(req,res,next) {
                         'success' : false,
                         'errorMessage' : 'Erro ao deletar alternatives question, A execução da Statement retornou uma falha.'
                     });
+
+                    connection.query('ROLLBACK;', function(error,roolBackResult,fields) {
+                        if (error) {
+                            res.json({
+                                'success' : false,
+                                'errorMessage' : 'Erro ao reverter status da operação, A execução da Statment retornou uma falha.'
+                            });
+                        }
+                    });
                     return;
                 }
 
