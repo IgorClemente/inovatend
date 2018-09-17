@@ -340,9 +340,6 @@ router.put('/update/:questionID',function(req,res,next) {
                     req.body.alternativeQuestion04
                 ];
 
-                console.log('DEBUG DEBUG', req.body.alternativeQuestion04);
-                console.log("ALTERNATIVES QUESTIONS ARRAY", alternativesQuestions);
-
                 connection.query('UPDATE QUESTIONS_TABLE SET ? WHERE ?',
                     [{'QUESTION_TEXT' : questionText}, {'QUESTION_ID' : questionsResults[0]['question_identifier']}] ,function(error,results,fields) {
                         if (error) {
@@ -433,6 +430,48 @@ router.put('/update/:questionID',function(req,res,next) {
                 connection.release();
             });
         });
+    });
+});
+
+
+router.delete('/delete/:questionID', function(req,res,next) {
+    let questionIdentifierParameter = req.params.questionID;
+    let questionQuery = "SELECT QUESTION_ID \"question_identifier\",\n" +
+        "QUESTION_TEXT \"question_text\",\n" +
+        "QUESTION_RESPONSE_ID \"responseIdentifier\"\n" +
+        "FROM QUESTIONS_TABLE\n" +
+        "WHERE ?;";
+
+    pool.getConnection(function(error,connection) {
+       if (error) {
+           res.json({
+               'success' : false,
+               'errorMessage' : 'Erro ao deletar questão, Conexão não efetuada.'
+           });
+           return;
+       }
+
+       connection.query(questionQuery, function(error,questionsResult,fields) {
+            if (error) {
+                res.json({
+                    'success' : false,
+                    'errorMessage' : 'Erro ao deletar questão, A consulta ao banco retornou erro.'
+                });
+                return;
+            }
+
+            let questionIdentifier = questionsResult['question_identifier']
+            let questionResponseIdentifier =
+       });
+    });
+
+    pool.query('DELETE', function(error,resultForDelete,fields) {
+        if (error) {
+            res.json({
+                'success' : false,
+                'errorMessage' : 'Erro ao deletar questão.'
+            });
+        }
     });
 });
 
