@@ -341,6 +341,7 @@ router.put('/update/:questionID',function(req,res,next) {
                 ];
 
                 console.log('DEBUG DEBUG', req.body.alternativeQuestion04);
+                console.log("ALTERNATIVES QUESTIONS ARRAY", alternativesQuestions);
 
                 connection.query('UPDATE QUESTIONS_TABLE SET ? WHERE ?',
                     [{'QUESTION_TEXT' : questionText}, {'QUESTION_ID' : questionsResults[0]['question_identifier']}] ,function(error,results,fields) {
@@ -357,7 +358,9 @@ router.put('/update/:questionID',function(req,res,next) {
                             var alternativeQuestionText = alternativesQuestions[index];
 
                             if (alternativeQuestionText === undefined) {
-                                alternativeQuestionText = alternativeQuestion['alternative_question_text'];
+                                if (alternativeQuestionText === '') {
+                                    alternativeQuestionText = alternativeQuestion['alternative_question_text'];
+                                }
                             }
 
                             var alternativesQuestionsParametersObject = [{'ALTERNATIVE_QUESTION_NAME' : alternativeQuestionText},
