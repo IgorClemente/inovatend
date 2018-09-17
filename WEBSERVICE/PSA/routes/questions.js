@@ -335,7 +335,7 @@ router.put('/update/:questionID',function(req,res,next) {
                 const questionText = req.body.questionText || alternativeResults['question_text'];
                 const questionResponseIdentifier = req.body.questionResponseIdentifier;
 
-                var questionResponseParameterText = " ";
+                var questionResponseParameterText = "";
                 var alternativesQuestions = [
                     req.body.alternativeQuestion01,
                     req.body.alternativeQuestion02,
