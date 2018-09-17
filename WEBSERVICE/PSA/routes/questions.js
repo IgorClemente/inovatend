@@ -378,7 +378,7 @@ router.put('/update/:questionID',function(req,res,next) {
                 var questionResponseParameterText = "";
 
                 if (req.body.questionResponseIdentifier === undefined) {
-                    if (req.body.questionResponseIdentifier == "") {
+                    if (req.body.questionResponseIdentifier === "") {
                         res.json({
                             'success':false,
                             'errorMessage':'Informar o parametro referente ao identificador para selecionar a resposta para a questão, parametro: \'questionResponseIdentifier\''
