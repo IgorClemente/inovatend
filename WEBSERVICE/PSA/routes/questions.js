@@ -454,76 +454,104 @@ router.delete('/delete/:questionID', function(req,res,next) {
                                    'FROM QUESTIONS_TABLE\n' +
                                    'WHERE ?;';
 
-       connection.query(questionsRequestQuery,[{QUESTION_ID : questionIdentifierParameter}], function(error,questionsRequestResult,fields) {
+       connection.query(questionsRequestQuery,{QUESTION_ID : questionIdentifierParameter}, function(error,questionsRequestResult,fields) {
            if (error) {
                res.json({
                    'success' : false,
                    'errorMessage' : 'Erro ao buscar questões cadastradas.'
                });
+               connection.release();
                return;
            }
 
-           if (questionsRequestResult.lenght == 0) { return; }
-       });
+           if (!(questionsRequestResult.length > 0)) {
+               res.json({
+                   'success' : false,
+                   'errorMessage' : 'Questão não encontrada, Por favor verifique o parametro identificador da questão.'
+               });
+               connection.release();
+               return;
+           }
 
-       connection.beginTransaction(function(error) {
-           if (error) { throw error; }
-
-           connection.query(alternativesQuestionDeleteQuery,[{QUESTION_ID : questionIdentifierParameter}], function(error,deleteAlternativesQuestionResult,fields) {
+           connection.beginTransaction(function(error) {
                if (error) {
                    res.json({
                        'success' : false,
-                       'errorMessage' : 'Erro ao deletar questão, A execução da Statement retornou uma falha.'
+                       'errorMessage' : 'Erro ao abrir transação.'
                    });
-
-                   return connection.rollback(function(error) {
-                       throw error;
-                   });
+                   connection.release();
+                   return;
                }
 
-               let questionsDeleteQuery = "DELETE FROM QUESTIONS_TABLE WHERE ?;";
-               connection.query(questionsDeleteQuery,[{QUESTION_ID : questionIdentifierParameter}], function(error,deleteResponseQuestionResult,fields) {
+               connection.query(alternativesQuestionDeleteQuery,[{QUESTION_ID : questionIdentifierParameter}], function(error,deleteAlternativesQuestionResult,fields) {
                    if (error) {
                        res.json({
                            'success' : false,
-                           'errorMessage' : 'Erro ao deletar alternatives question, A execução da Statement retornou uma falha.'
+                           'errorMessage' : 'Erro ao deletar questão, A execução da Statement retornou uma falha.'
                        });
 
                        return connection.rollback(function(error) {
-                            throw error;
+                           res.json({
+                               'success' : false,
+                               'errorMessage' : 'Erro ao reverter transação.'
+                           });
                        });
                    }
 
-                   let questionsResponseDeleteQuery = "DELETE FROM QUESTIONS_RESPONSE_TABLE WHERE ?;";
-                   connection.query(questionsResponseDeleteQuery,[{RESPONSE_ID : questionIdentifierParameter}], function(error,deleteQuestionsResult,fields) {
+                   let questionsDeleteQuery = "DELETE FROM QUESTIONS_TABLE WHERE ?;";
+                   connection.query(questionsDeleteQuery,[{QUESTION_ID : questionIdentifierParameter}], function(error,deleteResponseQuestionResult,fields) {
                        if (error) {
                            res.json({
                                'success' : false,
-                               'errorMessage' : 'Error ao deletar questions, A execução da Statement retornou uma falha.'
+                               'errorMessage' : 'Erro ao deletar alternatives question, A execução da Statement retornou uma falha.'
                            });
 
                            return connection.rollback(function(error) {
-                               throw error;
+                               res.json({
+                                   'success' : false,
+                                   'errorMessage' : 'Erro ao reverter transação.'
+                               });
                            });
                        }
 
-                       connection.commit(function(error) {
+                       let questionsResponseDeleteQuery = "DELETE FROM QUESTIONS_RESPONSE_TABLE WHERE ?;";
+                       connection.query(questionsResponseDeleteQuery,[{RESPONSE_ID : questionIdentifierParameter}], function(error,deleteQuestionsResult,fields) {
                            if (error) {
+                               res.json({
+                                   'success' : false,
+                                   'errorMessage' : 'Error ao deletar questions, A execução da Statement retornou uma falha.'
+                               });
+
                                return connection.rollback(function(error) {
-                                  throw error;
+                                   res.json({
+                                       'success' : false,
+                                       'errorMessage' : 'Erro ao reverter transação.'
+                                   });
                                });
                            }
-                       });
 
-                       res.json({
-                           'success': true,
-                           'successMessage': 'Questão deletada com sucesso.'
+                           connection.commit(function(error) {
+                               if (error) {
+                                   return connection.rollback(function(error) {
+                                       res.json({
+                                           'success' : false,
+                                           'errorMessage' : 'Erro ao reverter transação.'
+                                       });
+                                   });
+                               }
+                           });
+
+                           res.json({
+                               'success': true,
+                               'successMessage': 'Questão deletada com sucesso.'
+                           });
                        });
                    });
                });
            });
        });
-    });
+       });
+
 });
 
 module.exports = router;
