@@ -31,8 +31,8 @@ router.get('/', function(req, res, next) {
                                                     "FROM ALTERNATIVES_QUESTIONS_TABLE JOIN QUESTIONS_TABLE\n" +
                                                     "ON ALTERNATIVES_QUESTIONS_TABLE.QUESTION_ID = QUESTIONS_TABLE.QUESTION_ID;";
 
-        connection.query({sql: (queryStatement + alternativesQuestionsQueryStatement),
-                          timeout: 60000}, function(error, results, fields) {
+        connection.query({ sql: (queryStatement + alternativesQuestionsQueryStatement),
+                           timeout: 60000}, function(error, results, fields) {
             if (error) {
                 res.json({
                     'success' : false,
@@ -285,8 +285,13 @@ router.put('/update/:questionID',function(req,res,next) {
                                        "WHERE QUESTION_ID = ?;";
 
     pool.getConnection(function(error, connection) {
-
-        if (error) { next(error); return; }
+        if (error) {
+            res.json({
+                'success' : false,
+                'errorMessage' : 'Erro ao atualizar a questão, Erro de comunicação.'
+            });
+            return;
+        }
 
         connection.query(questionsTableConsultQuery,[questionIdentifier], function(error,questionsResults,fields) {
             if (questionsResults.lenght == 0) {
