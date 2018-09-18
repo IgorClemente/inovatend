@@ -550,8 +550,7 @@ router.delete('/delete/:questionID', function(req,res,next) {
                });
            });
        });
-       });
-
+    });
 });
 
 module.exports = router;
