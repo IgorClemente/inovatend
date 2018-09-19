@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="f4a37463-4050-4d45-8512-8c02a0d33955" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/questions.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/questions.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -276,12 +275,12 @@
       <workItem from="1536866151469" duration="4620000" />
       <workItem from="1537057720808" duration="1639000" />
       <workItem from="1537131382816" duration="20433000" />
-      <workItem from="1537361261127" duration="4243000" />
+      <workItem from="1537361261127" duration="4574000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="147785000" />
+    <option name="totallyTimeSpent" value="148116000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -294,7 +293,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49299362" weight="0.119456366" />
       <window_info id="Structure" order="1" sideWeight="0.50700635" side_tool="true" weight="0.119456366" />
