@@ -283,7 +283,6 @@ router.put('/update/:questionID',function(req,res,next) {
                                        "QUESTION_RESPONSE_ID \"responseIdentifier\" \n" +
                                        "FROM QUESTIONS_TABLE \n" +
                                        "WHERE QUESTION_ID = ?;";
-
     pool.getConnection(function(error, connection) {
         if (error) {
             res.json({
@@ -316,7 +315,6 @@ router.put('/update/:questionID',function(req,res,next) {
                                               "ALTERNATIVE_QUESTION_NAME \"alternative_question_text\",\n" +
                                               "QUESTION_ID \"question_id\"\n" +
                                               "FROM ALTERNATIVES_QUESTIONS_TABLE;";
-
             connection.query(questionAlternativesQuery, function(error,alternativeResults,fields) {
                 var questionAlternativesArray = alternativeResults.filter(function(alternativeQuestion) {
                     return alternativeQuestion['question_id'] == questionIdentifier;
@@ -459,7 +457,7 @@ router.delete('/delete/:questionID', function(req,res,next) {
                                    'FROM QUESTIONS_TABLE\n' +
                                    'WHERE ?;';
 
-       connection.query(questionsRequestQuery,{QUESTION_ID : questionIdentifierParameter}, function(error,questionsRequestResult,fields) {
+       connection.query(questionsRequestQuery,{ QUESTION_ID : questionIdentifierParameter }, function(error,questionsRequestResult,fields) {
            if (error) {
                res.json({
                    'success' : false,
@@ -555,6 +553,18 @@ router.delete('/delete/:questionID', function(req,res,next) {
                });
            });
        });
+    });
+});
+
+router.post('/response/:questionID', function(req,res,next) {
+
+    const questionIdentifier = req.params.questionID;
+    const questionResponseIdentifier = req.body.questionResponseIdentifier;
+    const questionResponseParameter = "";
+
+
+    pool.getConnection(function(error,connection) {
+       connection.query('SELECT * FROM QUESTIONS_TABLE');
     });
 });
 
