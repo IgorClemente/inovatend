@@ -569,7 +569,7 @@ router.post('/response/:questionID', function(req,res,next) {
                                        "FROM QUESTIONS_TABLE WHERE ?";
 
     pool.getConnection(function(error,connection) {
-       var query = connection.query(questionForIdentifierQuery, { QUESTION_ID : questionIdentifier }, function(error,results,fields) {
+       connection.query(questionForIdentifierQuery, { QUESTION_ID : questionIdentifier }, function(error,results,fields) {
            if (error) {
                res.json({
                    'success' : false,
@@ -577,9 +577,12 @@ router.post('/response/:questionID', function(req,res,next) {
                });
                return;
            }
-           console.log('DEBUG QUESTION FOR IDENTIFIER', results);
+
+           res.json({
+               'success' : true,
+               'successMessage' : results
+           });
        });
-       console.log('QUERY SQL', query.sql);
     });
 });
 
