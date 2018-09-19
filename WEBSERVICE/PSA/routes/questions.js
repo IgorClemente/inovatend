@@ -315,6 +315,7 @@ router.put('/update/:questionID',function(req,res,next) {
                                               "ALTERNATIVE_QUESTION_NAME \"alternative_question_text\",\n" +
                                               "QUESTION_ID \"question_id\"\n" +
                                               "FROM ALTERNATIVES_QUESTIONS_TABLE;";
+
             connection.query(questionAlternativesQuery, function(error,alternativeResults,fields) {
                 var questionAlternativesArray = alternativeResults.filter(function(alternativeQuestion) {
                     return alternativeQuestion['question_id'] == questionIdentifier;
@@ -562,12 +563,11 @@ router.post('/response/:questionID', function(req,res,next) {
     const questionResponseIdentifier = req.body.questionResponseIdentifier;
     const questionResponseParameter = "";
 
-
     const questionForIdentifierQuery = "SELECT QUESTION_ID \'questionIdentifier\', QUESTION_TEXT \'questionText\', QUESTION_RESPONSE_ID \'questionResponseIdentifier\' \n" +
                                        "FROM QUESTION_TABLE WHERE QUESTION_ID = ?";
 
     pool.getConnection(function(error,connection) {
-       connection.query(questionForIdentifierQuery, { QUESTION_ID : questionIdentifier }, function(error,results,fields) {
+       var query = connection.query(questionForIdentifierQuery, { QUESTION_ID : questionIdentifier }, function(error,results,fields) {
            if (error) {
                res.json({
                    'success' : false,
@@ -577,6 +577,7 @@ router.post('/response/:questionID', function(req,res,next) {
            }
            console.log('DEBUG QUESTION FOR IDENTIFIER', results);
        });
+       console.log('QUERY SQL', query.sql);
     });
 });
 
