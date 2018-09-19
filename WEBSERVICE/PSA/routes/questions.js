@@ -563,8 +563,10 @@ router.post('/response/:questionID', function(req,res,next) {
     const questionResponseIdentifier = req.body.questionResponseIdentifier;
     const questionResponseParameter = "";
 
-    const questionForIdentifierQuery = "SELECT QUESTION_ID \'questionIdentifier\', QUESTION_TEXT \'questionText\', QUESTION_RESPONSE_ID \'questionResponseIdentifier\' \n" +
-                                       "FROM QUESTION_TABLE WHERE ?";
+    const questionForIdentifierQuery = "SELECT QUESTION_ID \'questionIdentifier\', " +
+                                       "QUESTION_TEXT \'questionText\', " +
+                                       "QUESTION_RESPONSE_ID \'questionResponseIdentifier\' \n" +
+                                       "FROM QUESTIONS_TABLE WHERE ?";
 
     pool.getConnection(function(error,connection) {
        var query = connection.query(questionForIdentifierQuery, { QUESTION_ID : questionIdentifier }, function(error,results,fields) {
