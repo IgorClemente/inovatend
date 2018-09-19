@@ -563,8 +563,19 @@ router.post('/response/:questionID', function(req,res,next) {
     const questionResponseParameter = "";
 
 
+    const questionForIdentifierQuery = "SELECT QUESTION_ID, QUESTION_TEXT, QUESTION_RESPONSE_ID FROM QUESTION_TABLE WHERE QUESTION_ID = ?"
+
     pool.getConnection(function(error,connection) {
-       connection.query('SELECT * FROM QUESTIONS_TABLE');
+       connection.query(questionForIdentifierQuery, { QUESTION_ID : questionIdentifier }, function(error,results,fields) {
+           if (error) {
+               res.json({
+                   'success' : false,
+                   'errorMessage' : 'Erro ao consultar questão cadastrada, A execução da Statement retornou um erro'
+               });
+               return;
+           }
+           console.log('DEBUG QUESTION FOR IDENTIFIER', results);
+       });
     });
 });
 
