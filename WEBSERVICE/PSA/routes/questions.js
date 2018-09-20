@@ -283,6 +283,7 @@ router.put('/update/:questionID',function(req,res,next) {
                                        "QUESTION_RESPONSE_ID \"responseIdentifier\" \n" +
                                        "FROM QUESTIONS_TABLE \n" +
                                        "WHERE QUESTION_ID = ?;";
+
     pool.getConnection(function(error, connection) {
         if (error) {
             res.json({
@@ -324,7 +325,7 @@ router.put('/update/:questionID',function(req,res,next) {
                 if (questionAlternativesArray.length == 0) {
                     res.json({
                         'success': false,
-                        'errorMessage': 'Erro ao atualizar a questão.'
+                        'errorMessage': 'Questão não encontrada, parametro identificador do usuário é inválido.'
                     });
                     connection.release();
                     return;
@@ -344,8 +345,9 @@ router.put('/update/:questionID',function(req,res,next) {
                     req.body.alternativeQuestion04
                 ];
 
-                connection.query('UPDATE QUESTIONS_TABLE SET ? WHERE ?',
-                    [{'QUESTION_TEXT' : questionText}, {'QUESTION_ID' : questionsResults[0]['question_identifier']}] ,function(error,results,fields) {
+                const questionsTableUpdateStatement = [{'QUESTION_TEXT' : questionText}, {'QUESTION_ID' : questionsResults[0]['question_identifier']}];
+
+                connection.query('UPDATE QUESTIONS_TABLE SET ? WHERE ?',questionsTableUpdateStatement,function(error,results,fields) {
                         if (error) {
                             res.json({
                                 'success' : false,
@@ -574,6 +576,14 @@ router.post('/response/:questionID', function(req,res,next) {
                res.json({
                    'success' : false,
                    'errorMessage' : 'Erro ao consultar questão cadastrada, A execução da Statement retornou um erro'
+               });
+               return;
+           }
+
+           if(!(results[0].length > 0)) {
+               res.json({
+                   'success' : false,
+                   'errorMessage' : 'A consulta não retornou nenhuma questão para o identificador enviado como parametro.'
                });
                return;
            }
