@@ -319,7 +319,7 @@ router.put('/update/:questionID',function(req,res,next) {
 
             connection.query(questionAlternativesQuery, function(error,alternativeResults,fields) {
                 var questionAlternativesArray = alternativeResults.filter(function(alternativeQuestion) {
-                    return alternativeQuestion['question_id'] == questionIdentifier;
+                    return alternativeQuestion['question_id'] == questionIdentifierParameter;
                 });
 
                 if (questionAlternativesArray.length == 0) {
