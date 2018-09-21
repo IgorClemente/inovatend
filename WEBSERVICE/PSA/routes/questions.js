@@ -277,7 +277,7 @@ router.post('/create', function(req, res, next) {
 
 router.put('/update/:questionID',function(req,res,next) {
 
-    const questionIdentifier = req.params.questionID;
+    const questionIdentifierParameter = req.params.questionID;
     const questionsTableConsultQuery = "SELECT QUESTION_ID \"question_identifier\",\n" +
                                        "QUESTION_TEXT \"question_text\",\n" +
                                        "QUESTION_RESPONSE_ID \"responseIdentifier\" \n" +
@@ -288,16 +288,16 @@ router.put('/update/:questionID',function(req,res,next) {
         if (error) {
             res.json({
                 'success' : false,
-                'errorMessage' : 'Erro ao atualizar a questão, Erro de comunicação.'
+                'errorMessage' : 'Erro ao atualizar a questão, Erro ao abrir conexão com a base.'
             });
             return;
         }
 
-        connection.query(questionsTableConsultQuery,[questionIdentifier], function(error,questionsResults,fields) {
+        connection.query(questionsTableConsultQuery,[questionIdentifierParameter], function(error,questionsResults,fields) {
             if (questionsResults.lenght == 0) {
                 res.json({
                     'success' : false,
-                    'errorMessage' : 'Erro ao atualizar a questão, Por favor verifique o parametro de identificação: questionID'
+                    'errorMessage' : 'Erro ao atualizar a questão, Por favor verifique o parametro de \'identificador\''
                 });
                 connection.release();
                 return;
