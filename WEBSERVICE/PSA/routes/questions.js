@@ -275,7 +275,7 @@ router.post('/create', function(req, res, next) {
     });
 });
 
-router.put('/update/:questionID',function(req,res,next) {
+router.put('/update/:questionID', function(req,res,next) {
 
     const questionIdentifierParameter = req.params.questionID;
     const questionsTableConsultQuery = "SELECT QUESTION_ID \"question_identifier\",\n" +
