@@ -580,6 +580,9 @@ router.post('/response/:questionID', function(req,res,next) {
                return;
            }
 
+
+           console.log(results[0]);
+
            if(!(results[0].length() > 0)) {
                res.json({
                    'success' : false,
