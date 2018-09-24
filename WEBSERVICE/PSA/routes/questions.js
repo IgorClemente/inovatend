@@ -590,8 +590,8 @@ router.post('/response/:questionID', function(req,res,next) {
                return;
            }
 
-           const questionResultIdentifier = results['questionIdentifier'];
-           const questionResultResponseIdentifier = results['questionResponseIdentifier'];
+           const questionResultIdentifier = results.questionIdentifier;
+           const questionResultResponseIdentifier = results.questionResponseIdentifier;
 
            if (questionIdentifierParam == questionResultIdentifier) {
                if (questionResponseIdentifier == questionResultResponseIdentifier) {
