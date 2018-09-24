@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D0F4B7D6212ED4A400B39EDA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F4B7D5212ED4A400B39EDA /* AppDelegate.swift */; };
-		D0F4B7D8212ED4A400B39EDA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F4B7D7212ED4A400B39EDA /* ViewController.swift */; };
+		D0F4B7D8212ED4A400B39EDA /* QuestionsQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F4B7D7212ED4A400B39EDA /* QuestionsQuizViewController.swift */; };
 		D0F4B7DB212ED4A400B39EDA /* QuestionsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0F4B7D9212ED4A400B39EDA /* QuestionsViewController.storyboard */; };
 		D0F4B7DD212ED4A700B39EDA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0F4B7DC212ED4A700B39EDA /* Assets.xcassets */; };
 		D0F4B7E0212ED4A700B39EDA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0F4B7DE212ED4A700B39EDA /* LaunchScreen.storyboard */; };
@@ -17,7 +17,7 @@
 /* Begin PBXFileReference section */
 		D0F4B7D2212ED4A400B39EDA /* PSAChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PSAChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0F4B7D5212ED4A400B39EDA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D0F4B7D7212ED4A400B39EDA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D0F4B7D7212ED4A400B39EDA /* QuestionsQuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsQuizViewController.swift; sourceTree = "<group>"; };
 		D0F4B7DA212ED4A400B39EDA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/QuestionsViewController.storyboard; sourceTree = "<group>"; };
 		D0F4B7DC212ED4A700B39EDA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../New Group2/Assets.xcassets"; sourceTree = "<group>"; };
 		D0F4B7DF212ED4A700B39EDA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -52,7 +52,7 @@
 		D06253FF2132EE56001E28F4 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				D0F4B7D7212ED4A400B39EDA /* ViewController.swift */,
+				D0F4B7D7212ED4A400B39EDA /* QuestionsQuizViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -185,7 +185,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0F4B7D8212ED4A400B39EDA /* ViewController.swift in Sources */,
+				D0F4B7D8212ED4A400B39EDA /* QuestionsQuizViewController.swift in Sources */,
 				D0F4B7D6212ED4A400B39EDA /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
