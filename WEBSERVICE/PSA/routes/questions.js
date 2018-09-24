@@ -454,9 +454,9 @@ router.delete('/delete/:questionID', function(req,res,next) {
            return;
        }
 
-       let questionsRequestQuery = 'SELECT QUESTION_ID "question_identifier",\n' +
-                                   'QUESTION_TEXT "question_text",\n' +
-                                   'QUESTION_RESPONSE_ID "responseIdentifier"\n' +
+       let questionsRequestQuery = 'SELECT QUESTION_ID "questionIdentifier",\n' +
+                                   'QUESTION_TEXT "questionText",\n' +
+                                   'QUESTION_RESPONSE_ID "questionResponseIdentifier"\n' +
                                    'FROM QUESTIONS_TABLE\n' +
                                    'WHERE ?;';
 
