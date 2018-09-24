@@ -583,7 +583,7 @@ router.post('/response/:questionID', function(req,res,next) {
 
            console.log(results);
 
-           if(!(results[0].length() > 0)) {
+           if(!(results.length > 0)) {
                res.json({
                    'success' : false,
                    'errorMessage' : 'A consulta não retornou nenhuma questão para o identificador enviado como parametro.'
