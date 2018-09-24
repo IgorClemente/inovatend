@@ -601,15 +601,13 @@ router.post('/response/:questionID', function(req,res,next) {
            const questionResultIdentifier = results[0].questionIdentifier;
            const questionResultResponseIdentifier = results[0].questionResponseIdentifier;
 
-           if (questionIdentifierParam != questionResultIdentifier) {
-               if (questionResponseIdentifier != questionResultResponseIdentifier) {
-                   res.json({
-                       'success' : false,
-                       'errorMessage' : 'Erro ao verificar resposta para questão.'
-                   });
-                   connection.release();
-                   return;
-               }
+           if ((questionIdentifierParam !== questionResultIdentifier) || (questionResponseIdentifier !== questionResultResponseIdentifier)) {
+               res.json({
+                   'success' : false,
+                   'errorMessage' : 'Erro ao verificar resposta para questão.'
+               });
+               connection.release();
+               return;
            }
 
            res.json({
