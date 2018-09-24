@@ -603,14 +603,6 @@ router.post('/response/:questionID', function(req,res,next) {
                    return;
                }
            }
-
-           console.log(questionResultIdentifier);
-           console.log(questionResultResponseIdentifier);
-
-           res.json({
-               'success' : true,
-               'successMessage' : results
-           });
            connection.release();
        });
     });
