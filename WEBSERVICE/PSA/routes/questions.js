@@ -599,6 +599,8 @@ router.post('/response/:questionID', function(req,res,next) {
                        'success' : true,
                        'successMessage' : 'Resposta adicionada com sucesso.'
                    });
+                   connection.release();
+                   return;
                }
            }
 
