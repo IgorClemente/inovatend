@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4a37463-4050-4d45-8512-8c02a0d33955" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/questions.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/questions.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -128,7 +127,7 @@
         <entry file="file://$PROJECT_DIR$/routes/questions.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="254">
-              <caret line="583" column="35" selection-start-line="583" selection-start-column="35" selection-end-line="583" selection-end-column="35" />
+              <caret line="583" column="32" lean-forward="true" selection-start-line="583" selection-start-column="32" selection-end-line="583" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -279,12 +278,12 @@
       <workItem from="1537361261127" duration="5461000" />
       <workItem from="1537422161984" duration="915000" />
       <workItem from="1537462731316" duration="4435000" />
-      <workItem from="1537812640362" duration="659000" />
+      <workItem from="1537812640362" duration="1328000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="155012000" />
+    <option name="totallyTimeSpent" value="155681000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -297,7 +296,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49299362" weight="0.119456366" />
       <window_info id="Structure" order="1" sideWeight="0.50700635" side_tool="true" weight="0.119456366" />
@@ -398,7 +396,7 @@
     <entry file="file://$PROJECT_DIR$/routes/questions.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="254">
-          <caret line="583" column="35" selection-start-line="583" selection-start-column="35" selection-end-line="583" selection-end-column="35" />
+          <caret line="583" column="32" lean-forward="true" selection-start-line="583" selection-start-column="32" selection-end-line="583" selection-end-column="32" />
         </state>
       </provider>
     </entry>

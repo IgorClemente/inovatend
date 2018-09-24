@@ -581,7 +581,7 @@ router.post('/response/:questionID', function(req,res,next) {
            }
 
 
-           console.log(results[0]);
+           console.log(results);
 
            if(!(results[0].length() > 0)) {
                res.json({
