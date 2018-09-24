@@ -577,17 +577,16 @@ router.post('/response/:questionID', function(req,res,next) {
                    'success' : false,
                    'errorMessage' : 'Erro ao consultar questão cadastrada, A execução da Statement retornou um erro'
                });
+               connection.release();
                return;
            }
-
-
-           console.log(results);
 
            if(!(results.length > 0)) {
                res.json({
                    'success' : false,
                    'errorMessage' : 'A consulta não retornou nenhuma questão para o identificador enviado como parametro.'
                });
+               connection.release();
                return;
            }
 
@@ -595,6 +594,7 @@ router.post('/response/:questionID', function(req,res,next) {
                'success' : true,
                'successMessage' : results
            });
+           connection.release();
        });
     });
 });
