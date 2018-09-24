@@ -570,6 +570,14 @@ router.post('/response/:questionID', function(req,res,next) {
                                        "QUESTION_RESPONSE_ID \'questionResponseIdentifier\' \n" +
                                        "FROM QUESTIONS_TABLE WHERE ?";
 
+    if ((questionIdentifierParam === undefined) || (questionResponseIdentifier === undefined)) {
+        res.json({
+            'success' : false,
+            'errorMessage' : 'Erro ao responder questão, Por favor verifique o parametro de identificação da Questão e Resposta da Questão.'
+        });
+        return;
+    }
+
     pool.getConnection(function(error,connection) {
        connection.query(questionForIdentifierQuery, { QUESTION_ID : questionIdentifierParam }, function(error,results,fields) {
            if (error) {
@@ -603,6 +611,11 @@ router.post('/response/:questionID', function(req,res,next) {
                    return;
                }
            }
+
+           res.json({
+               'success' : false,
+               'errorMessage' : 'Erro ao verificar resposta para questão.'
+           });
            connection.release();
        });
     });
