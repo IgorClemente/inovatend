@@ -561,7 +561,7 @@ router.delete('/delete/:questionID', function(req,res,next) {
 
 router.post('/response/:questionID', function(req,res,next) {
 
-    const questionIdentifier = req.params.questionID;
+    const questionIdentifierParam = req.params.questionID;
     const questionResponseIdentifier = req.body.questionResponseIdentifier;
     const questionResponseParameter = "";
 
@@ -571,7 +571,7 @@ router.post('/response/:questionID', function(req,res,next) {
                                        "FROM QUESTIONS_TABLE WHERE ?";
 
     pool.getConnection(function(error,connection) {
-       connection.query(questionForIdentifierQuery, { QUESTION_ID : questionIdentifier }, function(error,results,fields) {
+       connection.query(questionForIdentifierQuery, { QUESTION_ID : questionIdentifierParam }, function(error,results,fields) {
            if (error) {
                res.json({
                    'success' : false,
@@ -589,6 +589,21 @@ router.post('/response/:questionID', function(req,res,next) {
                connection.release();
                return;
            }
+
+           const questionResultIdentifier = results['questionIdentifier'];
+           const questionResultResponseIdentifier = results['questionResponseIdentifier'];
+
+           if (questionIdentifierParam == questionResultIdentifier) {
+               if (questionResponseIdentifier == questionResultResponseIdentifier) {
+                   res.json({
+                       'success' : true,
+                       'successMessage' : 'Resposta adicionada com sucesso.'
+                   });
+               }
+           }
+
+           console.log(questionResultIdentifier);
+           console.log(questionResultResponseIdentifier);
 
            res.json({
                'success' : true,
