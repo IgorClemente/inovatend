@@ -60,7 +60,7 @@ router.get('/', function(req, res, next) {
                 alternativeQuestions.forEach(function(response,index) {
                     const alternativeQuestionResponseObject = {
                         'identifier' : response['identifier'],
-                        'alternative_question' : response['alternative_question']
+                        'alternative_question' : response['alternative_question_text']
                     };
                     alternativesQuestionResponseArray.push(alternativeQuestionResponseObject);
 
