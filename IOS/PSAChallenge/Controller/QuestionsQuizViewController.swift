@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  PSAChallenge
 //
-//  Created by MACBOOK AIR on 23/08/2018.
+//  Created by Igor Clemente on 23/08/2018.
 //  Copyright © 2018 Igor Clemente. All rights reserved.
 //
 
@@ -10,15 +10,23 @@ import UIKit
 
 class QuestionsQuizViewController: UIViewController {
 
+    @IBOutlet weak var questionCentralText: UILabel?
+    @IBOutlet var questionResponsesArray: Array<UILabel>?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-
+    
+    @IBAction func tapRequestQuestions() -> Void {
+        InovaClient.sharedInstance().requestAllQuestionsFor { (success, questions, errorString) in
+            if success {
+                print("QUESTIONS DEBUG", questions)
+            }
+        }
+    }
 }
 

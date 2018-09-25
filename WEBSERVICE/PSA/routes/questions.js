@@ -22,11 +22,11 @@ router.get('/', function(req, res, next) {
             return;
         }
 
-        const queryStatement = "SELECT QUESTION_ID \"identifier\",QUESTION_TEXT \"question\", QUESTIONS_RESPONSE_TABLE.RESPONSE_TEXT \"question_response\"\n" +
+        const queryStatement = "SELECT QUESTION_ID \"identifier\",QUESTION_TEXT \"question_text\", QUESTIONS_RESPONSE_TABLE.RESPONSE_TEXT \"question_response_text\"\n" +
                                "FROM QUESTIONS_TABLE  JOIN QUESTIONS_RESPONSE_TABLE \n" +
                                "ON QUESTIONS_TABLE.QUESTION_RESPONSE_ID = QUESTIONS_RESPONSE_TABLE.RESPONSE_ID;" ;
 
-        const alternativesQuestionsQueryStatement = "SELECT ALTERNATIVES_QUESTIONS_TABLE.ALTERNATIVE_QUESTION_ID \"identifier\", ALTERNATIVE_QUESTION_NAME \"alternative_question\",\n" +
+        const alternativesQuestionsQueryStatement = "SELECT ALTERNATIVES_QUESTIONS_TABLE.ALTERNATIVE_QUESTION_ID \"identifier\", ALTERNATIVE_QUESTION_NAME \"alternative_question_text\",\n" +
                                                     "QUESTIONS_TABLE.QUESTION_ID \"question_id\"\n" +
                                                     "FROM ALTERNATIVES_QUESTIONS_TABLE JOIN QUESTIONS_TABLE\n" +
                                                     "ON ALTERNATIVES_QUESTIONS_TABLE.QUESTION_ID = QUESTIONS_TABLE.QUESTION_ID;";
@@ -563,7 +563,6 @@ router.post('/response/:questionID', function(req,res,next) {
 
     const questionIdentifierParam = req.params.questionID;
     const questionResponseIdentifier = req.body.questionResponseIdentifier;
-    const questionResponseParameter = "";
 
     const questionForIdentifierQuery = "SELECT QUESTION_ID \'questionIdentifier\', " +
                                        "QUESTION_TEXT \'questionText\', " +
@@ -575,6 +574,7 @@ router.post('/response/:questionID', function(req,res,next) {
             'success' : false,
             'errorMessage' : 'Erro ao responder questão, Por favor verifique o parametro de identificação da Questão e Resposta da Questão.'
         });
+        connection.release();
         return;
     }
 
