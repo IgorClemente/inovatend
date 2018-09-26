@@ -614,7 +614,7 @@ router.post('/response/:questionID', function(req,res,next) {
 
            res.json({
                'success' : true,
-               'successMessage' : 'Resposta adicionada com sucesso.'
+               'successMessage' : 'Questão respondida com sucesso.'
            });
            connection.release();
        });
