@@ -27,5 +27,14 @@ extension InovaClient {
         static let ErrorMessage = "errorMessage"
         
         static let Questions = "questions"
+        static let Alternatives = "alternatives"
+        
+        static let QuestionIdentifier = "identifier"
+        static let QuestionText = "question_text"
+        static let QuestionResponseText = "question_response_text"
+        static let AlternativesQuestions = "alternatives"
+        
+        static let AlternativeQuestionIdentifier = "identifier"
+        static let AlternativeQuestionText = "alternative_question"
     }
 }

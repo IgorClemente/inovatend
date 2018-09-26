@@ -22,7 +22,7 @@ extension InovaClient {
                    let successFlag = results[JSONResponseKeys.SuccessStatus] as? Bool,
                    successFlag {
                     guard let questions = results[JSONResponseKeys.Questions] as? [[String:Any]] else {
-                        let messageError = "Could not find key: \(JSONResponseKeys.Questions)"
+                        let messageError: String = "Could not find key: \(JSONResponseKeys.Questions)"
                         completionHandlerForRequestAllQuestions(false,nil,messageError)
                         return
                     }

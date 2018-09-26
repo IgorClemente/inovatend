@@ -13,7 +13,6 @@ class InovaClient : NSObject {
     
     let session = URLSession.shared
     
-    
     func taskForGETMethod(_ method: String,_ parameters: [String:Any],
                           _ completionHandlerForGET: @escaping (_ result: Any?,_ error: NSError?) -> Void) {
         

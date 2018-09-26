@@ -22,7 +22,7 @@ router.get('/', function(req, res, next) {
             return;
         }
 
-        const queryStatement = "SELECT QUESTION_ID \"identifier\",QUESTION_TEXT \"question_text\", QUESTIONS_RESPONSE_TABLE.RESPONSE_TEXT \"question_response_text\"\n" +
+        const questionsQueryStatement = "SELECT QUESTION_ID \"identifier\",QUESTION_TEXT \"question_text\", QUESTIONS_RESPONSE_TABLE.RESPONSE_TEXT \"question_response_text\"\n" +
                                "FROM QUESTIONS_TABLE  JOIN QUESTIONS_RESPONSE_TABLE \n" +
                                "ON QUESTIONS_TABLE.QUESTION_RESPONSE_ID = QUESTIONS_RESPONSE_TABLE.RESPONSE_ID;" ;
 
@@ -31,7 +31,7 @@ router.get('/', function(req, res, next) {
                                                     "FROM ALTERNATIVES_QUESTIONS_TABLE JOIN QUESTIONS_TABLE\n" +
                                                     "ON ALTERNATIVES_QUESTIONS_TABLE.QUESTION_ID = QUESTIONS_TABLE.QUESTION_ID;";
 
-        connection.query({ sql: (queryStatement + alternativesQuestionsQueryStatement),
+        connection.query({ sql: (questionsQueryStatement + alternativesQuestionsQueryStatement),
                            timeout: 60000}, function(error, results, fields) {
             if (error) {
                 res.json({
@@ -50,10 +50,10 @@ router.get('/', function(req, res, next) {
                 return;
             }
 
-            var alternativesQuestionResponseArray = [];
+            let alternativesQuestionResponseArray = [];
 
-            results[0].forEach(function(question, index) {
-                var alternativeQuestions = results[1].filter(function(element, index, array) {
+            results[0].forEach(function(question,_) {
+                let alternativeQuestions = results[1].filter(function(element,_,_) {
                     return element['question_id'] === question['identifier'];
                 });
 
@@ -63,7 +63,6 @@ router.get('/', function(req, res, next) {
                         'alternative_question' : response['alternative_question_text']
                     };
                     alternativesQuestionResponseArray.push(alternativeQuestionResponseObject);
-
                 });
 
                 question['alternatives'] = alternativesQuestionResponseArray;

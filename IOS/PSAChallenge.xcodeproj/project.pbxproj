@@ -11,6 +11,9 @@
 		D096A95321598510006B2528 /* InovaConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D096A95221598510006B2528 /* InovaConstants.swift */; };
 		D096A95621599C47006B2528 /* GCDHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D096A95521599C47006B2528 /* GCDHelper.swift */; };
 		D096A9582159A7EC006B2528 /* InovaConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = D096A9572159A7EC006B2528 /* InovaConvenience.swift */; };
+		D096A95B2159B626006B2528 /* InovaQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D096A95A2159B626006B2528 /* InovaQuestion.swift */; };
+		D096A95E2159BDD1006B2528 /* InovaAlternativeQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D096A95D2159BDD1006B2528 /* InovaAlternativeQuestion.swift */; };
+		D096A9602159C9E3006B2528 /* Rounder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D096A95F2159C9E3006B2528 /* Rounder.swift */; };
 		D0F4B7D6212ED4A400B39EDA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F4B7D5212ED4A400B39EDA /* AppDelegate.swift */; };
 		D0F4B7D8212ED4A400B39EDA /* QuestionsQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F4B7D7212ED4A400B39EDA /* QuestionsQuizViewController.swift */; };
 		D0F4B7DB212ED4A400B39EDA /* QuestionsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0F4B7D9212ED4A400B39EDA /* QuestionsViewController.storyboard */; };
@@ -23,6 +26,9 @@
 		D096A95221598510006B2528 /* InovaConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InovaConstants.swift; sourceTree = "<group>"; };
 		D096A95521599C47006B2528 /* GCDHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCDHelper.swift; sourceTree = "<group>"; };
 		D096A9572159A7EC006B2528 /* InovaConvenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InovaConvenience.swift; sourceTree = "<group>"; };
+		D096A95A2159B626006B2528 /* InovaQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InovaQuestion.swift; sourceTree = "<group>"; };
+		D096A95D2159BDD1006B2528 /* InovaAlternativeQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InovaAlternativeQuestion.swift; sourceTree = "<group>"; };
+		D096A95F2159C9E3006B2528 /* Rounder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rounder.swift; sourceTree = "<group>"; };
 		D0F4B7D2212ED4A400B39EDA /* PSAChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PSAChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0F4B7D5212ED4A400B39EDA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0F4B7D7212ED4A400B39EDA /* QuestionsQuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsQuizViewController.swift; sourceTree = "<group>"; };
@@ -46,6 +52,7 @@
 		D06253FD2132EE4A001E28F4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D096A95F2159C9E3006B2528 /* Rounder.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -53,6 +60,7 @@
 		D06253FE2132EE51001E28F4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D096A9592159B5B1006B2528 /* InovaQuestion */,
 				D096A94F21598326006B2528 /* InovaClient */,
 			);
 			path = Model;
@@ -110,6 +118,15 @@
 				D096A95521599C47006B2528 /* GCDHelper.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D096A9592159B5B1006B2528 /* InovaQuestion */ = {
+			isa = PBXGroup;
+			children = (
+				D096A95A2159B626006B2528 /* InovaQuestion.swift */,
+				D096A95D2159BDD1006B2528 /* InovaAlternativeQuestion.swift */,
+			);
+			path = InovaQuestion;
 			sourceTree = "<group>";
 		};
 		D0F4B7C9212ED4A400B39EDA = {
@@ -214,10 +231,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0F4B7D8212ED4A400B39EDA /* QuestionsQuizViewController.swift in Sources */,
+				D096A95B2159B626006B2528 /* InovaQuestion.swift in Sources */,
 				D096A95321598510006B2528 /* InovaConstants.swift in Sources */,
 				D096A95121598351006B2528 /* InovaClient.swift in Sources */,
 				D0F4B7D6212ED4A400B39EDA /* AppDelegate.swift in Sources */,
+				D096A95E2159BDD1006B2528 /* InovaAlternativeQuestion.swift in Sources */,
 				D096A95621599C47006B2528 /* GCDHelper.swift in Sources */,
+				D096A9602159C9E3006B2528 /* Rounder.swift in Sources */,
 				D096A9582159A7EC006B2528 /* InovaConvenience.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
