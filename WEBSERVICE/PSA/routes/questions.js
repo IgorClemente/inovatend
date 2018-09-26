@@ -22,9 +22,11 @@ router.get('/', function(req, res, next) {
             return;
         }
 
-        const questionsQueryStatement = "SELECT QUESTION_ID \"identifier\",QUESTION_TEXT \"question_text\", QUESTIONS_RESPONSE_TABLE.RESPONSE_TEXT \"question_response_text\"\n" +
+        const questionsQueryStatement = "SELECT QUESTION_ID \"identifier\",QUESTION_TEXT \"question_text\", " +
+                               "QUESTIONS_RESPONSE_TABLE.RESPONSE_TEXT \"question_response_text\",\n" +
+                               "QUESTION_RESPONSE_ID \"question_response_identifier\"\n" +
                                "FROM QUESTIONS_TABLE  JOIN QUESTIONS_RESPONSE_TABLE \n" +
-                               "ON QUESTIONS_TABLE.QUESTION_RESPONSE_ID = QUESTIONS_RESPONSE_TABLE.RESPONSE_ID;" ;
+                               "ON QUESTIONS_TABLE.QUESTION_RESPONSE_ID = QUESTIONS_RESPONSE_TABLE.RESPONSE_ID;";
 
         const alternativesQuestionsQueryStatement = "SELECT ALTERNATIVES_QUESTIONS_TABLE.ALTERNATIVE_QUESTION_ID \"identifier\", ALTERNATIVE_QUESTION_NAME \"alternative_question_text\",\n" +
                                                     "QUESTIONS_TABLE.QUESTION_ID \"question_id\"\n" +
