@@ -560,11 +560,11 @@ router.delete('/delete/:questionID', function(req,res,next) {
     });
 });
 
-router.post('/response/:questionID', function(req,res,next) {
+router.post('/response/:question_identifier', function(req,res,next) {
 
-    const questionIdentifierParam = req.params.questionID;
-    const questionResponseIdentifier = req.body.questionResponseIdentifier;
-    console.log(req.body.teste3);
+    const questionIdentifierParam = req.params.question_identifier;
+    const questionResponseIdentifier = req.body.question_response_identifier;
+
     const questionForIdentifierQuery = "SELECT QUESTION_ID \'questionIdentifier\', " +
                                        "QUESTION_TEXT \'questionText\', " +
                                        "QUESTION_RESPONSE_ID \'questionResponseIdentifier\' \n" +
