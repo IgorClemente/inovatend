@@ -601,7 +601,6 @@ router.post('/response/:question_identifier', function(req,res,next) {
            const questionResultIdentifier = results[0].questionIdentifier;
            const questionResultResponseIdentifier = results[0].questionResponseIdentifier;
 
-           console.log(results[0]);
            if ((questionIdentifierParam != questionResultIdentifier) || (questionResponseIdentifier != questionResultResponseIdentifier)) {
                res.json({
                    'success' : false,
