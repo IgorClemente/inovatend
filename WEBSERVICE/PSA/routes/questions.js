@@ -564,7 +564,7 @@ router.post('/response/:questionID', function(req,res,next) {
 
     const questionIdentifierParam = req.params.questionID;
     const questionResponseIdentifier = req.body.questionResponseIdentifier;
-
+    console.log(req.body.json);
     const questionForIdentifierQuery = "SELECT QUESTION_ID \'questionIdentifier\', " +
                                        "QUESTION_TEXT \'questionText\', " +
                                        "QUESTION_RESPONSE_ID \'questionResponseIdentifier\' \n" +
