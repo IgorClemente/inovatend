@@ -31,6 +31,16 @@ class QuestionsQuizViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
+    private func verifyQuestionResponse(question identifier: Int,_ responseIdentifier: Int) -> Void {
+        InovaClient.sharedInstance().setResponseFor(question: identifier, and: responseIdentifier) { (success, response, errorString) in
+            if success {
+                print("Resposta Correta!")
+                return
+            }
+            print(errorString)
+        }
+    }
+    
     private func requestQuestionsFromServer() -> Void {
         InovaClient.sharedInstance().requestAllQuestionsFor { (success, questions, errorString) in
             if success {
@@ -90,6 +100,10 @@ class QuestionsQuizViewController: UIViewController {
         let alternativeSelected = questionsSorted[alternativeQuestionArrayIndex - 1]
         
         currentAlternativeQuestionObject = alternativeSelected
+        
+        let currentQuestionIdentifier: Int = currentQuestionObject.identifier
+        
+        self.verifyQuestionResponse(question: currentQuestionIdentifier, alternativeSelected.identifier)
         self.setupInformationFromQuestionsUI()
     }
 }

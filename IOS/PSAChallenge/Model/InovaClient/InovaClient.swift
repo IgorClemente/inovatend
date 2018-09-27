@@ -67,9 +67,17 @@ class InovaClient : NSObject {
         guard let urlString = inovaMakeURLFromParameters(parameters, withPathExtension: method) else {
             return
         }
+        
         print("URL STR",urlString)
+        print("JSON BODY",jsonBody)
+        print("BODY", jsonBody?.data(using: .utf8))
+        
         var request = URLRequest(url: urlString)
         request.httpMethod = "POST"
+        
+        if let jsonBody = jsonBody {
+            request.httpBody = jsonBody.data(using: .utf8)
+        }
         
         let task = session.dataTask(with: request) { (data, response, error) in
             
