@@ -575,7 +575,6 @@ router.post('/response/:questionID', function(req,res,next) {
             'success' : false,
             'errorMessage' : 'Erro ao responder questão, Por favor verifique o parametro de identificação da Questão e Resposta da Questão.'
         });
-        connection.release();
         return;
     }
 

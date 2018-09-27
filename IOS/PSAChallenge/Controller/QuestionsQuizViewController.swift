@@ -14,6 +14,8 @@ class QuestionsQuizViewController: UIViewController {
     @IBOutlet var questionResponsesArray: Array<UILabel>?
     
     var questionsObjectsArray: Array<InovaQuestion>?
+    var currentAlternativeQuestionObject: InovaAlternativeQuestion?
+    var currentQuestionObject: InovaQuestion?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -34,6 +36,7 @@ class QuestionsQuizViewController: UIViewController {
             if success {
                 guard let questionsDictionary = questions else { return }
                 let questionsArrayObjects = InovaQuestion.questionsFor(question: questionsDictionary)
+                
                 self.questionsObjectsArray = questionsArrayObjects
                 self.setupInformationFromQuestionsUI()
             }
@@ -41,13 +44,24 @@ class QuestionsQuizViewController: UIViewController {
     }
     
     private func setupInformationFromQuestionsUI() -> Void {
-        guard let questionCentralTextLabel = self.questionCentralText else { return }
+        guard let questionCentralTextLabel = self.questionCentralText,
+              let questionsObjectsArray = self.questionsObjectsArray else { return }
         
-        let randomQuestionIdentifier = arc4random_uniform(UInt32((self.questionsObjectsArray?.count)!))
-        let randomQuestion = self.questionsObjectsArray![Int(randomQuestionIdentifier)]
+        let randomQuestionIdentifier = arc4random_uniform(UInt32(questionsObjectsArray.count))
+        let randomQuestion = questionsObjectsArray[Int(randomQuestionIdentifier)]
         
+        self.currentQuestionObject = randomQuestion
+
         performUIMain {
-            questionCentralTextLabel.text = "\(randomQuestion.question_text)"
+            questionCentralTextLabel.alpha = 0.0
+            questionCentralTextLabel.isHidden = true
+            
+            UIView.animate(withDuration: 0.7, animations: {
+                questionCentralTextLabel.alpha = 1.0
+            }, completion: { (_) in
+                questionCentralTextLabel.isHidden = false
+                questionCentralTextLabel.text = "\(randomQuestion.question_text)"
+            })
         }
         
         let questionsSorted = randomQuestion.alternatives.sorted { (questionA, questionB) -> Bool in
@@ -56,8 +70,8 @@ class QuestionsQuizViewController: UIViewController {
         
         for (index,alternative) in questionsSorted.enumerated() {
             guard let questionResponsesArray = self.questionResponsesArray else { return }
-            
             let alternativeQuestionLabel = questionResponsesArray[index]
+            
             performUIMain {
                 alternativeQuestionLabel.text = alternative.alternativeQuestionText
             }
@@ -65,7 +79,18 @@ class QuestionsQuizViewController: UIViewController {
     }
     
     @IBAction func tapAlternativeQuestionSelected(_ button: UIButton) -> Void {
-        print(button.restorationIdentifier)
+        guard let questionIdentifier = button.restorationIdentifier,
+              let currentQuestionObject = self.currentQuestionObject else { return }
+        
+        let questionsSorted = currentQuestionObject.alternatives.sorted { (alternativeA, alternativeB) -> Bool in
+            return alternativeA.identifier < alternativeB.identifier
+        }
+        
+        guard let alternativeQuestionArrayIndex = Int(questionIdentifier) else { return }
+        let alternativeSelected = questionsSorted[alternativeQuestionArrayIndex - 1]
+        
+        currentAlternativeQuestionObject = alternativeSelected
+        self.setupInformationFromQuestionsUI()
     }
 }
 
