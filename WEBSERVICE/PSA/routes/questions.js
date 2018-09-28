@@ -285,14 +285,14 @@ router.post('/create', function(req, res, next) {
                                 connection.release();
                                 return;
                             }
+
+                            let jsonResponse = {
+                                'success' : true,
+                                'successMessage' : 'Pergunta cadastrada com sucesso!'
+                            };
+
+                            res.json(jsonResponse);
                         });
-
-                        let jsonResponse = {
-                            'success' : true,
-                            'successMessage' : 'Pergunta cadastrada com sucesso!'
-                        };
-
-                        res.json(jsonResponse);
                     });
                 });
             });
