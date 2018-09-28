@@ -647,12 +647,19 @@ router.post('/response/:question_identifier', function(req,res,next) {
                 }
 
                 let alternativeQuestionIdentifier = results[0]['alternativeQuestionIdentifier'];
-                console.log("ALTERNATIVE QUESTION", results[0]['alternativeQuestionIdentifier']);
+
+                if (!(alternativeQuestionIdentifier == questionResultResponseIdentifier)) {
+                    res.json({
+                        'success' : false,
+                        'errorMessage' : 'Questão incorreta!'
+                    });
+                    return;
+                }
            });
 
            res.json({
                'success' : true,
-               'successMessage' : 'Questão respondida com sucesso.'
+               'successMessage' : 'Questão correta!'
            });
            connection.release();
        });
