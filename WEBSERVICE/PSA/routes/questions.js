@@ -239,7 +239,7 @@ router.post('/create', function(req, res, next) {
 
             const questionResponseID = results.insertId;
 
-            var questionParametersStatement = {
+            const questionParametersStatement = {
                 'QUESTION_TEXT' : questionText,
                 'QUESTION_RESPONSE_ID' : questionResponseID
             };
@@ -252,16 +252,38 @@ router.post('/create', function(req, res, next) {
                     });
                 }
 
-                alternativesQuestions.forEach(function(value,_) {
+                let alternativeQuestionIdentifier = 0;
+
+                alternativesQuestions.forEach(function(value,index) {
                     connection.query('INSERT INTO ALTERNATIVES_QUESTIONS_TABLE SET ?;',
-                                    {'ALTERNATIVE_QUESTION_NAME':value, 'QUESTION_ID':results.insertId}, function(error,_,_) {
+                                    {'ALTERNATIVE_QUESTION_NAME' : value, 'QUESTION_ID' : results.insertId}, function(error,_,_) {
                         if (error) {
                             res.json({
                                 'success' : false,
                                 'errorMessage' : error
                             });
+                            connection.release();
+                            return;
                         }
                     });
+
+                    if ((index + 1) == questionResponseIdentifier) {
+                        alternativeQuestionIdentifier = results.insertId;
+                    }
+                });
+
+                const questionResponseIdentifierQuery = 'UPDATE QUESTIONS_RESPONSE_TABLE SET ? WHERE ?;';
+                const questionResponseParameter = { ALTERNATIVE_QUESTION_ID : alternativeQuestionIdentifier, RESPONSE_ID : questionResponseID }
+
+                connection.query(questionResponseIdentifierQuery,questionResponseParameter, function(error,results,fields) {
+                    if (error) {
+                        res.json({
+                            'success' : false,
+                            'errorMessage' : error
+                        });
+                        connection.release();
+                        return;
+                    }
                 });
 
                 var jsonResponse = {

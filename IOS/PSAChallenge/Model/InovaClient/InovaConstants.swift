@@ -33,6 +33,7 @@ extension InovaClient {
         static let QuestionIdentifier = "identifier"
         static let QuestionText = "question_text"
         static let QuestionResponseText = "question_response_text"
+        static let QuestionResponseIdentifier = "question_response_identifier"
         static let AlternativesQuestions = "alternatives"
         
         static let AlternativeQuestionIdentifier = "identifier"

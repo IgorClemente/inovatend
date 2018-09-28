@@ -859,40 +859,46 @@
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="214" parent="204" name="PRIMARY">
+    <column id="214" parent="204" name="ALTERNATIVE_QUESTION_ID">
+      <Position>3</Position>
+      <DataType>int(11)|0s</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="215" parent="204" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>RESPONSE_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="215" parent="205" name="QUESTION_ID">
+    <column id="216" parent="205" name="QUESTION_ID">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="216" parent="205" name="QUESTION_TEXT">
+    <column id="217" parent="205" name="QUESTION_TEXT">
       <Position>2</Position>
       <DataType>varchar(200)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="217" parent="205" name="QUESTION_RESPONSE_ID">
+    <column id="218" parent="205" name="QUESTION_RESPONSE_ID">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="218" parent="205" name="questions_questions_response_fk">
+    <index id="219" parent="205" name="questions_questions_response_fk">
       <ColNames>QUESTION_RESPONSE_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="219" parent="205" name="PRIMARY">
+    <key id="220" parent="205" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>QUESTION_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="220" parent="205" name="QUESTIONS_TABLE_ibfk_1">
+    <foreign-key id="221" parent="205" name="QUESTIONS_TABLE_ibfk_1">
       <ColNames>QUESTION_RESPONSE_ID</ColNames>
       <RefSchemaName>PSA</RefSchemaName>
       <RefTableName>QUESTIONS_RESPONSE_TABLE</RefTableName>

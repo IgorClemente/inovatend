@@ -13,19 +13,22 @@ struct InovaQuestion {
     let identifier: Int
     let question_text: String
     let question_response_text: String
+    let question_response_identifier: Int
     var alternatives: [InovaAlternativeQuestion] = [InovaAlternativeQuestion]()
     
     init?(_ dictionary: [String:Any]) {
         guard let questionIdentifier = dictionary[InovaClient.JSONResponseKeys.QuestionIdentifier] as? Int,
               let questionText = dictionary[InovaClient.JSONResponseKeys.QuestionText] as? String,
               let questionResponseText = dictionary[InovaClient.JSONResponseKeys.QuestionResponseText] as? String,
-              let alternativesQuestions = dictionary[InovaClient.JSONResponseKeys.AlternativesQuestions] as? [[String:Any]] else {
+              let alternativesQuestions = dictionary[InovaClient.JSONResponseKeys.AlternativesQuestions] as? [[String:Any]],
+              let questionResponseIdentifier = dictionary[InovaClient.JSONResponseKeys.QuestionResponseIdentifier] as? Int else {
             return nil
         }
         
         self.identifier = questionIdentifier
         self.question_text = questionText
         self.question_response_text = questionResponseText
+        self.question_response_identifier = questionResponseIdentifier
         
         let alternativesQuestionsArray = InovaAlternativeQuestion.alternativesQuestionsFor(alternatives: alternativesQuestions)
         

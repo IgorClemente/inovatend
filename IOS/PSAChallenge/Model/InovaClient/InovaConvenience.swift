@@ -47,7 +47,7 @@ extension InovaClient {
         guard let methodParameterFormatted: String = substituteKeyInMethod(Methods.QuestionsSetResponse, key: "id",
                                                                            value: "\(identifier)") else { return }
         
-        let setResponseJSONBody: String = "{question_response_identifier: \(responseIdentifier)}"
+        let setResponseJSONBody = ["question_response_identifier" : "\(responseIdentifier)"]
         
         taskForPOSTMethod(methodParameterFormatted, parameters: [:], jsonBody: setResponseJSONBody) { (results, error) in
             if let error = error {

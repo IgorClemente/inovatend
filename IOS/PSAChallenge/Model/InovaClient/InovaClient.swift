@@ -57,7 +57,7 @@ class InovaClient : NSObject {
         task.resume()
     }
     
-    func taskForPOSTMethod(_ method: String, parameters: [String:Any], jsonBody: String?,
+    func taskForPOSTMethod(_ method: String, parameters: [String:Any], jsonBody: [String:String]?,
                            completionHandlerForPOST: @escaping (_ result: Any?,_ error: NSError?) -> Void) {
         
         self.spinnerNetworkStatus(true)
@@ -68,15 +68,18 @@ class InovaClient : NSObject {
             return
         }
         
-        print("URL STR",urlString)
-        print("JSON BODY",jsonBody)
-        print("BODY", jsonBody?.data(using: .utf8))
-        
         var request = URLRequest(url: urlString)
         request.httpMethod = "POST"
         
         if let jsonBody = jsonBody {
-            request.httpBody = jsonBody.data(using: .utf8)
+            var requestHttpBodyData: Data? = nil
+            do {
+                requestHttpBodyData = try JSONSerialization.data(withJSONObject: jsonBody, options: .sortedKeys)
+            } catch {
+                print(error)
+            }
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = requestHttpBodyData
         }
         
         let task = session.dataTask(with: request) { (data, response, error) in
