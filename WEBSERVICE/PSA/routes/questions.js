@@ -264,13 +264,13 @@ router.post('/create', function(req, res, next) {
                             connection.release();
                             return;
                         }
-                    });
 
-                    if ((index + 1) == questionResponseIdentifier) {
-                        alternativeQuestionIdentifier = alternativesResult.insertId;
-                        console.log("VAL,", value);
-                        console.log(alternativeQuestionIdentifier);
-                    }
+                        if ((index + 1) == questionResponseIdentifier) {
+                            alternativeQuestionIdentifier = alternativesResult.insertId;
+                            console.log("VAL,", value);
+                            console.log(alternativeQuestionIdentifier);
+                        }
+                    });
                 });
 
                 const questionResponseIdentifierQuery = 'UPDATE QUESTIONS_RESPONSE_TABLE SET ? WHERE ?;';
