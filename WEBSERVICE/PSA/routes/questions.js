@@ -275,7 +275,7 @@ router.post('/create', function(req, res, next) {
                 const questionResponseIdentifierQuery = 'UPDATE QUESTIONS_RESPONSE_TABLE SET ? WHERE ?;';
                 const questionResponseParameter = { ALTERNATIVE_QUESTION_ID : alternativeQuestionIdentifier, RESPONSE_ID : questionResponseID }
 
-                connection.query(questionResponseIdentifierQuery,questionResponseParameter, function(error,results,fields) {
+                let query = connection.query(questionResponseIdentifierQuery,questionResponseParameter, function(error,results,fields) {
                     if (error) {
                         res.json({
                             'success' : false,
@@ -285,6 +285,8 @@ router.post('/create', function(req, res, next) {
                         return;
                     }
                 });
+
+                console.log("QUERY DEBUG = ", query.sql);
 
                 var jsonResponse = {
                     'success' : true,
