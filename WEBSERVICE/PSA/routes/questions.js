@@ -267,8 +267,6 @@ router.post('/create', function(req, res, next) {
                             const questionResponseIdentifierQuery = 'UPDATE QUESTIONS_RESPONSE_TABLE SET ? WHERE ?;';
                             const questionResponseParameter = [{ ALTERNATIVE_QUESTION_ID : alternativesResult.insertId },{ RESPONSE_ID : questionResponseID }];
 
-                            console.log("IDEN",alternativesResult.insertId);
-
                             connection.query(questionResponseIdentifierQuery,questionResponseParameter, function(error,results,fields) {
                                 if (error) {
                                     res.json({
@@ -658,13 +656,13 @@ router.post('/response/:question_identifier', function(req,res,next) {
                     connection.release();
                     return;
                 }
-           });
 
-           res.json({
-               'success' : true,
-               'successMessage' : 'Questão correta!'
+                res.json({
+                   'success' : true,
+                   'successMessage' : 'Questão correta!'
+                });
+                connection.release();
            });
-           connection.release();
        });
     });
 });
