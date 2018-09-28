@@ -252,8 +252,6 @@ router.post('/create', function(req, res, next) {
                     });
                 }
 
-                let alternativeQuestionIdentifier = 0;
-
                 alternativesQuestions.forEach(function(value,index) {
                     connection.query('INSERT INTO ALTERNATIVES_QUESTIONS_TABLE SET ?;',{ 'ALTERNATIVE_QUESTION_NAME' : value, 'QUESTION_ID' : results.insertId }, function(error,alternativesResult,_) {
                         if (error) {
@@ -265,36 +263,38 @@ router.post('/create', function(req, res, next) {
                             return;
                         }
 
+                        let alternativeQuestionIdentifier = 0;
+
                         if ((index + 1) == questionResponseIdentifier) {
                             alternativeQuestionIdentifier = alternativesResult.insertId;
                             console.log("VAL,", value);
                             console.log(alternativeQuestionIdentifier);
                         }
+
+                        const questionResponseIdentifierQuery = 'UPDATE QUESTIONS_RESPONSE_TABLE SET ? WHERE ?;';
+                        const questionResponseParameter = [{ ALTERNATIVE_QUESTION_ID : alternativeQuestionIdentifier },{ RESPONSE_ID : questionResponseID }];
+
+                        console.log("IDEN",alternativeQuestionIdentifier);
+
+                        connection.query(questionResponseIdentifierQuery,questionResponseParameter, function(error,results,fields) {
+                            if (error) {
+                                res.json({
+                                    'success' : false,
+                                    'errorMessage' : error
+                                });
+                                connection.release();
+                                return;
+                            }
+                        });
+
+                        let jsonResponse = {
+                            'success' : true,
+                            'successMessage' : 'Pergunta cadastrada com sucesso!'
+                        };
+
+                        res.json(jsonResponse);
                     });
                 });
-
-                const questionResponseIdentifierQuery = 'UPDATE QUESTIONS_RESPONSE_TABLE SET ? WHERE ?;';
-                const questionResponseParameter = [{ ALTERNATIVE_QUESTION_ID : alternativeQuestionIdentifier },{ RESPONSE_ID : questionResponseID }];
-
-                console.log("IDEN",alternativeQuestionIdentifier);
-
-                connection.query(questionResponseIdentifierQuery,questionResponseParameter, function(error,results,fields) {
-                    if (error) {
-                        res.json({
-                            'success' : false,
-                            'errorMessage' : error
-                        });
-                        connection.release();
-                        return;
-                    }
-                });
-
-                let jsonResponse = {
-                    'success' : true,
-                    'successMessage' : 'Pergunta cadastrada com sucesso!'
-                };
-
-                res.json(jsonResponse);
             });
        });
        connection.release();
