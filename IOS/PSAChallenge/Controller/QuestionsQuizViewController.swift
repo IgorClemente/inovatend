@@ -102,8 +102,9 @@ class QuestionsQuizViewController: UIViewController {
         currentAlternativeQuestionObject = alternativeSelected
         
         let currentQuestionIdentifier: Int = currentQuestionObject.identifier
-        print(currentQuestionObject)
+    
         self.verifyQuestionResponse(question: currentQuestionIdentifier, currentQuestionObject.question_response_identifier)
+        print("DEBUG -> QUESTION RESPONSE IDENTIFIER", currentQuestionObject.question_response_identifier)
         self.setupInformationFromQuestionsUI()
     }
 }
