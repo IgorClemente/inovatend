@@ -635,18 +635,19 @@ router.post('/response/:question_identifier', function(req,res,next) {
            const questionResultResponseCheckQuery = 'SELECT RESPONSE_ID, ALTERNATIVE_QUESTION_ID ' +
                                                     'FROM QUESTIONS_RESPONSE_TABLE WHERE ?';
 
-           const query = connection.query(questionResultResponseCheckQuery,{ RESPONSE_ID : questionResultResponseIdentifier }, function(error,results,fields) {
+           connection.query(questionResultResponseCheckQuery,{ RESPONSE_ID : questionResultResponseIdentifier }, function(error,results,fields) {
                 if (error) {
                     res.json({
-                        'success' : false,
-                        'errorMessage' : error
+                        'success': false,
+                        'errorMessage': error
                     });
                     connection.release();
                     return;
                 }
-           });
 
-           console.log(query.sql);
+                let alternativeQuestionIdentifier = results[0];
+                console.log("ALTERNATIVE QUESTION", results[0]);
+           });
 
            res.json({
                'success' : true,
