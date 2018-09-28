@@ -276,6 +276,8 @@ router.post('/create', function(req, res, next) {
                 const questionResponseIdentifierQuery = 'UPDATE QUESTIONS_RESPONSE_TABLE SET ? WHERE ?;';
                 const questionResponseParameter = [{ ALTERNATIVE_QUESTION_ID : alternativeQuestionIdentifier },{ RESPONSE_ID : questionResponseID }];
 
+                console.log("IDEN",alternativeQuestionIdentifier);
+
                 connection.query(questionResponseIdentifierQuery,questionResponseParameter, function(error,results,fields) {
                     if (error) {
                         res.json({
