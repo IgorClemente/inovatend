@@ -255,7 +255,7 @@ router.post('/create', function(req, res, next) {
                 let alternativeQuestionIdentifier = 0;
 
                 alternativesQuestions.forEach(function(value,index) {
-                    connection.query('INSERT INTO ALTERNATIVES_QUESTIONS_TABLE SET ?;',{ 'ALTERNATIVE_QUESTION_NAME' : value, 'QUESTION_ID' : results.insertId }, function(error,_,_) {
+                    connection.query('INSERT INTO ALTERNATIVES_QUESTIONS_TABLE SET ?;',{ 'ALTERNATIVE_QUESTION_NAME' : value, 'QUESTION_ID' : results.insertId }, function(error,alternativesResult,_) {
                         if (error) {
                             res.json({
                                 'success' : false,
@@ -267,7 +267,7 @@ router.post('/create', function(req, res, next) {
                     });
 
                     if ((index + 1) == questionResponseIdentifier) {
-                        alternativeQuestionIdentifier = results.insertId;
+                        alternativeQuestionIdentifier = alternativesResult.insertId;
                         console.log("VAL,", value);
                         console.log(alternativeQuestionIdentifier);
                     }
