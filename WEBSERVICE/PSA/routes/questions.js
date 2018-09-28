@@ -586,7 +586,7 @@ router.post('/response/:question_identifier', function(req,res,next) {
 
     const questionIdentifierParam = req.params.question_identifier;
     const questionResponseIdentifier = req.body.question_response_identifier;
-    console.log("QUESTION BODY", req.body);
+
     const questionForIdentifierQuery = "SELECT QUESTION_ID \'questionIdentifier\', " +
                                        "QUESTION_TEXT \'questionText\', " +
                                        "QUESTION_RESPONSE_ID \'questionResponseIdentifier\' \n" +
@@ -647,9 +647,12 @@ router.post('/response/:question_identifier', function(req,res,next) {
                 }
 
                 let alternativeQuestionIdentifier = results[0]['alternativeQuestionIdentifier'];
+
+                console.log(results);
                 console.log(alternativeQuestionIdentifier);
                 console.log(!(alternativeQuestionIdentifier == questionResultResponseIdentifier));
                 console.log(alternativeQuestionIdentifier == questionResultResponseIdentifier);
+
                 if (!(alternativeQuestionIdentifier == questionResultResponseIdentifier)) {
                     res.json({
                         'success' : false,

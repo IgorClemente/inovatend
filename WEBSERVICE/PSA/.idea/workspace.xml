@@ -93,14 +93,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="25620" />
+          <entry key="js" value="25650" />
           <entry key="sql" value="1358" />
           <entry key="txt" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JavaScript" value="25618" />
+          <entry key="JavaScript" value="25648" />
           <entry key="PLAIN_TEXT" value="6" />
           <entry key="SQL" value="2" />
           <entry key="Scratch" value="1358" />
@@ -131,8 +131,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/questions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="649" column="59" lean-forward="true" selection-start-line="649" selection-start-column="59" selection-end-line="649" selection-end-column="59" />
+            <state relative-caret-position="525">
+              <caret line="650" column="37" lean-forward="true" selection-start-line="650" selection-start-column="37" selection-end-line="650" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -300,12 +300,12 @@
       <workItem from="1538142739517" duration="792000" />
       <workItem from="1538155586044" duration="442000" />
       <workItem from="1538157508484" duration="1622000" />
-      <workItem from="1538159325090" duration="550000" />
+      <workItem from="1538159325090" duration="1228000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="177589000" />
+    <option name="totallyTimeSpent" value="178267000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -335,7 +335,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.3299363" />
       <window_info anchor="bottom" id="Database Changes" order="9" weight="0.3299363" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5007153" side_tool="true" weight="0.37197453" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.31592357" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.31592357" />
       <window_info anchor="bottom" id="Database Console" order="12" sideWeight="0.49928468" weight="0.32356688" />
       <window_info anchor="bottom" id="REST Client" order="13" weight="0.38471338" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -418,8 +418,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/questions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="649" column="59" lean-forward="true" selection-start-line="649" selection-start-column="59" selection-end-line="649" selection-end-column="59" />
+        <state relative-caret-position="525">
+          <caret line="650" column="37" lean-forward="true" selection-start-line="650" selection-start-column="37" selection-end-line="650" selection-end-column="37" />
         </state>
       </provider>
     </entry>
