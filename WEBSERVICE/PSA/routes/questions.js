@@ -227,7 +227,7 @@ router.post('/create', function(req, res, next) {
                return;
        }
 
-       connection.query('INSERT INTO QUESTIONS_RESPONSE_TABLE SET ?;',{'RESPONSE_TEXT' : questionResponseParameterText}, function(error,results,fields) {
+       connection.query('INSERT INTO QUESTIONS_RESPONSE_TABLE SET ?;',{ 'RESPONSE_TEXT' : questionResponseParameterText }, function(error,results,fields) {
             if (error) {
                 res.json({
                     'success' : false,
@@ -255,8 +255,7 @@ router.post('/create', function(req, res, next) {
                 let alternativeQuestionIdentifier = 0;
 
                 alternativesQuestions.forEach(function(value,index) {
-                    connection.query('INSERT INTO ALTERNATIVES_QUESTIONS_TABLE SET ?;',
-                                    {'ALTERNATIVE_QUESTION_NAME' : value, 'QUESTION_ID' : results.insertId}, function(error,_,_) {
+                    connection.query('INSERT INTO ALTERNATIVES_QUESTIONS_TABLE SET ?;',{ 'ALTERNATIVE_QUESTION_NAME' : value, 'QUESTION_ID' : results.insertId }, function(error,_,_) {
                         if (error) {
                             res.json({
                                 'success' : false,
@@ -269,6 +268,7 @@ router.post('/create', function(req, res, next) {
 
                     if ((index + 1) == questionResponseIdentifier) {
                         alternativeQuestionIdentifier = results.insertId;
+                        console.log("VAL,", value);
                         console.log(alternativeQuestionIdentifier);
                     }
                 });
