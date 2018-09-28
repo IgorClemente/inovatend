@@ -631,7 +631,7 @@ router.post('/response/:question_identifier', function(req,res,next) {
                connection.release();
                return;
            }
-            /**
+
            const questionResultResponseCheckQuery = 'SELECT RESPONSE_ID, ALTERNATIVE_QUESTION_ID ' +
                                                     'FROM QUESTIONS_RESPONSE_TABLE WHERE ?';
 
@@ -645,7 +645,6 @@ router.post('/response/:question_identifier', function(req,res,next) {
                     return;
                 }
            });
-           **/
 
            res.json({
                'success' : true,
