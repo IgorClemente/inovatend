@@ -273,9 +273,9 @@ router.post('/create', function(req, res, next) {
                 });
 
                 const questionResponseIdentifierQuery = 'UPDATE QUESTIONS_RESPONSE_TABLE SET ? WHERE ?;';
-                const questionResponseParameter = [{ ALTERNATIVE_QUESTION_ID : alternativeQuestionIdentifier},{ RESPONSE_ID : questionResponseID }];
+                const questionResponseParameter = [{ ALTERNATIVE_QUESTION_ID : alternativeQuestionIdentifier },{ RESPONSE_ID : questionResponseID }];
 
-                let query = connection.query(questionResponseIdentifierQuery,questionResponseParameter, function(error,results,fields) {
+                connection.query(questionResponseIdentifierQuery,questionResponseParameter, function(error,results,fields) {
                     if (error) {
                         res.json({
                             'success' : false,
@@ -285,8 +285,6 @@ router.post('/create', function(req, res, next) {
                         return;
                     }
                 });
-
-                console.log("QUERY DEBUG = ", query.sql);
 
                 var jsonResponse = {
                     'success' : true,
@@ -633,6 +631,20 @@ router.post('/response/:question_identifier', function(req,res,next) {
                connection.release();
                return;
            }
+
+           const questionResultResponseCheckQuery = 'SELECT  FROM QUESTIONS_RESPONSE_TABLE WHERE ?';
+
+           connection.query(questionResultResponseCheckQuery, function(error,results,fields) {
+                if (error) {
+                    res.json({
+                        'success' : false,
+                        'errorMessage' : error
+                    });
+                    connection.release();
+                    return;
+                }
+                console.log("DEBUG RESULT", results[0]);
+           });
 
            res.json({
                'success' : true,
