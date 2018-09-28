@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4a37463-4050-4d45-8512-8c02a0d33955" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/questions.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/questions.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -60,18 +61,18 @@
     <session id="-1614234017">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="28" />
+          <entry key="project.closed" value="29" />
           <entry key="project.open.time.16" value="4" />
           <entry key="project.open.time.17" value="3" />
           <entry key="project.open.time.18" value="8" />
-          <entry key="project.open.time.19" value="4" />
+          <entry key="project.open.time.19" value="5" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.20" value="4" />
           <entry key="project.open.time.21" value="2" />
           <entry key="project.open.time.23" value="1" />
           <entry key="project.open.time.27" value="1" />
           <entry key="project.open.time.6" value="1" />
-          <entry key="project.opened" value="29" />
+          <entry key="project.opened" value="30" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -93,17 +94,17 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="25650" />
-          <entry key="sql" value="1358" />
+          <entry key="js" value="25675" />
+          <entry key="sql" value="1360" />
           <entry key="txt" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JavaScript" value="25648" />
+          <entry key="JavaScript" value="25673" />
           <entry key="PLAIN_TEXT" value="6" />
           <entry key="SQL" value="2" />
-          <entry key="Scratch" value="1358" />
+          <entry key="Scratch" value="1360" />
         </counts>
       </usages-collector>
     </session>
@@ -131,8 +132,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/questions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="525">
-              <caret line="650" column="37" lean-forward="true" selection-start-line="650" selection-start-column="37" selection-end-line="650" selection-end-column="37" />
+            <state relative-caret-position="454">
+              <caret line="271" column="67" lean-forward="true" selection-start-line="271" selection-start-column="67" selection-end-line="271" selection-end-column="67" />
             </state>
           </provider>
         </entry>
@@ -149,8 +150,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/af752b9a-6ace-40a1-9240-bf382b388ab5/console.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+            <state relative-caret-position="373">
+              <caret line="66" column="56" lean-forward="true" selection-start-line="66" selection-start-column="56" selection-end-line="66" selection-end-column="56" />
             </state>
           </provider>
         </entry>
@@ -194,7 +195,7 @@
       <path value="$PROJECT_DIR$/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="877" />
@@ -300,12 +301,13 @@
       <workItem from="1538142739517" duration="792000" />
       <workItem from="1538155586044" duration="442000" />
       <workItem from="1538157508484" duration="1622000" />
-      <workItem from="1538159325090" duration="1228000" />
+      <workItem from="1538159325090" duration="1661000" />
+      <workItem from="1538161244509" duration="197000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="178267000" />
+    <option name="totallyTimeSpent" value="178897000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -411,15 +413,15 @@
     </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/af752b9a-6ace-40a1-9240-bf382b388ab5/console.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+        <state relative-caret-position="373">
+          <caret line="66" column="56" lean-forward="true" selection-start-line="66" selection-start-column="56" selection-end-line="66" selection-end-column="56" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/questions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="650" column="37" lean-forward="true" selection-start-line="650" selection-start-column="37" selection-end-line="650" selection-end-column="37" />
+        <state relative-caret-position="454">
+          <caret line="271" column="67" lean-forward="true" selection-start-line="271" selection-start-column="67" selection-end-line="271" selection-end-column="67" />
         </state>
       </provider>
     </entry>

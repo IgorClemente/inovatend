@@ -269,6 +269,7 @@ router.post('/create', function(req, res, next) {
 
                     if ((index + 1) == questionResponseIdentifier) {
                         alternativeQuestionIdentifier = results.insertId;
+                        console.log(alternativeQuestionIdentifier);
                     }
                 });
 
@@ -286,7 +287,7 @@ router.post('/create', function(req, res, next) {
                     }
                 });
 
-                var jsonResponse = {
+                let jsonResponse = {
                     'success' : true,
                     'successMessage' : 'Pergunta cadastrada com sucesso!'
                 };
