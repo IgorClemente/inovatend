@@ -273,7 +273,7 @@ router.post('/create', function(req, res, next) {
                 });
 
                 const questionResponseIdentifierQuery = 'UPDATE QUESTIONS_RESPONSE_TABLE SET ? WHERE ?;';
-                const questionResponseParameter = { ALTERNATIVE_QUESTION_ID : alternativeQuestionIdentifier, RESPONSE_ID : questionResponseID }
+                const questionResponseParameter = [{ ALTERNATIVE_QUESTION_ID : alternativeQuestionIdentifier},{ RESPONSE_ID : questionResponseID }];
 
                 let query = connection.query(questionResponseIdentifierQuery,questionResponseParameter, function(error,results,fields) {
                     if (error) {
