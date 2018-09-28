@@ -635,7 +635,7 @@ router.post('/response/:question_identifier', function(req,res,next) {
            const questionResultResponseCheckQuery = 'SELECT RESPONSE_ID, ALTERNATIVE_QUESTION_ID ' +
                                                     'FROM QUESTIONS_RESPONSE_TABLE WHERE ?';
 
-           connection.query(questionResultResponseCheckQuery,questionResultResponseParameters, function(error,results,fields) {
+           const query = connection.query(questionResultResponseCheckQuery,{ RESPONSE_ID : questionResultResponseIdentifier }, function(error,results,fields) {
                 if (error) {
                     res.json({
                         'success' : false,
@@ -645,6 +645,8 @@ router.post('/response/:question_identifier', function(req,res,next) {
                     return;
                 }
            });
+
+           console.log(query.sql);
 
            res.json({
                'success' : true,
