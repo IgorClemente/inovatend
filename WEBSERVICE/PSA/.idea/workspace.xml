@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4a37463-4050-4d45-8512-8c02a0d33955" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/questions.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/questions.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -94,14 +93,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="25287" />
+          <entry key="js" value="25370" />
           <entry key="sql" value="1358" />
           <entry key="txt" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JavaScript" value="25285" />
+          <entry key="JavaScript" value="25368" />
           <entry key="PLAIN_TEXT" value="6" />
           <entry key="SQL" value="2" />
           <entry key="Scratch" value="1358" />
@@ -132,8 +131,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/questions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="628">
-              <caret line="650" lean-forward="true" selection-start-line="650" selection-end-line="650" />
+            <state relative-caret-position="513">
+              <caret line="651" lean-forward="true" selection-start-line="651" selection-end-line="651" />
             </state>
           </provider>
         </entry>
@@ -300,12 +299,12 @@
       <workItem from="1538140910631" duration="1759000" />
       <workItem from="1538142739517" duration="792000" />
       <workItem from="1538155586044" duration="442000" />
-      <workItem from="1538157508484" duration="427000" />
+      <workItem from="1538157508484" duration="803000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="175844000" />
+    <option name="totallyTimeSpent" value="176220000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -418,8 +417,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/questions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="628">
-          <caret line="650" lean-forward="true" selection-start-line="650" selection-end-line="650" />
+        <state relative-caret-position="513">
+          <caret line="651" lean-forward="true" selection-start-line="651" selection-end-line="651" />
         </state>
       </provider>
     </entry>

@@ -632,7 +632,8 @@ router.post('/response/:question_identifier', function(req,res,next) {
                return;
            }
 
-           const questionResultResponseCheckQuery = 'SELECT RESPONSE_ID, ALTERNATIVE_QUESTION_ID ' +
+           const questionResultResponseCheckQuery = 'SELECT RESPONSE_ID "responseIdentifier", ' +
+                                                    'ALTERNATIVE_QUESTION_ID "alternativeQuestionIdentifier"' +
                                                     'FROM QUESTIONS_RESPONSE_TABLE WHERE ?';
 
            connection.query(questionResultResponseCheckQuery,{ RESPONSE_ID : questionResultResponseIdentifier }, function(error,results,fields) {
@@ -645,8 +646,8 @@ router.post('/response/:question_identifier', function(req,res,next) {
                     return;
                 }
 
-                let alternativeQuestionIdentifier = results[0];
-                console.log("ALTERNATIVE QUESTION", results[0]);
+                let alternativeQuestionIdentifier = results[0]['alternativeQuestionIdentifier'];
+                console.log("ALTERNATIVE QUESTION", results[0]['alternativeQuestionIdentifier']);
            });
 
            res.json({
