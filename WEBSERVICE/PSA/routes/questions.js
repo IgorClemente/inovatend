@@ -653,6 +653,7 @@ router.post('/response/:question_identifier', function(req,res,next) {
                         'success' : false,
                         'errorMessage' : 'Questão incorreta!'
                     });
+                    connection.release();
                     return;
                 }
            });
