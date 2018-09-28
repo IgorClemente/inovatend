@@ -263,36 +263,30 @@ router.post('/create', function(req, res, next) {
                             return;
                         }
 
-                        let alternativeQuestionIdentifier = 0;
-
                         if ((index + 1) == questionResponseIdentifier) {
-                            alternativeQuestionIdentifier = alternativesResult.insertId;
-                            console.log("VAL,", value);
-                            console.log(alternativeQuestionIdentifier);
+                            const questionResponseIdentifierQuery = 'UPDATE QUESTIONS_RESPONSE_TABLE SET ? WHERE ?;';
+                            const questionResponseParameter = [{ ALTERNATIVE_QUESTION_ID : alternativesResult.insertId },{ RESPONSE_ID : questionResponseID }];
+
+                            console.log("IDEN",alternativesResult.insertId);
+
+                            connection.query(questionResponseIdentifierQuery,questionResponseParameter, function(error,results,fields) {
+                                if (error) {
+                                    res.json({
+                                        'success' : false,
+                                        'errorMessage' : error
+                                    });
+                                    connection.release();
+                                    return;
+                                }
+
+                                let jsonResponse = {
+                                    'success' : true,
+                                    'successMessage' : 'Pergunta cadastrada com sucesso!'
+                                };
+
+                                res.json(jsonResponse);
+                            });
                         }
-
-                        const questionResponseIdentifierQuery = 'UPDATE QUESTIONS_RESPONSE_TABLE SET ? WHERE ?;';
-                        const questionResponseParameter = [{ ALTERNATIVE_QUESTION_ID : alternativeQuestionIdentifier },{ RESPONSE_ID : questionResponseID }];
-
-                        console.log("IDEN",alternativeQuestionIdentifier);
-
-                        connection.query(questionResponseIdentifierQuery,questionResponseParameter, function(error,results,fields) {
-                            if (error) {
-                                res.json({
-                                    'success' : false,
-                                    'errorMessage' : error
-                                });
-                                connection.release();
-                                return;
-                            }
-
-                            let jsonResponse = {
-                                'success' : true,
-                                'successMessage' : 'Pergunta cadastrada com sucesso!'
-                            };
-
-                            res.json(jsonResponse);
-                        });
                     });
                 });
             });
