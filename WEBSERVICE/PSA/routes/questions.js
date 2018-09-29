@@ -670,18 +670,18 @@ router.post('/response/:question_identifier', function(req,res,next) {
 
                     let questionsResponseTableIdentifier = results[0]['alternativeQuestionIdentifier'];
 
-                    if (!(alternativeQuestionIdentifier == questionsResponseTableIdentifier)) {
+                    if (alternativeQuestionIdentifier == questionsResponseTableIdentifier) {
                         res.json({
-                            'success' : false,
-                            'errorMessage' : 'Questão incorreta!'
+                            'success' : true,
+                            'successMessage' : 'Questão correta!'
                         });
                         connection.release();
                         return;
                     }
 
                     res.json({
-                        'success' : true,
-                        'successMessage' : 'Questão correta!'
+                        'success' : false,
+                        'errorMessage' : 'Questão incorreta!'
                     });
                     connection.release();
                 });
