@@ -651,25 +651,39 @@ router.post('/response/:question_identifier', function(req,res,next) {
 
                 let alternativeQuestionIdentifier = results[0]['alternativeQuestionIdentifier'];
 
-                console.log(results);
-                console.log(alternativeQuestionIdentifier);
-                console.log(!(alternativeQuestionIdentifier == questionResultResponseIdentifier));
-                console.log(alternativeQuestionIdentifier == questionResultResponseIdentifier);
+                const alternativeQuestionQuery = 'SELECT RESPONSE_ID "responseQuestionIdentifier",\n' +
+                                                 'ALTERNATIVE_QUESTION_ID "alternativeQuestionIdentifier"\n' +
+                                                 'FROM QUESTIONS_RESPONSE_TABLE\n' +
+                                                 'WHERE ?;';
 
-                if (!(alternativeQuestionIdentifier == questionResultResponseIdentifier)) {
+                const alternativeQuestionQueryParameters = { RESPONSE_ID :  questionResultResponseIdentifier}
+
+                connection.query(alternativeQuestionQuery,alternativeQuestionQueryParameters, function(error,results,fields) {
+                    if (error) {
+                        res.json({
+                            'success' : false,
+                            'errorMessage' : error
+                        });
+                        connection.release();
+                        return;
+                    }
+
+                    let questionsResponseTableIdentifier = results[0]['alternativeQuestionIdentifier'];
+
+                    if (alternativeQuestionIdentifier != questionsResponseTableIdentifier) {
+                        res.json({
+                            'success' : false,
+                            'errorMessage' : 'Questão incorreta!'
+                        });
+                        return;
+                    }
+
                     res.json({
-                        'success' : false,
-                        'errorMessage' : 'Questão incorreta!'
+                        'success' : true,
+                        'successMessage' : 'Questão correta!'
                     });
                     connection.release();
-                    return;
-                }
-
-                res.json({
-                   'success' : true,
-                   'successMessage' : 'Questão correta!'
                 });
-                connection.release();
            });
        });
 
