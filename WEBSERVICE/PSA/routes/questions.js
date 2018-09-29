@@ -600,7 +600,7 @@ router.post('/response/:question_identifier', function(req,res,next) {
     }
 
     pool.getConnection(function(error,connection) {
-       connection.query(questionsTableQuery, questionsTableQueryParameters, function(error,results,fields) {
+       let query = connection.query(questionsTableQuery, questionsTableQueryParameters, function(error,results,fields) {
            if (error) {
                res.json({
                    'success' : false,
@@ -672,6 +672,8 @@ router.post('/response/:question_identifier', function(req,res,next) {
                 connection.release();
            });
        });
+
+       console.log(query.sql);
     });
 });
 
