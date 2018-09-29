@@ -579,24 +579,28 @@ router.delete('/delete/:questionID', function(req,res,next) {
 
 router.post('/response/:question_identifier', function(req,res,next) {
 
-    const questionIdentifierParam = req.params.question_identifier;
+    const questionIdentifierQueryStringParam = req.params.question_identifier;
     const questionResponseIdentifier = req.body.question_response_identifier;
 
-    const questionForIdentifierQuery = "SELECT QUESTION_ID \'questionIdentifier\', " +
-                                       "QUESTION_TEXT \'questionText\', " +
-                                       "QUESTION_RESPONSE_ID \'questionResponseIdentifier\' \n" +
-                                       "FROM QUESTIONS_TABLE WHERE ?";
+    const questionsTableQuery = "SELECT QUESTION_ID \'questionIdentifier\', " +
+                                "QUESTION_TEXT \'questionText\', " +
+                                "QUESTION_RESPONSE_ID \'questionResponseIdentifier\' \n" +
+                                "FROM QUESTIONS_TABLE WHERE ?";
 
-    if ((questionIdentifierParam === undefined) || (questionResponseIdentifier === undefined)) {
-        res.json({
-            'success' : false,
-            'errorMessage' : 'Erro ao responder questão, Por favor verifique o parametro de identificação da Questão e Resposta da Questão.'
-        });
-        return;
+    const questionsTableQueryParameters = { QUESTIONS_ID : questionIdentifierQueryStringParam };
+
+    if ((questionIdentifierQueryStringParam === undefined) || (questionResponseIdentifier === undefined)) {
+        if ((questionIdentifierQueryStringParam == '') || (questionResponseIdentifier == '')) {
+            res.json({
+                'success': false,
+                'errorMessage': 'Erro ao responder questão, Por favor verifique o parametro de identificação da Questão e Resposta da Questão.'
+            });
+            return;
+        }
     }
 
     pool.getConnection(function(error,connection) {
-       connection.query(questionForIdentifierQuery, { QUESTION_ID : questionIdentifierParam }, function(error,results,fields) {
+       connection.query(questionsTableQuery, questionsTableQueryParameters, function(error,results,fields) {
            if (error) {
                res.json({
                    'success' : false,
@@ -633,7 +637,9 @@ router.post('/response/:question_identifier', function(req,res,next) {
                                                     'ALTERNATIVE_QUESTION_ID "alternativeQuestionIdentifier"' +
                                                     'FROM QUESTIONS_RESPONSE_TABLE WHERE ?';
 
-           connection.query(questionResultResponseCheckQuery,{ RESPONSE_ID : questionResultResponseIdentifier }, function(error,results,fields) {
+           const questionResultResponseCheckQueryParameters = { RESPONSE_ID : questionResultResponseIdentifier };
+
+           connection.query(questionResultResponseCheckQuery,questionResultResponseCheckQueryParameters, function(error,results,fields) {
                 if (error) {
                     res.json({
                         'success': false,
