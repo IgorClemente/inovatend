@@ -135,8 +135,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/questions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="662" column="66" lean-forward="true" selection-start-line="662" selection-start-column="66" selection-end-line="662" selection-end-column="66" />
+            <state relative-caret-position="208">
+              <caret line="663" column="50" selection-start-line="663" selection-start-column="50" selection-end-line="663" selection-end-column="50" />
             </state>
           </provider>
         </entry>
@@ -315,12 +315,12 @@
       <workItem from="1538254273308" duration="1593000" />
       <workItem from="1538262465129" duration="273000" />
       <workItem from="1538334304276" duration="761000" />
-      <workItem from="1538338421253" duration="524000" />
+      <workItem from="1538338421253" duration="719000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="191917000" />
+    <option name="totallyTimeSpent" value="192112000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -350,7 +350,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.3299363" />
       <window_info anchor="bottom" id="Database Changes" order="9" weight="0.3299363" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5007153" side_tool="true" weight="0.37197453" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.33375797" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.33375797" />
       <window_info anchor="bottom" id="Database Console" order="12" sideWeight="0.49928468" weight="0.32356688" />
       <window_info anchor="bottom" id="REST Client" order="13" weight="0.38471338" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -433,8 +433,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/questions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="662" column="66" lean-forward="true" selection-start-line="662" selection-start-column="66" selection-end-line="662" selection-end-column="66" />
+        <state relative-caret-position="208">
+          <caret line="663" column="50" selection-start-line="663" selection-start-column="50" selection-end-line="663" selection-end-column="50" />
         </state>
       </provider>
     </entry>
