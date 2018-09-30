@@ -658,9 +658,7 @@ router.post('/response/:question_identifier', function(req,res,next) {
                     }
 
                     let questionsResponseTableIdentifier = results[0]['alternativeQuestionIdentifier'];
-                    console.log(questionResponseIdentifier == questionsResponseTableIdentifier);
-                    console.log(alternativeQuestionIdentifier);
-                    console.log(questionsResponseTableIdentifier);
+
                     if (questionResponseIdentifier == questionsResponseTableIdentifier) {
                         res.json({
                             'success' : true,
