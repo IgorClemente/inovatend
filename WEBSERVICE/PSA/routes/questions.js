@@ -619,7 +619,6 @@ router.post('/response/:question_identifier', function(req,res,next) {
                return;
            }
 
-           const questionResultIdentifier = results[0].questionIdentifier;
            const questionResultResponseIdentifier = results[0].questionResponseIdentifier;
 
            const questionResultResponseCheckQuery = 'SELECT RESPONSE_ID "responseIdentifier", ' +
@@ -637,8 +636,6 @@ router.post('/response/:question_identifier', function(req,res,next) {
                     connection.release();
                     return;
                 }
-
-                let alternativeQuestionIdentifier = results[0]['alternativeQuestionIdentifier'];
 
                 const alternativeQuestionQuery = 'SELECT RESPONSE_ID "responseQuestionIdentifier",\n' +
                                                  'ALTERNATIVE_QUESTION_ID "alternativeQuestionIdentifier"\n' +
