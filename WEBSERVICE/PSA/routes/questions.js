@@ -622,17 +622,6 @@ router.post('/response/:question_identifier', function(req,res,next) {
            const questionResultIdentifier = results[0].questionIdentifier;
            const questionResultResponseIdentifier = results[0].questionResponseIdentifier;
 
-           /**
-           if ((questionIdentifierParam != questionResultIdentifier) || (questionResponseIdentifier != questionResultResponseIdentifier)) {
-               res.json({
-                   'success' : false,
-                   'errorMessage' : 'Erro ao verificar resposta para questão.'
-               });
-               connection.release();
-               return;
-           }
-            **/
-
            const questionResultResponseCheckQuery = 'SELECT RESPONSE_ID "responseIdentifier", ' +
                                                     'ALTERNATIVE_QUESTION_ID "alternativeQuestionIdentifier"' +
                                                     'FROM QUESTIONS_RESPONSE_TABLE WHERE ?';
