@@ -202,6 +202,24 @@ router.post('/create', function(req, res, next) {
            }
        }
 
+       if (req.body.questionType === undefined) {
+           if (req.body.questionType == "") {
+                res.json({
+                   'success' : false,
+                   'errorMessage' : 'Informar o parametro referente ao identificador de tipo da questão, parametro: \'questionType\''
+                });
+                return;
+           }
+       } else {
+           if (req.body.questionType == "") {
+               res.json({
+                   'success' : false,
+                   'errorMessage' : 'Informar o parametro referente ao identificador de tipo da questão, parametro: \'questionType\''
+               });
+               return;
+           }
+       }
+
        var questionResponseParameterText = " ";
        var alternativesQuestions = [req.body.alternativeQuestion01, req.body.alternativeQuestion02,
                                     req.body.alternativeQuestion03, req.body.alternativeQuestion04];
@@ -233,7 +251,7 @@ router.post('/create', function(req, res, next) {
                     'success' : false,
                     'errorMessage' : error
                 });
-                connection.destroy();
+                connection.release();
                 return;
             }
 
@@ -250,6 +268,7 @@ router.post('/create', function(req, res, next) {
                         'success' : false,
                         'errorMessage' : error
                     });
+                    connection.release();
                 }
 
                 alternativesQuestions.forEach(function(value,index) {
@@ -264,6 +283,7 @@ router.post('/create', function(req, res, next) {
                         }
 
                         if ((index + 1) == questionResponseIdentifier) {
+
                             const questionResponseIdentifierQuery = 'UPDATE QUESTIONS_RESPONSE_TABLE SET ? WHERE ?;';
                             const questionResponseParameter = [{ ALTERNATIVE_QUESTION_ID : alternativesResult.insertId },{ RESPONSE_ID : questionResponseID }];
 
