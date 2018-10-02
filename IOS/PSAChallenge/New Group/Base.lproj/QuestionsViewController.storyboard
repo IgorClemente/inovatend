@@ -39,28 +39,25 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="W4g-zB-HjD">
-                                <rect key="frame" x="15" y="305.5" width="290" height="232.5"/>
+                                <rect key="frame" x="15" y="315.5" width="290" height="227.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mxd-cg-46q">
-                                        <rect key="frame" x="0.0" y="0.0" width="290" height="53.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="290" height="52.5"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="1" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MqD-MP-K0a">
-                                                <rect key="frame" x="0.0" y="0.0" width="290" height="53.5"/>
-                                                <state key="normal" title="Button">
-                                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
+                                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="0" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MqD-MP-K0a">
+                                                <rect key="frame" x="0.0" y="0.0" width="290" height="52.5"/>
+                                                <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <connections>
                                                     <action selector="tapAlternativeQuestionSelected:" destination="BYZ-38-t0r" eventType="touchUpInside" id="e67-lU-zsV"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Psv-o7-Bed">
-                                                <rect key="frame" x="5" y="5" width="280" height="43.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Psv-o7-Bed">
+                                                <rect key="frame" x="5" y="5" width="280" height="42.5"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="MqD-MP-K0a" firstAttribute="top" secondItem="mxd-cg-46q" secondAttribute="top" id="2IQ-Lb-57p"/>
                                             <constraint firstItem="Psv-o7-Bed" firstAttribute="leading" secondItem="mxd-cg-46q" secondAttribute="leading" constant="5" id="Mu2-5p-EFZ"/>
@@ -73,10 +70,11 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xAW-SU-gIi">
-                                        <rect key="frame" x="0.0" y="59.5" width="290" height="54"/>
+                                        <rect key="frame" x="0.0" y="58.5" width="290" height="52.5"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="2" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HNN-aF-KEH">
-                                                <rect key="frame" x="0.0" y="0.0" width="290" height="54"/>
+                                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="1" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HNN-aF-KEH">
+                                                <rect key="frame" x="0.0" y="0.0" width="290" height="52.5"/>
+                                                <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Button">
                                                     <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
@@ -84,14 +82,13 @@
                                                     <action selector="tapAlternativeQuestionSelected:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GXN-a2-QFM"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VF1-d8-B5R">
-                                                <rect key="frame" x="5" y="5" width="280" height="44"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VF1-d8-B5R">
+                                                <rect key="frame" x="5" y="5" width="280" height="42.5"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="VF1-d8-B5R" secondAttribute="bottom" constant="5" id="467-ob-8ly"/>
                                             <constraint firstAttribute="bottom" secondItem="HNN-aF-KEH" secondAttribute="bottom" id="7La-cg-chm"/>
@@ -104,10 +101,11 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qdo-K4-pP9">
-                                        <rect key="frame" x="0.0" y="119.5" width="290" height="53.5"/>
+                                        <rect key="frame" x="0.0" y="117" width="290" height="52"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="3" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fks-fD-F8b">
-                                                <rect key="frame" x="0.0" y="1" width="290" height="53.5"/>
+                                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="2" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fks-fD-F8b">
+                                                <rect key="frame" x="0.0" y="0.5" width="290" height="52"/>
+                                                <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Button">
                                                     <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
@@ -115,14 +113,13 @@
                                                     <action selector="tapAlternativeQuestionSelected:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PBM-Gx-ybe"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="thx-mY-CbG">
-                                                <rect key="frame" x="5" y="5.5" width="280" height="43.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="thx-mY-CbG">
+                                                <rect key="frame" x="5" y="6" width="280" height="42"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="thx-mY-CbG" firstAttribute="top" secondItem="qdo-K4-pP9" secondAttribute="top" constant="5" id="1Jc-nY-1nc"/>
                                             <constraint firstAttribute="bottom" secondItem="fks-fD-F8b" secondAttribute="bottom" id="2yc-UP-yJw"/>
@@ -135,10 +132,11 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IyX-6m-gxM">
-                                        <rect key="frame" x="0.0" y="179" width="290" height="53.5"/>
+                                        <rect key="frame" x="0.0" y="175" width="290" height="52.5"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="4" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cPl-0G-oTf">
-                                                <rect key="frame" x="0.0" y="0.0" width="290" height="53.5"/>
+                                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="3" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cPl-0G-oTf">
+                                                <rect key="frame" x="0.0" y="0.0" width="290" height="52.5"/>
+                                                <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Button">
                                                     <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
@@ -146,14 +144,13 @@
                                                     <action selector="tapAlternativeQuestionSelected:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FYF-Rs-ogi"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JdP-bO-adX">
-                                                <rect key="frame" x="5" y="5" width="280" height="43.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JdP-bO-adX">
+                                                <rect key="frame" x="5" y="5" width="280" height="42.5"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.83741801979999997" green="0.83743780850000005" blue="0.83742713930000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="cPl-0G-oTf" firstAttribute="leading" secondItem="IyX-6m-gxM" secondAttribute="leading" id="GqF-1J-fd5"/>
                                             <constraint firstItem="JdP-bO-adX" firstAttribute="leading" secondItem="IyX-6m-gxM" secondAttribute="leading" constant="5" id="Lc4-hn-zZX"/>
@@ -171,22 +168,26 @@
                         <color key="backgroundColor" red="0.4756349325" green="0.47564673419999998" blue="0.47564041610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="W4g-zB-HjD" secondAttribute="trailing" constant="15" id="Yg9-58-9M1"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="W4g-zB-HjD" secondAttribute="bottom" constant="30" id="byg-z3-Iph"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="W4g-zB-HjD" secondAttribute="bottom" constant="25" id="byg-z3-Iph"/>
                             <constraint firstItem="sPb-uG-c5s" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.3" constant="20" id="deK-5s-gj3"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="sPb-uG-c5s" secondAttribute="trailing" constant="15" id="gn2-Pf-Pbv"/>
                             <constraint firstItem="sPb-uG-c5s" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="hAX-5U-a0X"/>
                             <constraint firstItem="W4g-zB-HjD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="nfh-Vg-sHV"/>
                             <constraint firstItem="sPb-uG-c5s" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="oc8-Ci-Fqz"/>
-                            <constraint firstItem="W4g-zB-HjD" firstAttribute="top" secondItem="sPb-uG-c5s" secondAttribute="bottom" constant="45" id="vj8-Dq-CLM"/>
+                            <constraint firstItem="W4g-zB-HjD" firstAttribute="top" secondItem="sPb-uG-c5s" secondAttribute="bottom" constant="55" id="vj8-Dq-CLM"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="questionCentralText" destination="RAs-3W-x7M" id="NnV-5H-Usx"/>
-                        <outletCollection property="questionResponsesArray" destination="Psv-o7-Bed" collectionClass="NSMutableArray" id="lat-al-l5f"/>
-                        <outletCollection property="questionResponsesArray" destination="VF1-d8-B5R" collectionClass="NSMutableArray" id="PNd-Ke-ijv"/>
-                        <outletCollection property="questionResponsesArray" destination="thx-mY-CbG" collectionClass="NSMutableArray" id="8PQ-84-Gh8"/>
-                        <outletCollection property="questionResponsesArray" destination="JdP-bO-adX" collectionClass="NSMutableArray" id="6eL-Qy-F8j"/>
+                        <outletCollection property="questionResponsesLabelArray" destination="Psv-o7-Bed" collectionClass="NSMutableArray" id="lat-al-l5f"/>
+                        <outletCollection property="questionResponsesLabelArray" destination="VF1-d8-B5R" collectionClass="NSMutableArray" id="PNd-Ke-ijv"/>
+                        <outletCollection property="questionResponsesLabelArray" destination="thx-mY-CbG" collectionClass="NSMutableArray" id="8PQ-84-Gh8"/>
+                        <outletCollection property="questionResponsesLabelArray" destination="JdP-bO-adX" collectionClass="NSMutableArray" id="6eL-Qy-F8j"/>
+                        <outletCollection property="questionResponsesButtonArray" destination="MqD-MP-K0a" collectionClass="NSMutableArray" id="sxY-QU-A5F"/>
+                        <outletCollection property="questionResponsesButtonArray" destination="HNN-aF-KEH" collectionClass="NSMutableArray" id="Ozl-gB-BSj"/>
+                        <outletCollection property="questionResponsesButtonArray" destination="fks-fD-F8b" collectionClass="NSMutableArray" id="bAO-hK-QAD"/>
+                        <outletCollection property="questionResponsesButtonArray" destination="cPl-0G-oTf" collectionClass="NSMutableArray" id="93N-3e-ekH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -197,10 +198,10 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outletCollection property="cornerViews" destination="mxd-cg-46q" collectionClass="NSMutableArray" id="azn-JE-xI1"/>
-                        <outletCollection property="cornerViews" destination="xAW-SU-gIi" collectionClass="NSMutableArray" id="0n5-Bi-yRa"/>
-                        <outletCollection property="cornerViews" destination="qdo-K4-pP9" collectionClass="NSMutableArray" id="EjW-Da-9dR"/>
-                        <outletCollection property="cornerViews" destination="IyX-6m-gxM" collectionClass="NSMutableArray" id="RjI-Qu-SlK"/>
+                        <outletCollection property="cornerViews" destination="MqD-MP-K0a" collectionClass="NSMutableArray" id="mNw-8w-b8p"/>
+                        <outletCollection property="cornerViews" destination="HNN-aF-KEH" collectionClass="NSMutableArray" id="8CV-PA-ZdB"/>
+                        <outletCollection property="cornerViews" destination="fks-fD-F8b" collectionClass="NSMutableArray" id="6o6-eG-tKB"/>
+                        <outletCollection property="cornerViews" destination="cPl-0G-oTf" collectionClass="NSMutableArray" id="Qg9-VR-esm"/>
                     </connections>
                 </customObject>
             </objects>

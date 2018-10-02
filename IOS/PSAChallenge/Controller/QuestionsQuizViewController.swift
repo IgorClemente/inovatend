@@ -11,7 +11,8 @@ import UIKit
 class QuestionsQuizViewController: UIViewController {
 
     @IBOutlet weak var questionCentralText: UILabel?
-    @IBOutlet var questionResponsesArray: Array<UILabel>?
+    @IBOutlet var questionResponsesLabelArray: Array<UILabel>?
+    @IBOutlet var questionResponsesButtonArray: Array<UIButton>?
     
     var questionsObjectsArray: Array<InovaQuestion>?
     var currentAlternativeQuestionObject: InovaAlternativeQuestion?
@@ -20,24 +21,28 @@ class QuestionsQuizViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.requestQuestionsFromServer()
+        self.setupUIStatus(true)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.requestQuestionsFromServer()
+        self.setupUIStatus(true)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    private func verifyQuestionResponse(question identifier: Int,_ responseIdentifier: Int) -> Void {
+    private func verifyQuestionResponse(question identifier: Int,_ responseIdentifier: Int,
+                                        _ completionHandlerForVerifyQuestion: @escaping (_ success: Bool,
+                                                                                         _ response: String?) -> Void) -> Void {
         InovaClient.sharedInstance().setResponseFor(question: identifier, and: responseIdentifier) { (success, response, errorString) in
             if success {
-                print("Resposta Correta!")
+                completionHandlerForVerifyQuestion(true,"Resposta correta!")
                 return
             }
-            print(errorString)
+            completionHandlerForVerifyQuestion(false,"Resposta incorreta!")
         }
     }
     
@@ -48,29 +53,35 @@ class QuestionsQuizViewController: UIViewController {
                 let questionsArrayObjects = InovaQuestion.questionsFor(question: questionsDictionary)
                 
                 self.questionsObjectsArray = questionsArrayObjects
-                self.setupInformationFromQuestionsUI()
+                self.setupInformationFromQuestionsUI { _ in
+                    print("Change information profile.")
+                }
             }
         }
     }
     
-    private func setupInformationFromQuestionsUI() -> Void {
-        guard let questionCentralTextLabel = self.questionCentralText,
-              let questionsObjectsArray = self.questionsObjectsArray else { return }
+    private func setupInformationFromQuestionsUI(_ completionHandler: @escaping (_ success: Bool)->Void) -> Void {
+        guard let centralQuestionTextLabel = self.questionCentralText else { return }
+        
+        guard let questionsObjectsArray = self.questionsObjectsArray else {
+            completionHandler(false)
+            return
+        }
         
         let randomQuestionIdentifier = arc4random_uniform(UInt32(questionsObjectsArray.count))
         let randomQuestion = questionsObjectsArray[Int(randomQuestionIdentifier)]
         
         self.currentQuestionObject = randomQuestion
-
+        
         performUIMain {
-            questionCentralTextLabel.alpha = 0.0
-            questionCentralTextLabel.isHidden = true
+            centralQuestionTextLabel.alpha = 0.0
+            centralQuestionTextLabel.isHidden = true
             
-            UIView.animate(withDuration: 0.7, animations: {
-                questionCentralTextLabel.alpha = 1.0
+            UIView.animate(withDuration: 0.5, animations: {
+                centralQuestionTextLabel.alpha = 1.0
             }, completion: { (_) in
-                questionCentralTextLabel.isHidden = false
-                questionCentralTextLabel.text = "\(randomQuestion.question_text)"
+                centralQuestionTextLabel.isHidden = false
+                centralQuestionTextLabel.text = "\(randomQuestion.question_text)"
             })
         }
         
@@ -79,33 +90,130 @@ class QuestionsQuizViewController: UIViewController {
         }
         
         for (index,alternative) in questionsSorted.enumerated() {
-            guard let questionResponsesArray = self.questionResponsesArray else { return }
+            guard let questionResponsesArray = self.questionResponsesLabelArray else {
+                completionHandler(false)
+                return
+            }
+            
             let alternativeQuestionLabel = questionResponsesArray[index]
             
             performUIMain {
                 alternativeQuestionLabel.text = alternative.alternativeQuestionText
+                completionHandler(true)
             }
         }
     }
     
-    @IBAction func tapAlternativeQuestionSelected(_ button: UIButton) -> Void {
-        guard let questionIdentifier = button.restorationIdentifier,
-              let currentQuestionObject = self.currentQuestionObject else { return }
+    private func setupUIStatus(_ enabled: Bool) -> Void {
+        guard let questionResponsesButtonArray = self.questionResponsesButtonArray,
+              let questionResponsesLabelArray = self.questionResponsesLabelArray else { return }
         
-        let questionsSorted = currentQuestionObject.alternatives.sorted { (alternativeA, alternativeB) -> Bool in
+        if enabled {
+            questionResponsesButtonArray.enumerated().forEach { (index,button) in
+                button.isEnabled = enabled
+                let responseLabelElement = questionResponsesLabelArray[index]
+                responseLabelElement.alpha = 1.0
+            }
+            return
+        }
+        
+        questionResponsesButtonArray.enumerated().forEach { (index,button) in
+            button.isEnabled = enabled
+            let responseLabelElement = questionResponsesLabelArray[index]
+            responseLabelElement.alpha = 0.5
+        }
+    }
+    
+    private func setupUIButtonStatus(_ button: UIButton,_ status: Bool) -> Void {
+        guard let responseDefaultImage: UIImage = UIImage(named: "checked") else { return }
+        
+        let responseDefaultImageView = UIImageView(image: responseDefaultImage)
+        responseDefaultImageView.frame = CGRect(x: 15,y: (button.frame.size.height / 2) - 25,width: 50, height: 50)
+        responseDefaultImageView.restorationIdentifier = "checked"
+        
+        guard let superViewForButton = button.superview else { return }
+        
+        let responseDefaultColor: UIColor = UIColor(red: 0.800, green: 0.981, blue: 0.899, alpha: 1.0)
+        
+        if status {
+           button.backgroundColor = responseDefaultColor
+           superViewForButton.addSubview(responseDefaultImageView)
+           return
+        }
+        button.backgroundColor = UIColor.red
+    }
+    
+    @IBAction func tapAlternativeQuestionSelected(_ button: UIButton) -> Void {
+        self.setupUIStatus(false)
+        
+        guard let questionResponsesButtonArray = self.questionResponsesButtonArray else { return }
+        
+        questionResponsesButtonArray.forEach { (button) in
+            button.backgroundColor = UIColor.lightGray
+            
+            guard let buttonSuperView = button.superview else { return }
+            let _ = buttonSuperView.subviews.map { view in
+                guard let imageView = view as? UIImageView else { return }
+                if imageView.restorationIdentifier == "checked" {
+                    return imageView.image = nil
+                }
+            }
+        }
+        
+        guard let questionIdentifier = button.restorationIdentifier,
+              let currentQuestionObject = self.currentQuestionObject,
+              let alternativeQuestionArrayIndex = Int(questionIdentifier) else {
+            self.setupUIStatus(true)
+            return
+        }
+        
+        var questionsSorted = currentQuestionObject.alternatives.sorted { (alternativeA, alternativeB) -> Bool in
             return alternativeA.identifier < alternativeB.identifier
         }
         
-        guard let alternativeQuestionArrayIndex = Int(questionIdentifier) else { return }
-        let alternativeSelected = questionsSorted[alternativeQuestionArrayIndex - 1]
+        guard !questionsSorted.isEmpty else {
+            self.setupUIStatus(true)
+            return
+        }
         
-        currentAlternativeQuestionObject = alternativeSelected
+        guard questionsSorted.enumerated().contains(where: { (index,alternativeQuestion) -> Bool in
+            return index == alternativeQuestionArrayIndex
+        }) else { return }
+        
+        currentAlternativeQuestionObject = questionsSorted[alternativeQuestionArrayIndex]
         
         let currentQuestionIdentifier: Int = currentQuestionObject.identifier
-    
-        self.verifyQuestionResponse(question: currentQuestionIdentifier, currentQuestionObject.question_response_identifier)
-        print("DEBUG -> QUESTION RESPONSE IDENTIFIER", currentQuestionObject.question_response_identifier)
-        self.setupInformationFromQuestionsUI()
+        let currentQuestionResponseIdentifier: Int = currentQuestionObject.question_response_identifier
+        
+        self.verifyQuestionResponse(question: currentQuestionIdentifier, currentQuestionResponseIdentifier) {
+            (success, response) in
+            if success {
+                guard let response = response else { return }
+                print("DEBUG RESPONSE",response)
+                performUIMain {
+                    self.setupUIStatus(true)
+                    self.setupUIButtonStatus(button,true)
+                    self.setupInformationFromQuestionsUI({ (success) in
+                        if success {
+                            print("Interface Atualizada!")
+                        }
+                    })
+                }
+                return
+            }
+            
+            guard let response = response else { return }
+            print("DEBUG RESPONSE",response)
+            performUIMain {
+                self.setupUIStatus(true)
+                self.setupUIButtonStatus(button,false)
+                self.setupInformationFromQuestionsUI({ (success) in
+                    if success {
+                        print("Interface Atualizada!")
+                    }
+                })
+            }
+        }
     }
 }
 

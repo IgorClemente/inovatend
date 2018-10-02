@@ -582,6 +582,8 @@ router.post('/response/:question_identifier', function(req,res,next) {
     const questionIdentifierQueryStringParam = req.params.question_identifier;
     const questionResponseIdentifier = req.body.question_response_identifier;
 
+    console.log(questionIdentifierQueryStringParam, questionResponseIdentifier);
+
     const questionsTableQuery = "SELECT QUESTION_ID \'questionIdentifier\', " +
                                 "QUESTION_TEXT \'questionText\', " +
                                 "QUESTION_RESPONSE_ID \'questionResponseIdentifier\' \n" +
