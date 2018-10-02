@@ -182,8 +182,10 @@ class QuestionsQuizViewController: UIViewController {
         
         currentAlternativeQuestionObject = questionsSorted[alternativeQuestionArrayIndex]
         
+        guard let currentAlternativeQuestion = self.currentAlternativeQuestionObject else { return }
+        
         let currentQuestionIdentifier: Int = currentQuestionObject.identifier
-        let currentQuestionResponseIdentifier: Int = currentQuestionObject.question_response_identifier
+        let currentQuestionResponseIdentifier: Int = currentAlternativeQuestion.identifier
         
         self.verifyQuestionResponse(question: currentQuestionIdentifier, currentQuestionResponseIdentifier) {
             (success, response) in
@@ -195,7 +197,7 @@ class QuestionsQuizViewController: UIViewController {
                     self.setupUIButtonStatus(button,true)
                     self.setupInformationFromQuestionsUI({ (success) in
                         if success {
-                            print("Interface Atualizada!")
+                            print("DEBUG - Interface Atualizada!")
                         }
                     })
                 }
@@ -209,7 +211,7 @@ class QuestionsQuizViewController: UIViewController {
                 self.setupUIButtonStatus(button,false)
                 self.setupInformationFromQuestionsUI({ (success) in
                     if success {
-                        print("Interface Atualizada!")
+                        print("DEBUG - Interface Atualizada!")
                     }
                 })
             }
