@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4a37463-4050-4d45-8512-8c02a0d33955" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../../IOS/PSAChallenge/New Group2/Assets.xcassets/checked.imageset/checked@2x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IOS/PSAChallenge.xcodeproj/project.xcworkspace/xcuserdata/macbookair.xcuserdatad/UserInterfaceState.xcuserstate" beforeDir="false" afterPath="$PROJECT_DIR$/../../IOS/PSAChallenge.xcodeproj/project.xcworkspace/xcuserdata/macbookair.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IOS/PSAChallenge/Controller/QuestionsQuizViewController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../../IOS/PSAChallenge/Controller/QuestionsQuizViewController.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../IOS/PSAChallenge/New Group/Base.lproj/QuestionsViewController.storyboard" beforeDir="false" afterPath="$PROJECT_DIR$/../../IOS/PSAChallenge/New Group/Base.lproj/QuestionsViewController.storyboard" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/questions.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/questions.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -102,14 +97,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="js" value="27340" />
+          <entry key="js" value="27387" />
           <entry key="sql" value="1604" />
           <entry key="txt" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JavaScript" value="27338" />
+          <entry key="JavaScript" value="27385" />
           <entry key="PLAIN_TEXT" value="6" />
           <entry key="SQL" value="2" />
           <entry key="Scratch" value="1604" />
@@ -140,8 +135,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/questions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="366">
-              <caret line="584" column="80" lean-forward="true" selection-start-line="584" selection-start-column="80" selection-end-line="584" selection-end-column="80" />
+            <state relative-caret-position="332">
+              <caret line="656" column="21" lean-forward="true" selection-start-line="656" selection-start-column="21" selection-end-line="656" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -322,12 +317,12 @@
       <workItem from="1538334304276" duration="761000" />
       <workItem from="1538338421253" duration="1528000" />
       <workItem from="1538430792329" duration="43000" />
-      <workItem from="1538443336970" duration="115000" />
+      <workItem from="1538443336970" duration="416000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="193079000" />
+    <option name="totallyTimeSpent" value="193380000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -440,8 +435,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/questions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="584" column="80" lean-forward="true" selection-start-line="584" selection-start-column="80" selection-end-line="584" selection-end-column="80" />
+        <state relative-caret-position="332">
+          <caret line="656" column="21" lean-forward="true" selection-start-line="656" selection-start-column="21" selection-end-line="656" selection-end-column="21" />
         </state>
       </provider>
     </entry>

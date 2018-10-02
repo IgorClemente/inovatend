@@ -656,6 +656,7 @@ router.post('/response/:question_identifier', function(req,res,next) {
                         return;
                     }
 
+                    console.log("PARALELO -> ", results);
                     let questionsResponseTableIdentifier = results[0]['alternativeQuestionIdentifier'];
 
                     if (questionResponseIdentifier == questionsResponseTableIdentifier) {
