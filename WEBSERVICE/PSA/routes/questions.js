@@ -231,7 +231,9 @@ router.post('/create', function(req, res, next) {
                        'success' : false,
                        'errorMessage' : 'Informar o parametro referente ao identificador de resposta da questão, parametro: \'questionResponseIdentifier\''
                    });
+                   return;
                }
+               return;
            }
        }
 
@@ -260,7 +262,10 @@ router.post('/create', function(req, res, next) {
                return;
        }
 
-       connection.query('INSERT INTO QUESTIONS_RESPONSE_TABLE SET ?;',{ 'RESPONSE_TEXT' : questionResponseParameterText }, function(error,results,fields) {
+       const questionsResponseTableQuery = 'INSERT INTO QUESTIONS_RESPONSE_TABLE SET ?;';
+       const questionsResponseTableQueryParameters = { 'RESPONSE_TEXT' : questionResponseParameterText };
+
+       connection.query(questionsResponseTableQuery,questionsResponseTableQueryParameters, function(error,results,fields) {
             if (error) {
                 res.json({
                     'success' : false,
@@ -272,12 +277,13 @@ router.post('/create', function(req, res, next) {
 
             const questionResponseID = results.insertId;
 
-            const questionParametersStatement = {
+            const questionQuery = 'INSERT INTO QUESTIONS_TABLE SET ?;';
+            const questionQueryParameters = {
                 'QUESTION_TEXT' : questionText,
                 'QUESTION_RESPONSE_ID' : questionResponseID
             };
 
-            connection.query('INSERT INTO QUESTIONS_TABLE SET ?;',questionParametersStatement, function(error,results,fields) {
+            connection.query(questionQuery,questionQueryParameters, function(error,results,fields) {
                 if (error) {
                     res.json({
                         'success' : false,

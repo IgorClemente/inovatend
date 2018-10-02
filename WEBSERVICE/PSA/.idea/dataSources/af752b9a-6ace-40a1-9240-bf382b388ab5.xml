@@ -889,16 +889,21 @@
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="219" parent="205" name="questions_questions_response_fk">
+    <column id="219" parent="205" name="QUESTION_TYPE">
+      <Position>4</Position>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="220" parent="205" name="questions_questions_response_fk">
       <ColNames>QUESTION_RESPONSE_ID</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="220" parent="205" name="PRIMARY">
+    <key id="221" parent="205" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>QUESTION_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="221" parent="205" name="QUESTIONS_TABLE_ibfk_1">
+    <foreign-key id="222" parent="205" name="QUESTIONS_TABLE_ibfk_1">
       <ColNames>QUESTION_RESPONSE_ID</ColNames>
       <RefSchemaName>PSA</RefSchemaName>
       <RefTableName>QUESTIONS_RESPONSE_TABLE</RefTableName>
