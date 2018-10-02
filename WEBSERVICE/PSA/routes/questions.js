@@ -128,7 +128,7 @@ router.post('/create', function(req, res, next) {
        }
 
        const questionText = req.body.questionText;
-       const questionResponseIdentifier = req.body.questionResponseIdentifier;
+       let questionResponseIdentifier = req.body.questionResponseIdentifier;
 
        if (req.body.alternativeQuestion01 === undefined) {
            if (req.body.alternativeQuestion01 == "") {
@@ -217,6 +217,21 @@ router.post('/create', function(req, res, next) {
                    'errorMessage' : 'Informar o parametro referente ao identificador de tipo da questão, parametro: \'questionType\''
                });
                return;
+           }
+       }
+
+       let questionTypeParameter = req.body.questionType;
+
+       if (questionTypeParameter != undefined) {
+           questionResponseIdentifier = undefined;
+       } else {
+           if (req.body.questionResponseIdentifer == undefined) {
+               if (req.body.questionResponseIdentifier == "") {
+                   res.json({
+                       'success' : false,
+                       'errorMessage' : 'Informar o parametro referente ao identificador de resposta da questão, parametro: \'questionResponseIdentifier\''
+                   });
+               }
            }
        }
 
@@ -622,7 +637,7 @@ router.post('/response/:question_identifier', function(req,res,next) {
     }
 
     pool.getConnection(function(error,connection) {
-       let query = connection.query(questionsTableQuery, questionsTableQueryParameters, function(error,results,fields) {
+       connection.query(questionsTableQuery, questionsTableQueryParameters, function(error,results,fields) {
            if (error) {
                res.json({
                    'success' : false,
