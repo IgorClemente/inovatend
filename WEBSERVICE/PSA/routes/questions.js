@@ -222,6 +222,8 @@ router.post('/create', function(req, res, next) {
 
        let questionTypeParameter = req.body.questionType;
 
+       /**
+
        if (questionTypeParameter != undefined) {
            questionResponseIdentifier = undefined;
        } else {
@@ -236,6 +238,8 @@ router.post('/create', function(req, res, next) {
                return;
            }
        }
+
+       **/
 
        var questionResponseParameterText = " ";
        var alternativesQuestions = [req.body.alternativeQuestion01, req.body.alternativeQuestion02,
