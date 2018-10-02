@@ -507,7 +507,7 @@ router.delete('/delete/:questionID', function(req,res,next) {
                    return;
                }
 
-               connection.query(alternativesQuestionDeleteQuery,[{QUESTION_ID : questionIdentifierParameter}], function(error,deleteAlternativesQuestionResult,fields) {
+               connection.query(alternativesQuestionDeleteQuery,[{ QUESTION_ID : questionIdentifierParameter }], function(error,deleteAlternativesQuestionResult,fields) {
                    if (error) {
                        res.json({
                            'success' : false,
@@ -675,8 +675,6 @@ router.post('/response/:question_identifier', function(req,res,next) {
                 });
            });
        });
-
-       console.log(query.sql);
     });
 });
 
