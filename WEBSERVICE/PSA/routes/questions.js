@@ -659,7 +659,7 @@ router.post('/response/:question_identifier', function(req,res,next) {
                     console.log("PARALELO -> ", results);
                     let questionsResponseTableIdentifier = results[0]['alternativeQuestionIdentifier'];
 
-                    if (questionResponseIdentifier == questionsResponseTableIdentifier) {
+                    if (questionResponseIdentifier === questionsResponseTableIdentifier) {
                         res.json({
                             'success' : true,
                             'successMessage' : 'Questão correta!'
