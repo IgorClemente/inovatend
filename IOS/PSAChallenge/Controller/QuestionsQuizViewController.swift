@@ -11,6 +11,7 @@ import UIKit
 class QuestionsQuizViewController: UIViewController {
 
     @IBOutlet weak var questionCentralText: UILabel?
+    @IBOutlet weak var questionCentralTextFrame: UIView?
     @IBOutlet var questionResponsesLabelArray: Array<UILabel>?
     @IBOutlet var questionResponsesButtonArray: Array<UIButton>?
     
@@ -125,7 +126,7 @@ class QuestionsQuizViewController: UIViewController {
     }
     
     private func setupUIButtonStatus(_ button: UIButton,_ status: Bool) -> Void {
-        guard let responseDefaultImage: UIImage = UIImage(named: "checked") else { return }
+        guard let responseDefaultImage: UIImage = UIImage(named: "check_question") else { return }
         
         let responseDefaultImageView = UIImageView(image: responseDefaultImage)
         responseDefaultImageView.frame = CGRect(x: 15,y: (button.frame.size.height / 2) - 25,width: 50, height: 50)

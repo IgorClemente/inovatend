@@ -180,6 +180,7 @@
                     </view>
                     <connections>
                         <outlet property="questionCentralText" destination="RAs-3W-x7M" id="NnV-5H-Usx"/>
+                        <outlet property="questionCentralTextFrame" destination="sPb-uG-c5s" id="7ba-yg-LlO"/>
                         <outletCollection property="questionResponsesLabelArray" destination="Psv-o7-Bed" collectionClass="NSMutableArray" id="lat-al-l5f"/>
                         <outletCollection property="questionResponsesLabelArray" destination="VF1-d8-B5R" collectionClass="NSMutableArray" id="PNd-Ke-ijv"/>
                         <outletCollection property="questionResponsesLabelArray" destination="thx-mY-CbG" collectionClass="NSMutableArray" id="8PQ-84-Gh8"/>
