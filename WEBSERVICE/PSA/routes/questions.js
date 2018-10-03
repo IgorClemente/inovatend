@@ -712,6 +712,7 @@ router.post('/response/:question_identifier', function(req,res,next) {
                         return;
                     }
 
+                    console.log(results);
                     res.json({
                         'success' : false,
                         'errorMessage' : 'Questão incorreta!'
