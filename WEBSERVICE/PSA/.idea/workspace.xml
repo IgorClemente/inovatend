@@ -65,22 +65,22 @@
     <session id="-1614234017">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="46" />
+          <entry key="project.closed" value="47" />
           <entry key="project.open.time.13" value="1" />
           <entry key="project.open.time.14" value="4" />
           <entry key="project.open.time.16" value="6" />
           <entry key="project.open.time.17" value="4" />
-          <entry key="project.open.time.18" value="8" />
+          <entry key="project.open.time.18" value="9" />
           <entry key="project.open.time.19" value="7" />
           <entry key="project.open.time.2" value="1" />
-          <entry key="project.open.time.20" value="7" />
+          <entry key="project.open.time.20" value="8" />
           <entry key="project.open.time.21" value="2" />
           <entry key="project.open.time.23" value="1" />
           <entry key="project.open.time.27" value="2" />
           <entry key="project.open.time.59" value="1" />
           <entry key="project.open.time.6" value="1" />
           <entry key="project.open.time.68" value="1" />
-          <entry key="project.opened" value="46" />
+          <entry key="project.opened" value="48" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -140,8 +140,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/questions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="223" selection-start-line="223" selection-end-line="223" />
+            <state relative-caret-position="436">
+              <caret line="647" lean-forward="true" selection-start-line="647" selection-end-line="647" />
             </state>
           </provider>
         </entry>
@@ -158,8 +158,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/af752b9a-6ace-40a1-9240-bf382b388ab5/console.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="78">
-              <caret line="26" column="30" lean-forward="true" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
+            <state relative-caret-position="468">
+              <caret line="26" column="30" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -327,11 +327,13 @@
       <workItem from="1538482055122" duration="1642000" />
       <workItem from="1538483878915" duration="1181000" />
       <workItem from="1538486607184" duration="1142000" />
+      <workItem from="1538589116349" duration="948000" />
+      <workItem from="1538591900209" duration="58000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="199727000" />
+    <option name="totallyTimeSpent" value="200733000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -344,6 +346,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49299362" weight="0.119456366" />
       <window_info id="Structure" order="1" sideWeight="0.50700635" side_tool="true" weight="0.119456366" />
@@ -360,7 +363,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.3299363" />
       <window_info anchor="bottom" id="Database Changes" order="9" weight="0.3299363" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5007153" side_tool="true" weight="0.37197453" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.33375797" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.33375797" />
       <window_info anchor="bottom" id="Database Console" order="12" sideWeight="0.49928468" weight="0.32356688" />
       <window_info anchor="bottom" id="REST Client" order="13" weight="0.38471338" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -436,15 +439,15 @@
     </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/af752b9a-6ace-40a1-9240-bf382b388ab5/console.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="26" column="30" lean-forward="true" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
+        <state relative-caret-position="468">
+          <caret line="26" column="30" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/questions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="223" selection-start-line="223" selection-end-line="223" />
+        <state relative-caret-position="436">
+          <caret line="647" lean-forward="true" selection-start-line="647" selection-end-line="647" />
         </state>
       </provider>
     </entry>
