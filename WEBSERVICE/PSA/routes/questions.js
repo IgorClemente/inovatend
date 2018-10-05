@@ -381,7 +381,7 @@ router.put('/update/:questionID', function(req,res,next) {
                                               "FROM ALTERNATIVES_QUESTIONS_TABLE;";
 
             connection.query(questionAlternativesQuery, function(error,alternativeResults,fields) {
-                var questionAlternativesArray = alternativeResults.filter(function(alternativeQuestion) {
+                let questionAlternativesArray = alternativeResults.filter(function(alternativeQuestion) {
                     return alternativeQuestion['question_id'] == questionIdentifierParameter;
                 });
 
@@ -401,7 +401,7 @@ router.put('/update/:questionID', function(req,res,next) {
                 const questionText = req.body.questionText || alternativeResults['question_text'];
                 const questionResponseIdentifier = req.body.questionResponseIdentifier;
 
-                var alternativesQuestions = [
+                let alternativesQuestions = [
                     req.body.alternativeQuestion01,
                     req.body.alternativeQuestion02,
                     req.body.alternativeQuestion03,
@@ -421,7 +421,7 @@ router.put('/update/:questionID', function(req,res,next) {
                         }
 
                         questionAlternativesArray.forEach(function(alternativeQuestion, index) {
-                            var alternativeQuestionText = alternativesQuestions[index];
+                            let alternativeQuestionText = alternativesQuestions[index];
 
                             if (alternativeQuestionText === undefined) {
                                 if (alternativeQuestionText === '') {
@@ -429,7 +429,7 @@ router.put('/update/:questionID', function(req,res,next) {
                                 }
                             }
 
-                            var alternativesQuestionsParametersObject = [{'ALTERNATIVE_QUESTION_NAME' : alternativeQuestionText},
+                            let alternativesQuestionsParametersObject = [{'ALTERNATIVE_QUESTION_NAME' : alternativeQuestionText},
                                                                          {'ALTERNATIVE_QUESTION_ID': alternativeQuestion['alternative_question_identifier']}]
 
                             pool.query('UPDATE ALTERNATIVES_QUESTIONS_TABLE SET ? WHERE ?', alternativesQuestionsParametersObject,
@@ -626,8 +626,6 @@ router.post('/response/:question_identifier', function(req,res,next) {
 
     const questionIdentifierQueryStringParam = req.params.question_identifier;
     const questionResponseIdentifier = req.body.question_response_identifier;
-
-    console.log(questionIdentifierQueryStringParam, questionResponseIdentifier);
 
     const questionsTableQuery = "SELECT QUESTION_ID \'questionIdentifier\', " +
                                 "QUESTION_TEXT \'questionText\', " +

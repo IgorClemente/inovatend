@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ARKit
 
 class QuestionsQuizViewController: UIViewController {
 
@@ -19,31 +20,122 @@ class QuestionsQuizViewController: UIViewController {
     var currentAlternativeQuestionObject: InovaAlternativeQuestion?
     var currentQuestionObject: InovaQuestion?
     
+    var sceneView: ARSCNView? = nil
+    var planes = [OverlayPlane]()
+    var planeCurrentAnchor: ARPlaneAnchor? = nil
+    
+    var popUpPresentCounterTimer: Timer? = nil
+    var popUpPresentActive: Bool = false
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.requestQuestionsFromServer()
         self.setupUIStatus(true)
+        
+        let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = .horizontal
+        
+        guard let sceneView = self.sceneView else { return }
+        sceneView.session.run(configuration)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.requestQuestionsFromServer()
         self.setupUIStatus(true)
+        self.setupSceneView()
+        self.setupGestureRecognizer()
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        guard let sceneView  = self.sceneView else { return }
+        sceneView.session.pause()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    private func setupSceneView() -> Void {
+        self.sceneView = ARSCNView(frame: self.view.frame)
+        self.sceneView?.delegate = self
+        self.sceneView?.automaticallyUpdatesLighting = true
+        self.sceneView?.autoenablesDefaultLighting = true
+        self.sceneView?.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
+        
+        let scene = SCNScene()
+        self.sceneView?.scene = scene
+        
+        guard let sceneView = self.sceneView else { return }
+        self.view.addSubview(sceneView)
+    }
+    
+    private func setupCarScene(_ hitResult: ARHitTestResult) -> Void {
+        guard let carScene = SCNScene(named: "audi-r8-red.dae") else { return }
+        
+        let carNode = SCNNode()
+        let carSceneChildNodes = carScene.rootNode.childNodes
+        
+        for childNode in carSceneChildNodes {
+            carNode.addChildNode(childNode)
+        }
+        
+        carNode.position = SCNVector3Make(hitResult.worldTransform.columns.3.x,
+                                          hitResult.worldTransform.columns.3.y,
+                                          hitResult.worldTransform.columns.3.z)
+        
+        guard let currentLastPlane = self.planes.last else { return }
+        
+        carNode.scale = SCNVector3(currentLastPlane.anchor.extent.x,
+                                   currentLastPlane.anchor.extent.x,currentLastPlane.anchor.extent.x)
+        
+        guard let sceneView = self.sceneView else { return }
+        sceneView.scene.rootNode.addChildNode(carNode)
+    }
+    
+    @objc private func setupPresentPopupUI() -> Void {
+        guard let centralLabelFrame = self.questionCentralTextFrame else { return }
+        
+        let popUpView = UIView()
+        popUpView.frame = CGRect(x: (self.view.frame.width / 2) + (self.view.frame.size.width - 40),
+                                 y: (centralLabelFrame.frame.maxY),
+                                 width: (self.view.frame.size.width - 40), height: 50)
+        
+        popUpView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        popUpView.layer.cornerRadius = 20.0
+        popUpView.alpha = 0.0
+        
+        self.popUpPresentActive = true
+        self.popUpPresentCounterTimer = Timer.init(timeInterval: 0.5, target: self,
+                                                   selector: #selector(self.setupPresentPopupUI), userInfo: nil, repeats: false)
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            popUpView.alpha = 1.0
+        }) { (_) in
+            self.view.addSubview(popUpView)
+        }
+        
+        if self.popUpPresentActive {
+            self.popUpPresentCounterTimer?.invalidate()
+            self.popUpPresentActive = false
+        }
     }
     
     private func verifyQuestionResponse(question identifier: Int,_ responseIdentifier: Int,
                                         _ completionHandlerForVerifyQuestion: @escaping (_ success: Bool,
                                                                                          _ response: String?) -> Void) -> Void {
-        InovaClient.sharedInstance().setResponseFor(question: identifier, and: responseIdentifier) { (success, response, errorString) in
+        InovaClient.sharedInstance().setResponseFor(question: identifier, and: responseIdentifier) {
+            (success, response, errorString) in
+            
+            let responseText: String = (success ? "Resposta correta!" : "Resposta incorreta!")
+            
             if success {
-                completionHandlerForVerifyQuestion(true,"Resposta correta!")
+                completionHandlerForVerifyQuestion(true,responseText)
                 return
             }
-            completionHandlerForVerifyQuestion(false,"Resposta incorreta!")
+            completionHandlerForVerifyQuestion(false,responseText)
         }
     }
     
@@ -51,11 +143,12 @@ class QuestionsQuizViewController: UIViewController {
         InovaClient.sharedInstance().requestAllQuestionsFor { (success, questions, errorString) in
             if success {
                 guard let questionsDictionary = questions else { return }
+                
                 let questionsArrayObjects = InovaQuestion.questionsFor(question: questionsDictionary)
                 
                 self.questionsObjectsArray = questionsArrayObjects
                 self.setupInformationFromQuestionsUI { _ in
-                    print("Change information profile.")
+                    print("DEBUG -> Change information profile.")
                 }
             }
         }
@@ -125,25 +218,6 @@ class QuestionsQuizViewController: UIViewController {
         }
     }
     
-    private func setupUIButtonStatus(_ button: UIButton,_ status: Bool) -> Void {
-        guard let responseDefaultImage: UIImage = UIImage(named: "check_question") else { return }
-        
-        let responseDefaultImageView = UIImageView(image: responseDefaultImage)
-        responseDefaultImageView.frame = CGRect(x: 15,y: (button.frame.size.height / 2) - 25,width: 50, height: 50)
-        responseDefaultImageView.restorationIdentifier = "checked"
-        
-        guard let superViewForButton = button.superview else { return }
-        
-        let responseDefaultColor: UIColor = UIColor(red: 0.800, green: 0.981, blue: 0.899, alpha: 1.0)
-        
-        if status {
-           button.backgroundColor = responseDefaultColor
-           superViewForButton.addSubview(responseDefaultImageView)
-           return
-        }
-        button.backgroundColor = UIColor.red
-    }
-    
     @IBAction func tapAlternativeQuestionSelected(_ button: UIButton) -> Void {
         self.setupUIStatus(false)
         
@@ -192,30 +266,71 @@ class QuestionsQuizViewController: UIViewController {
             (success, response) in
             if success {
                 guard let response = response else { return }
-                print("DEBUG RESPONSE",response)
+                print("DEBUG ->",response)
                 performUIMain {
                     self.setupUIStatus(true)
-                    self.setupUIButtonStatus(button,true)
                     self.setupInformationFromQuestionsUI({ (success) in
                         if success {
-                            print("DEBUG - Interface Atualizada!")
+                            print("Interface atualizada.")
                         }
                     })
+                    self.setupPresentPopupUI()
                 }
                 return
             }
             
             guard let response = response else { return }
-            print("DEBUG RESPONSE",response)
+            print("DEBUG ->",response)
             performUIMain {
                 self.setupUIStatus(true)
-                self.setupUIButtonStatus(button,false)
                 self.setupInformationFromQuestionsUI({ (success) in
                     if success {
-                        print("DEBUG - Interface Atualizada!")
+                        print("Interface atualizada.")
                     }
                 })
+                self.setupPresentPopupUI()
             }
+        }
+    }
+}
+
+extension QuestionsQuizViewController : ARSCNViewDelegate {
+
+    private func setupGestureRecognizer() -> Void {
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
+        self.sceneView?.addGestureRecognizer(gestureRecognizer)
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        guard let anchor = anchor as? ARPlaneAnchor else { return }
+        
+        let plane = OverlayPlane(anchor)
+        self.planes.append(plane)
+        
+        node.addChildNode(plane)
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+        guard let anchor = anchor as? ARPlaneAnchor else { return }
+        
+        let plane = self.planes.filter { (plane) in
+            return plane.anchor.identifier == anchor.identifier
+        }.first
+        
+        if plane == nil {
+            return
+        }
+        plane?.update(anchor: anchor)
+    }
+    
+    @objc private func tapped(gesture: UITapGestureRecognizer) -> Void {
+        let tappedView = gesture.view as! ARSCNView
+        let tappedLocation = gesture.location(in: tappedView)
+        let hitResults = self.sceneView?.hitTest(tappedLocation, types: .existingPlaneUsingExtent)
+        
+        if !(hitResults?.isEmpty)! {
+            guard let hitFirst = hitResults?.first else { return }
+            self.setupCarScene(hitFirst)
         }
     }
 }

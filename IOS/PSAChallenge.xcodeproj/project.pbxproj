@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D03DD78D21659A3000CA649D /* OverlayPlane.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03DD78C21659A3000CA649D /* OverlayPlane.swift */; };
 		D096A95121598351006B2528 /* InovaClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D096A95021598351006B2528 /* InovaClient.swift */; };
 		D096A95321598510006B2528 /* InovaConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D096A95221598510006B2528 /* InovaConstants.swift */; };
 		D096A95621599C47006B2528 /* GCDHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D096A95521599C47006B2528 /* GCDHelper.swift */; };
@@ -14,6 +15,7 @@
 		D096A95B2159B626006B2528 /* InovaQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D096A95A2159B626006B2528 /* InovaQuestion.swift */; };
 		D096A95E2159BDD1006B2528 /* InovaAlternativeQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D096A95D2159BDD1006B2528 /* InovaAlternativeQuestion.swift */; };
 		D096A9602159C9E3006B2528 /* Rounder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D096A95F2159C9E3006B2528 /* Rounder.swift */; };
+		D0CF1D852165BD2A005FB7E8 /* audi-r8-red.dae in Resources */ = {isa = PBXBuildFile; fileRef = D0CF1D842165BD2A005FB7E8 /* audi-r8-red.dae */; };
 		D0F4B7D6212ED4A400B39EDA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F4B7D5212ED4A400B39EDA /* AppDelegate.swift */; };
 		D0F4B7D8212ED4A400B39EDA /* QuestionsQuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F4B7D7212ED4A400B39EDA /* QuestionsQuizViewController.swift */; };
 		D0F4B7DB212ED4A400B39EDA /* QuestionsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0F4B7D9212ED4A400B39EDA /* QuestionsViewController.storyboard */; };
@@ -22,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D03DD78C21659A3000CA649D /* OverlayPlane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayPlane.swift; sourceTree = "<group>"; };
 		D096A95021598351006B2528 /* InovaClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InovaClient.swift; sourceTree = "<group>"; };
 		D096A95221598510006B2528 /* InovaConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InovaConstants.swift; sourceTree = "<group>"; };
 		D096A95521599C47006B2528 /* GCDHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCDHelper.swift; sourceTree = "<group>"; };
@@ -29,6 +32,7 @@
 		D096A95A2159B626006B2528 /* InovaQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InovaQuestion.swift; sourceTree = "<group>"; };
 		D096A95D2159BDD1006B2528 /* InovaAlternativeQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InovaAlternativeQuestion.swift; sourceTree = "<group>"; };
 		D096A95F2159C9E3006B2528 /* Rounder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rounder.swift; sourceTree = "<group>"; };
+		D0CF1D842165BD2A005FB7E8 /* audi-r8-red.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "audi-r8-red.dae"; sourceTree = "<group>"; };
 		D0F4B7D2212ED4A400B39EDA /* PSAChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PSAChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0F4B7D5212ED4A400B39EDA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0F4B7D7212ED4A400B39EDA /* QuestionsQuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsQuizViewController.swift; sourceTree = "<group>"; };
@@ -148,6 +152,7 @@
 		D0F4B7D4212ED4A400B39EDA /* PSAChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				D0CF1D842165BD2A005FB7E8 /* audi-r8-red.dae */,
 				D096A95421599C35006B2528 /* Extensions */,
 				D06254022132EF1B001E28F4 /* Resources */,
 				D06254012132EE95001E28F4 /* Supporting Files */,
@@ -155,6 +160,7 @@
 				D06253FF2132EE56001E28F4 /* Controller */,
 				D06253FE2132EE51001E28F4 /* Model */,
 				D06253FD2132EE4A001E28F4 /* View */,
+				D03DD78C21659A3000CA649D /* OverlayPlane.swift */,
 			);
 			path = PSAChallenge;
 			sourceTree = "<group>";
@@ -218,6 +224,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0F4B7E0212ED4A700B39EDA /* LaunchScreen.storyboard in Resources */,
+				D0CF1D852165BD2A005FB7E8 /* audi-r8-red.dae in Resources */,
 				D0F4B7DD212ED4A700B39EDA /* Assets.xcassets in Resources */,
 				D0F4B7DB212ED4A400B39EDA /* QuestionsViewController.storyboard in Resources */,
 			);
@@ -239,6 +246,7 @@
 				D096A95621599C47006B2528 /* GCDHelper.swift in Sources */,
 				D096A9602159C9E3006B2528 /* Rounder.swift in Sources */,
 				D096A9582159A7EC006B2528 /* InovaConvenience.swift in Sources */,
+				D03DD78D21659A3000CA649D /* OverlayPlane.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,6 +390,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3MSY48RE9K;
 				INFOPLIST_FILE = "$(SRCROOT)/PSAChallenge/New Group1/Info.plist";
@@ -391,6 +400,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.clemente.PSAChallenge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -400,6 +410,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3MSY48RE9K;
 				INFOPLIST_FILE = "$(SRCROOT)/PSAChallenge/New Group1/Info.plist";
@@ -409,6 +420,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.clemente.PSAChallenge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
