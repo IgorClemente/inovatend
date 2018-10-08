@@ -624,6 +624,7 @@ router.post('/response/:question_identifier', function(req,res,next) {
     const questionsTableQuery = "SELECT QUESTION_ID \'questionIdentifier\'," +
                                 "QUESTION_TEXT \'questionText\'," +
                                 "QUESTION_RESPONSE_ID \'questionResponseIdentifier\'\n" +
+                                "QUESTION_TYPE \'questionType\'\n" +
                                 "FROM QUESTIONS_TABLE WHERE ?";
 
     const questionsTableQueryParameters = { QUESTION_ID : questionIdentifierQueryStringParam };
@@ -694,21 +695,31 @@ router.post('/response/:question_identifier', function(req,res,next) {
                     }
 
                     let questionsResponseTableIdentifier = results[0]['alternativeQuestionIdentifier'];
+                    let questionType = results[0]['questionType'];
 
-                    if (questionResponseIdentifier == questionsResponseTableIdentifier) {
+                    if (questionType == 1) {
+                        if (questionResponseIdentifier == questionsResponseTableIdentifier) {
+                            res.json({
+                                'success' : true,
+                                'successMessage' : 'Questão correta!'
+                            });
+                            connection.release();
+                            return;
+                        }
+
+                        console.log(results);
                         res.json({
-                            'success' : true,
-                            'successMessage' : 'Questão correta!'
+                            'success' : false,
+                            'errorMessage' : 'Questão incorreta!'
                         });
-                        connection.release();
-                        return;
+                    } else {
+                        if (questionType == 2) {
+                            res.json({
+                                'success' : true,
+                                'successMessage' : 'Questão respondida'
+                            });
+                        }
                     }
-
-                    console.log(results);
-                    res.json({
-                        'success' : false,
-                        'errorMessage' : 'Questão incorreta!'
-                    });
                     connection.release();
                 });
            });
