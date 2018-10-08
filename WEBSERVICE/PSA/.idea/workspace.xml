@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4a37463-4050-4d45-8512-8c02a0d33955" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/routes/questions.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/questions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -142,8 +142,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/questions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="490">
-              <caret line="698" lean-forward="true" selection-start-line="698" selection-end-line="698" />
+            <state relative-caret-position="311">
+              <caret line="707" column="25" lean-forward="true" selection-start-line="707" selection-start-column="25" selection-end-line="707" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -206,7 +206,7 @@
       <path value="$PROJECT_DIR$/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="1">
     <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="877" />
@@ -248,6 +248,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="SearchEverywhereHistoryKey" value="A&#9;null&#9;null" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="database.console.LAST_STATE" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="6.10.0" />
@@ -342,12 +343,12 @@
       <workItem from="1539006553173" duration="1660000" />
       <workItem from="1539008366743" duration="1588000" />
       <workItem from="1539019917211" duration="1473000" />
-      <workItem from="1539023122997" duration="694000" />
+      <workItem from="1539023122997" duration="992000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="215185000" />
+    <option name="totallyTimeSpent" value="215483000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -359,7 +360,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="877" extended-state="0" />
+    <frame x="0" y="23" width="1440" height="877" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49299362" weight="0.119456366" />
@@ -460,8 +461,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/questions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="490">
-          <caret line="698" lean-forward="true" selection-start-line="698" selection-end-line="698" />
+        <state relative-caret-position="311">
+          <caret line="707" column="25" lean-forward="true" selection-start-line="707" selection-start-column="25" selection-end-line="707" selection-end-column="25" />
         </state>
       </provider>
     </entry>
