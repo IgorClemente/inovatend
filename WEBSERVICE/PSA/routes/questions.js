@@ -11,7 +11,7 @@ var pool = mysql.createPool({
     multipleStatements: true
 });
 
-router.get('/', function(req, res, next) {
+router.get('/:questionTypeIdentifier', function(req, res, next) {
     pool.getConnection(function(error, connection) {
         if (error) {
             res.json({
@@ -22,19 +22,23 @@ router.get('/', function(req, res, next) {
             return;
         }
 
+        let questionTypeIdentifier = req.params.questionTypeIdentifier;
+
         const questionsQueryStatement = "SELECT QUESTION_ID \"identifier\",QUESTION_TEXT \"question_text\", " +
                                "QUESTIONS_RESPONSE_TABLE.RESPONSE_TEXT \"question_response_text\",\n" +
-                               "QUESTION_RESPONSE_ID \"question_response_identifier\"\n" +
-                               "FROM QUESTIONS_TABLE  JOIN QUESTIONS_RESPONSE_TABLE \n" +
-                               "ON QUESTIONS_TABLE.QUESTION_RESPONSE_ID = QUESTIONS_RESPONSE_TABLE.RESPONSE_ID;";
+                               "QUESTION_RESPONSE_ID \"question_response_identifier\",\n" +
+                               "QUESTION_TYPE \"question_type\"\n" +
+                               "FROM QUESTIONS_TABLE JOIN QUESTIONS_RESPONSE_TABLE \n" +
+                               "ON QUESTIONS_TABLE.QUESTION_RESPONSE_ID = QUESTIONS_RESPONSE_TABLE.RESPONSE_ID\n" +
+                               "WHERE ?;";
 
         const alternativesQuestionsQueryStatement = "SELECT ALTERNATIVES_QUESTIONS_TABLE.ALTERNATIVE_QUESTION_ID \"identifier\", ALTERNATIVE_QUESTION_NAME \"alternative_question_text\",\n" +
                                                     "QUESTIONS_TABLE.QUESTION_ID \"question_id\"\n" +
                                                     "FROM ALTERNATIVES_QUESTIONS_TABLE JOIN QUESTIONS_TABLE\n" +
                                                     "ON ALTERNATIVES_QUESTIONS_TABLE.QUESTION_ID = QUESTIONS_TABLE.QUESTION_ID;";
 
-        connection.query({ sql: (questionsQueryStatement + alternativesQuestionsQueryStatement),
-                           timeout: 60000}, function(error, results, fields) {
+        var query = connection.query({ sql: (questionsQueryStatement + alternativesQuestionsQueryStatement),
+                           timeout: 60000},{ QUESTION_TYPE : questionTypeIdentifier },function(error, results, fields) {
             if (error) {
                 res.json({
                     'success' : false,
@@ -76,6 +80,8 @@ router.get('/', function(req, res, next) {
                 'questions' : results[0]
             });
         });
+
+        console.log("QUERY", query.sql);
         connection.release();
     });
 });
@@ -128,7 +134,7 @@ router.post('/create', function(req, res, next) {
        }
 
        const questionText = req.body.questionText;
-       let questionResponseIdentifier = req.body.questionResponseIdentifier;
+       var questionResponseIdentifier = req.body.questionResponseIdentifier;
 
        if (req.body.alternativeQuestion01 === undefined) {
            if (req.body.alternativeQuestion01 == "") {
@@ -202,20 +208,16 @@ router.post('/create', function(req, res, next) {
            }
        }
 
-       if (req.body.questionType === undefined) {
-           if (req.body.questionType == "") {
-               console.log("OKK");
-               if (req.body.questionResponseIdentifier === undefined) {
-                   if (req.body.questionResponseIdentifier == "") {
-                       res.json({
-                           'success' : false,
-                           'errorMessage' : 'Informar o parametro referente ao identificador de tipo da questão, parametro: \'questionResponseIdentifier\''
-                       });
-                       return;
-                   }
-               }
+       if (req.body.questionType === undefined || req.body.questionType == "") {
+           if (questionResponseIdentifier === undefined || questionResponseIdentifier == "") {
+               res.json({
+                   'success' : false,
+                   'errorMessage' : 'Informar o parametro referente ao texto da resposta 04, parametro: \'questionResponseIdentifier\''
+               });
                return;
            }
+       } else {
+           questionResponseIdentifier = 1;
        }
 
        var questionResponseParameterText = " ";
@@ -236,11 +238,13 @@ router.post('/create', function(req, res, next) {
                questionResponseParameterText = req.body.alternativeQuestion04;
                break;
            default:
-               res.json({
-                   'success':false,
-                   'errorMessage':'Informar o parametro referente ao identificador da resposta, parametro: \'questionResponseIdentifier\''
-               });
-               return;
+               if (req.body.questionType === undefined || req.body.questionType == "") {
+                   res.json({
+                       'success':false,
+                       'errorMessage':'Informar o parametro referente ao identificador da resposta, parametro: \'questionResponseIdentifier\''
+                   });
+                   return;
+               }
        }
 
        const questionsResponseTableQuery = 'INSERT INTO QUESTIONS_RESPONSE_TABLE SET ?;';
@@ -257,11 +261,24 @@ router.post('/create', function(req, res, next) {
             }
 
             const questionResponseID = results.insertId;
-
             const questionQuery = 'INSERT INTO QUESTIONS_TABLE SET ?;';
+
+            var questionTypeIdentifier = 3;
+
+            if (!(req.body.questionType === undefined || req.body.questionType == "")) {
+                if (req.body.questionType == 1) {
+                    questionTypeIdentifier = 0;
+                } else {
+                    if (req.body.questionType == 2) {
+                        questionTypeIdentifier = 1;
+                    }
+                }
+            }
+
             const questionQueryParameters = {
                 'QUESTION_TEXT' : questionText,
-                'QUESTION_RESPONSE_ID' : questionResponseID
+                'QUESTION_RESPONSE_ID' : questionResponseID,
+                'QUESTION_TYPE' : questionTypeIdentifier
             };
 
             connection.query(questionQuery,questionQueryParameters, function(error,results,fields) {
