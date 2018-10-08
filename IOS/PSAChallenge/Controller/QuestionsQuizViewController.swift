@@ -262,7 +262,6 @@ class QuestionsQuizViewController: UIViewController {
                 print("Todas as questões respondidas!")
                 return
             }
-
             self.setupInformationFromQuestionsUI()
             self.setupUIStatus(true,nil)
         }

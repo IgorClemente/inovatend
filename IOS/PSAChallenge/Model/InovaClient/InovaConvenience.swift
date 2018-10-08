@@ -13,7 +13,10 @@ extension InovaClient {
     func requestAllQuestionsFor(_ completionHandlerForRequestAllQuestions: @escaping (_ success: Bool,
                                                                                       _ questions: [[String:Any]]?,
                                                                                       _ errorString: String?) -> Void) {
-        taskForGETMethod(Methods.QuestionsRequest, [:]) { (results, error) in
+        
+        guard let method = substituteKeyInMethod(Methods.QuestionsRequest, key: "id", value: "2") else { return }
+        
+        taskForGETMethod(method, [:]) { (results, error) in
             if let error = error {
                 print(error.localizedDescription)
                 completionHandlerForRequestAllQuestions(false,nil,error.localizedDescription)

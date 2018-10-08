@@ -18,7 +18,7 @@ extension InovaClient {
     }
     
     struct Methods {
-        static let QuestionsRequest = "/questions"
+        static let QuestionsRequest = "/questions/{id}"
         static let QuestionsSetResponse = "/questions/response/{id}"
     }
     

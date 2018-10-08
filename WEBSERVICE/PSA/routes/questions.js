@@ -351,7 +351,7 @@ router.put('/update/:questionID', function(req,res,next) {
         }
 
         connection.query(questionsTableConsultQuery,[questionIdentifierParameter], function(error,questionsResults,fields) {
-            if (questionsResults.lenght == 0) {
+            if (questionsResults.length == 0) {
                 res.json({
                     'success' : false,
                     'errorMessage' : 'Erro ao atualizar a questão, Por favor verifique o parametro de \'identificador\''
@@ -621,9 +621,9 @@ router.post('/response/:question_identifier', function(req,res,next) {
     const questionIdentifierQueryStringParam = req.params.question_identifier;
     const questionResponseIdentifier = req.body.question_response_identifier;
 
-    const questionsTableQuery = "SELECT QUESTION_ID \'questionIdentifier\', " +
-                                "QUESTION_TEXT \'questionText\', " +
-                                "QUESTION_RESPONSE_ID \'questionResponseIdentifier\' \n" +
+    const questionsTableQuery = "SELECT QUESTION_ID \'questionIdentifier\'," +
+                                "QUESTION_TEXT \'questionText\'," +
+                                "QUESTION_RESPONSE_ID \'questionResponseIdentifier\'\n" +
                                 "FROM QUESTIONS_TABLE WHERE ?";
 
     const questionsTableQueryParameters = { QUESTION_ID : questionIdentifierQueryStringParam };
