@@ -87,7 +87,7 @@ router.post('/create', function(req, res, next) {
                'success' : false,
                'errorMessage' : error
            });
-           connection.destroy();
+           connection.release();
            return;
        }
 
@@ -204,33 +204,18 @@ router.post('/create', function(req, res, next) {
 
        if (req.body.questionType === undefined) {
            if (req.body.questionType == "") {
-                res.json({
-                   'success' : false,
-                   'errorMessage' : 'Informar o parametro referente ao identificador de tipo da questão, parametro: \'questionType\''
-                });
-                return;
-           }
-       } else {
-           if (req.body.questionType == "") {
-               res.json({
-                   'success' : false,
-                   'errorMessage' : 'Informar o parametro referente ao identificador de tipo da questão, parametro: \'questionType\''
-               });
+               console.log("OKK");
+               if (req.body.questionResponseIdentifier === undefined) {
+                   if (req.body.questionResponseIdentifier == "") {
+                       res.json({
+                           'success' : false,
+                           'errorMessage' : 'Informar o parametro referente ao identificador de tipo da questão, parametro: \'questionResponseIdentifier\''
+                       });
+                       return;
+                   }
+               }
                return;
            }
-       }
-
-       if (questionTypeParameter == undefined) {
-           if (req.body.questionType == undefined) {
-               res.json({
-                   'success' : false,
-                   'errorMessage' : 'Informar o parametro referente ao identificador de resposta da questão, parametro: \'questionResponseIdentifier\''
-               });
-               return;
-           }
-           return;
-       } else {
-           console.log("O parametro foi informado!");
        }
 
        var questionResponseParameterText = " ";
