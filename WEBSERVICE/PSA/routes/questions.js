@@ -640,7 +640,7 @@ router.post('/response/:question_identifier', function(req,res,next) {
     }
 
     pool.getConnection(function(error,connection) {
-       connection.query(questionsTableQuery, questionsTableQueryParameters, function(error,results,fields) {
+       connection.query(questionsTableQuery, questionsTableQueryParameters, function(error,questionQueryResults,fields) {
            if (error) {
                res.json({
                    'success' : false,
@@ -650,7 +650,7 @@ router.post('/response/:question_identifier', function(req,res,next) {
                return;
            }
 
-           if(!(results.length > 0)) {
+           if(!(questionQueryResults.length > 0)) {
                res.json({
                    'success' : false,
                    'errorMessage' : 'A consulta não retornou nenhuma questão para o identificador enviado como parametro.'
@@ -659,7 +659,7 @@ router.post('/response/:question_identifier', function(req,res,next) {
                return;
            }
 
-           const questionResultResponseIdentifier = results[0].questionResponseIdentifier;
+           const questionResultResponseIdentifier = questionQueryResults[0].questionResponseIdentifier;
 
            const questionResultResponseCheckQuery = 'SELECT RESPONSE_ID "responseIdentifier", ' +
                                                     'ALTERNATIVE_QUESTION_ID "alternativeQuestionIdentifier"' +
@@ -695,7 +695,7 @@ router.post('/response/:question_identifier', function(req,res,next) {
                     }
 
                     let questionsResponseTableIdentifier = results[0]['alternativeQuestionIdentifier'];
-                    let questionType = results[0]['questionType'];
+                    let questionType = questionQueryResults[0]['questionType'];
 
                     if (questionType == 1) {
                         if (questionResponseIdentifier == questionsResponseTableIdentifier) {
