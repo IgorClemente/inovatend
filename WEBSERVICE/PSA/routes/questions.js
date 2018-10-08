@@ -623,7 +623,7 @@ router.post('/response/:question_identifier', function(req,res,next) {
 
     const questionsTableQuery = "SELECT QUESTION_ID \'questionIdentifier\'," +
                                 "QUESTION_TEXT \'questionText\'," +
-                                "QUESTION_RESPONSE_ID \'questionResponseIdentifier\'\n" +
+                                "QUESTION_RESPONSE_ID \'questionResponseIdentifier\'\n," +
                                 "QUESTION_TYPE \'questionType\'\n" +
                                 "FROM QUESTIONS_TABLE WHERE ?";
 
