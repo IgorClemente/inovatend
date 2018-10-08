@@ -53,6 +53,7 @@ extension InovaClient {
             if let error = error {
                 print(error.localizedDescription)
                 completionHandlerForSetResponse(false,nil,error.localizedDescription)
+                return
             } else {
                 if let results = results as? [String:Any],
                    let successFlag = results[JSONResponseKeys.SuccessStatus] as? Bool,
@@ -62,6 +63,7 @@ extension InovaClient {
                     if let results = results as? [String:Any],
                        let errorMessage = results[JSONResponseKeys.ErrorMessage] as? String {
                         completionHandlerForSetResponse(false,nil,errorMessage)
+                        return
                     }
                     let errorMessage: String = "Could not find key: \(JSONResponseKeys.ErrorMessage)"
                     completionHandlerForSetResponse(false,nil,errorMessage)

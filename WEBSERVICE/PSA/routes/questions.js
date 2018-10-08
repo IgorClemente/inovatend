@@ -220,26 +220,18 @@ router.post('/create', function(req, res, next) {
            }
        }
 
-       let questionTypeParameter = req.body.questionType;
-
-       /**
-
-       if (questionTypeParameter != undefined) {
-           questionResponseIdentifier = undefined;
-       } else {
-           if (req.body.questionResponseIdentifer == undefined) {
-               if (req.body.questionResponseIdentifier == "") {
-                   res.json({
-                       'success' : false,
-                       'errorMessage' : 'Informar o parametro referente ao identificador de resposta da questão, parametro: \'questionResponseIdentifier\''
-                   });
-                   return;
-               }
+       if (questionTypeParameter == undefined) {
+           if (req.body.questionType == undefined) {
+               res.json({
+                   'success' : false,
+                   'errorMessage' : 'Informar o parametro referente ao identificador de resposta da questão, parametro: \'questionResponseIdentifier\''
+               });
                return;
            }
+           return;
+       } else {
+           console.log("O parametro foi informado!");
        }
-
-       **/
 
        var questionResponseParameterText = " ";
        var alternativesQuestions = [req.body.alternativeQuestion01, req.body.alternativeQuestion02,

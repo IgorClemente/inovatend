@@ -13,6 +13,8 @@ class QuestionsQuizViewController: UIViewController {
 
     @IBOutlet weak var questionCentralText: UILabel?
     @IBOutlet weak var questionCentralTextFrame: UIView?
+    @IBOutlet weak var questionResponseProgressIndicator: UIProgressView?
+    
     @IBOutlet var questionResponsesLabelArray: Array<UILabel>?
     @IBOutlet var questionResponsesButtonArray: Array<UIButton>?
     
@@ -27,24 +29,29 @@ class QuestionsQuizViewController: UIViewController {
     var popUpPresentCounterTimer: Timer? = nil
     var popUpPresentActive: Bool = false
     
+    var questionResponseCurrentProgress: Float? = nil
+    var questionResponseCurrentIndex: Int? = nil
+    var questionCount: Int? = nil
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.requestQuestionsFromServer()
-        self.setupUIStatus(true)
         
+        self.setupUIStatus(true,nil)
+        
+        guard let sceneView = self.sceneView else { return }
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = .horizontal
         
-        guard let sceneView = self.sceneView else { return }
         sceneView.session.run(configuration)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.requestQuestionsFromServer()
-        self.setupUIStatus(true)
-        self.setupSceneView()
-        self.setupGestureRecognizer()
+        self.setupUIStatus(true,nil)
+        
+        guard let progressBar = self.questionResponseProgressIndicator else { return }
+        progressBar.progress = 0.0
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -70,6 +77,12 @@ class QuestionsQuizViewController: UIViewController {
         
         guard let sceneView = self.sceneView else { return }
         self.view.addSubview(sceneView)
+        
+        let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = .horizontal
+        sceneView.session.run(configuration)
+        
+        self.setupGestureRecognizer()
     }
     
     private func setupCarScene(_ hitResult: ARHitTestResult) -> Void {
@@ -82,60 +95,23 @@ class QuestionsQuizViewController: UIViewController {
             carNode.addChildNode(childNode)
         }
         
-        carNode.position = SCNVector3Make(hitResult.worldTransform.columns.3.x,
-                                          hitResult.worldTransform.columns.3.y,
+        carNode.position = SCNVector3Make(hitResult.worldTransform.columns.3.x, hitResult.worldTransform.columns.3.y,
                                           hitResult.worldTransform.columns.3.z)
         
         guard let currentLastPlane = self.planes.last else { return }
         
-        carNode.scale = SCNVector3(currentLastPlane.anchor.extent.x,
-                                   currentLastPlane.anchor.extent.x,currentLastPlane.anchor.extent.x)
+        carNode.scale = SCNVector3(currentLastPlane.anchor.extent.x, currentLastPlane.anchor.extent.x,
+                                   currentLastPlane.anchor.extent.x)
         
         guard let sceneView = self.sceneView else { return }
         sceneView.scene.rootNode.addChildNode(carNode)
     }
     
-    @objc private func setupPresentPopupUI() -> Void {
-        guard let centralLabelFrame = self.questionCentralTextFrame else { return }
-        
-        let popUpView = UIView()
-        popUpView.frame = CGRect(x: (self.view.frame.width / 2) + (self.view.frame.size.width - 40),
-                                 y: (centralLabelFrame.frame.maxY),
-                                 width: (self.view.frame.size.width - 40), height: 50)
-        
-        popUpView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-        popUpView.layer.cornerRadius = 20.0
-        popUpView.alpha = 0.0
-        
-        self.popUpPresentActive = true
-        self.popUpPresentCounterTimer = Timer.init(timeInterval: 0.5, target: self,
-                                                   selector: #selector(self.setupPresentPopupUI), userInfo: nil, repeats: false)
-        
-        UIView.animate(withDuration: 0.2, animations: {
-            popUpView.alpha = 1.0
-        }) { (_) in
-            self.view.addSubview(popUpView)
-        }
-        
-        if self.popUpPresentActive {
-            self.popUpPresentCounterTimer?.invalidate()
-            self.popUpPresentActive = false
-        }
-    }
-    
     private func verifyQuestionResponse(question identifier: Int,_ responseIdentifier: Int,
-                                        _ completionHandlerForVerifyQuestion: @escaping (_ success: Bool,
-                                                                                         _ response: String?) -> Void) -> Void {
+                                        _ completionHandlerForVerifyQuestion: @escaping (_ success: Bool) -> Void) -> Void {
         InovaClient.sharedInstance().setResponseFor(question: identifier, and: responseIdentifier) {
             (success, response, errorString) in
-            
-            let responseText: String = (success ? "Resposta correta!" : "Resposta incorreta!")
-            
-            if success {
-                completionHandlerForVerifyQuestion(true,responseText)
-                return
-            }
-            completionHandlerForVerifyQuestion(false,responseText)
+            completionHandlerForVerifyQuestion(success)
         }
     }
     
@@ -145,20 +121,24 @@ class QuestionsQuizViewController: UIViewController {
                 guard let questionsDictionary = questions else { return }
                 
                 let questionsArrayObjects = InovaQuestion.questionsFor(question: questionsDictionary)
-                
                 self.questionsObjectsArray = questionsArrayObjects
-                self.setupInformationFromQuestionsUI { _ in
-                    print("DEBUG -> Change information profile.")
-                }
+                self.questionCount = self.questionsObjectsArray?.count
+                self.setupInformationFromQuestionsUI()
             }
         }
     }
     
-    private func setupInformationFromQuestionsUI(_ completionHandler: @escaping (_ success: Bool)->Void) -> Void {
-        guard let centralQuestionTextLabel = self.questionCentralText else { return }
+    private func setupInformationFromQuestionsUI() -> Void {
+        guard let centralQuestionTextLabel = self.questionCentralText,
+              var questionsObjectsArray = self.questionsObjectsArray else { return }
         
-        guard let questionsObjectsArray = self.questionsObjectsArray else {
-            completionHandler(false)
+        guard let progressBar = self.questionResponseProgressIndicator else { return }
+        
+        if questionsObjectsArray.isEmpty {
+            performUIMain {
+                self.setupSceneView()
+                print("Todas as questões respondidas!")
+            }
             return
         }
         
@@ -166,6 +146,7 @@ class QuestionsQuizViewController: UIViewController {
         let randomQuestion = questionsObjectsArray[Int(randomQuestionIdentifier)]
         
         self.currentQuestionObject = randomQuestion
+        self.questionsObjectsArray?.remove(at: Int(randomQuestionIdentifier))
         
         performUIMain {
             centralQuestionTextLabel.alpha = 0.0
@@ -184,42 +165,51 @@ class QuestionsQuizViewController: UIViewController {
         }
         
         for (index,alternative) in questionsSorted.enumerated() {
-            guard let questionResponsesArray = self.questionResponsesLabelArray else {
-                completionHandler(false)
-                return
-            }
+            guard let questionResponsesArray = self.questionResponsesLabelArray else { return }
             
             let alternativeQuestionLabel = questionResponsesArray[index]
             
             performUIMain {
                 alternativeQuestionLabel.text = alternative.alternativeQuestionText
-                completionHandler(true)
             }
+        }
+        
+        guard let questionCount = self.questionCount else { return }
+        performUIMain {
+            progressBar.progress = Float((Double(-questionsObjectsArray.count) * 1.0) / Double(questionCount)) + 1.0
         }
     }
     
-    private func setupUIStatus(_ enabled: Bool) -> Void {
+    private func setupUIStatus(_ enabled: Bool, _ completion: (() -> Void)?) -> Void {
         guard let questionResponsesButtonArray = self.questionResponsesButtonArray,
               let questionResponsesLabelArray = self.questionResponsesLabelArray else { return }
         
+        guard let completionHandler = completion else { return }
+        
         if enabled {
-            questionResponsesButtonArray.enumerated().forEach { (index,button) in
-                button.isEnabled = enabled
-                let responseLabelElement = questionResponsesLabelArray[index]
-                responseLabelElement.alpha = 1.0
+            performUIMain {
+                questionResponsesButtonArray.enumerated().forEach { (index,button) in
+                    button.isEnabled = enabled
+                    let responseLabelElement = questionResponsesLabelArray[index]
+                    responseLabelElement.alpha = 1.0
+                }
+                completionHandler()
             }
             return
         }
         
-        questionResponsesButtonArray.enumerated().forEach { (index,button) in
-            button.isEnabled = enabled
-            let responseLabelElement = questionResponsesLabelArray[index]
-            responseLabelElement.alpha = 0.5
+        performUIMain {
+            questionResponsesButtonArray.enumerated().forEach { (index,button) in
+                button.isEnabled = enabled
+                let responseLabelElement = questionResponsesLabelArray[index]
+                responseLabelElement.alpha = 0.5
+            }
+            completionHandler()
         }
     }
     
     @IBAction func tapAlternativeQuestionSelected(_ button: UIButton) -> Void {
-        self.setupUIStatus(false)
+        self.setupUIStatus(false,nil)
         
         guard let questionResponsesButtonArray = self.questionResponsesButtonArray else { return }
         
@@ -238,7 +228,7 @@ class QuestionsQuizViewController: UIViewController {
         guard let questionIdentifier = button.restorationIdentifier,
               let currentQuestionObject = self.currentQuestionObject,
               let alternativeQuestionArrayIndex = Int(questionIdentifier) else {
-            self.setupUIStatus(true)
+            self.setupUIStatus(true,nil)
             return
         }
         
@@ -247,7 +237,7 @@ class QuestionsQuizViewController: UIViewController {
         }
         
         guard !questionsSorted.isEmpty else {
-            self.setupUIStatus(true)
+            self.setupUIStatus(true,nil)
             return
         }
         
@@ -262,34 +252,19 @@ class QuestionsQuizViewController: UIViewController {
         let currentQuestionIdentifier: Int = currentQuestionObject.identifier
         let currentQuestionResponseIdentifier: Int = currentAlternativeQuestion.identifier
         
-        self.verifyQuestionResponse(question: currentQuestionIdentifier, currentQuestionResponseIdentifier) {
-            (success, response) in
-            if success {
-                guard let response = response else { return }
-                print("DEBUG ->",response)
+        self.verifyQuestionResponse(question: currentQuestionIdentifier, currentQuestionResponseIdentifier) { (success) in
+            guard let questionsObjectsArray = self.questionsObjectsArray else { return }
+
+            if questionsObjectsArray.isEmpty {
                 performUIMain {
-                    self.setupUIStatus(true)
-                    self.setupInformationFromQuestionsUI({ (success) in
-                        if success {
-                            print("Interface atualizada.")
-                        }
-                    })
-                    self.setupPresentPopupUI()
+                    self.setupSceneView()
                 }
+                print("Todas as questões respondidas!")
                 return
             }
-            
-            guard let response = response else { return }
-            print("DEBUG ->",response)
-            performUIMain {
-                self.setupUIStatus(true)
-                self.setupInformationFromQuestionsUI({ (success) in
-                    if success {
-                        print("Interface atualizada.")
-                    }
-                })
-                self.setupPresentPopupUI()
-            }
+
+            self.setupInformationFromQuestionsUI()
+            self.setupUIStatus(true,nil)
         }
     }
 }
@@ -299,6 +274,16 @@ extension QuestionsQuizViewController : ARSCNViewDelegate {
     private func setupGestureRecognizer() -> Void {
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
         self.sceneView?.addGestureRecognizer(gestureRecognizer)
+    }
+    
+    private func updateProgressBar(_ status: Bool) -> Void {
+        guard let progressBar = self.questionResponseProgressIndicator else { return }
+        
+        if status {
+            performUIMain {
+                progressBar.progress = 0.2
+            }
+        }
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
