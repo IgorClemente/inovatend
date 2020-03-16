@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img alt="Inovatend" src="logo.png" width="500px" />
+    <img alt="Inovatend" src="logo.jpg" width="500px" />
 </h1>
 
 <h3 align="center">
